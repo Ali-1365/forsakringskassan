@@ -19,10 +19,11 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Installera beroenden (om requirements.txt finns)
+      - name: Installera beroenden
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install faster-whisper fastapi uvicorn pydantic httpx2
 
       - name: Kör hälsotest
         run: python scripts/fk_halsotest.py
