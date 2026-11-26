@@ -1,0 +1,16 @@
+_analyserat/
+output/
+config/*.local.*
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+venv/
+venv_stable/
+.venv/
+node_modules/
+.env
+.env.*
+*.log
+*.tmp
