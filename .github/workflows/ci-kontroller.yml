@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Hämta kod
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Konfigurera Python 3.12
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -23,9 +23,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          for pkg in faster-whisper fastapi uvicorn pydantic httpx2; do
-            echo "--- Installerar:  ---"
-            pip install "" || echo "VARNING: Kunde inte installera "
+          for pkg in faster-whisper fastapi uvicorn pydantic httpx; do
+            echo "--- Installerar: $pkg ---"
+            pip install "$pkg" || echo "VARNING: Kunde inte installera $pkg"
           done
 
       - name: Kör hälsotest
