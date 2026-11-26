@@ -1,0 +1,78 @@
+# Mönsterbibliotek v2 — INDIKATIV_ENDAST
+# Träff ≠ bevisvärdering eller domslut. Negationsfilter minskar falska positiva.
+version: "2.0"
+scoring:
+  hit_threshold: 1.2
+  indicator_threshold: 0.8
+negation_words: ["inte", "ej", "utan", "saknas", "rättats", "återförvisat"]
+
+rules:
+  - rule_id: "MYND-01"
+    title: "Tjänstefel/fel i myndighetsutövning"
+    keywords: ["tjänstefel", "fel i myndighetsutövning", "bristande utredning", "bristande kommunicering", "jäv", "otillbörligt beslut"]
+    legal_refs: ["RF 1:9", "FL 23 §", "FL 25 §", "SkL 3:2"]
+    responsibility: ["myndighet", "handläggare"]
+    potential_default: true
+
+  - rule_id: "SFB-03"
+    title: "Felaktig socialförsäkringsbedömning"
+    keywords: ["felaktig tillämpning av SFB", "fel i bedömning av arbetsförmåga", "sjukpenning felaktigt indragen", "orsakssamband avfärdas", "riktlinjer ersätter lag"]
+    legal_refs: ["SFB 110:13 §", "FL 23 §", "SFB 27:46 §"]
+    responsibility: ["Försäkringskassan"]
+    potential_default: true
+
+  - rule_id: "MED-04"
+    title: "Bristfällig medicinsk underbyggnad"
+    keywords: ["saknar statusfynd", "saknar undersökningsmetod", "motsägelse mot journal", "objektiva fynd saknas", "intyg ospårbart"]
+    legal_refs: ["HSL", "Patientlagen", "PDL", "Patientsäkerhetslagen"]
+    responsibility: ["vårdgivare", "läkare"]
+    potential_default: true
+
+  - rule_id: "PROC-02"
+    title: "Processuella fel"
+    keywords: ["ej kommunicerat", "delgivning felaktig", "bristande motivering", "utredningsskyldighet åsidosatt", "försenat beslut"]
+    legal_refs: ["FL 23 §", "FL 25 §", "FL 32 §", "FPL 24 §"]
+    responsibility: ["myndighet", "handläggare"]
+    potential_default: true
+
+  - rule_id: "AS-04"
+    title: "Arbetsskada nekad utan tillräcklig utredning"
+    keywords: ["arbetsskada nekas", "arbetsskada avfärdad", "orsakssamband avfärdas", "yrkessjukdom nekad"]
+    legal_refs: ["SFB 39-44 kap.", "FL 23 §", "SFB 110:13 §"]
+    responsibility: ["Försäkringskassan"]
+    potential_default: true
+
+  - rule_id: "SGI-06"
+    title: "Felaktig SGI-beräkning"
+    keywords: ["SGI fel", "felaktig SGI", "SGI nedsättning utan underlag", "inkomstunderlag saknas"]
+    legal_refs: ["SFB 25 kap.", "SFB 26 kap."]
+    responsibility: ["Försäkringskassan"]
+    potential_default: true
+
+  - rule_id: "CRPS-01"
+    title: "Bristfällig CRPS-diagnos"
+    keywords: ["CRPS", "Budapestkriterierna", "komplex regional smärta", "diagnos ofullständig"]
+    legal_refs: ["Patientskadelagen", "HFD 2018 ref. 3"]
+    responsibility: ["vårdgivare", "Löf"]
+    potential_default: true
+
+  - rule_id: "CRPS-02"
+    title: "Fördröjd CRPS-diagnos"
+    keywords: ["fördröjd diagnos", "CRPS förbisetts", "sen diagnos CRPS"]
+    legal_refs: ["Patientskadelagen 6 §", "HFD 2018 ref. 3"]
+    responsibility: ["vårdgivare", "Löf"]
+    potential_default: true
+
+  - rule_id: "SEC-01"
+    title: "Sekretess-/integritetsbrott"
+    keywords: ["olovligt utlämnande", "behandling utan rättslig grund", "otillåten spridning", "åtkomst utan behörighet"]
+    legal_refs: ["OSL", "GDPR", "Dataskyddslagen"]
+    responsibility: ["myndighet", "vårdgivare"]
+    potential_default: true
+
+  - rule_id: "SOL-LSS-01"
+    title: "Socialtjänstfel"
+    keywords: ["bistånd avslås utan individuell behovsprövning", "insats felbedömd", "riktlinjer ersätter lag"]
+    legal_refs: ["SoL", "LSS"]
+    responsibility: ["kommun", "handläggare"]
+    potential_default: true

@@ -1,0 +1,341 @@
+# Kodtabell: Försäkringskassan / SFB / FPL — konfigurerbar, ej inbakad i FSM
+# version: 1.0
+# Träff = sökhjälp. Ingen träff är bevisvärdering eller domslut.
+
+meta:
+  domän: FK_SFB
+  instans: FORSAKRINGSKASSAN_FORVALTNINGSRATT
+  version: "1.0"
+  källa: "FL (2017:900), SFB (2010:110), FPL (1971:291)"
+  not: >
+    Träffar är indikativa. Varje materiell slutsats kräver källkedja.
+    AI-01..AI-05 är systemstödskoder, inte automatiska beslut.
+
+koder:
+
+  # Ärendestruktur
+  - kod: "FK-00"
+    lagrum: "FL 23 §; SFB 110 kap."
+    beskrivning: "Initiering av ärende / ansökan inkommen"
+    mönster: ["ansökan inkommen", "ärende inlett", "ansökan om sjukpenning", "ansökan om livränta"]
+    negativa_filter: ["ansökan avvisad", "återkallad ansökan"]
+    föreslaget_block: "INITIERING"
+    indikation: "ARENDE_START"
+
+  - kod: "FK-01"
+    lagrum: "FL 20 §, 25 §"
+    beskrivning: "Begäran om komplettering"
+    mönster: ["begäran om komplettering", "komplettera underlaget", "föreläggande att komplettera"]
+    negativa_filter: []
+    föreslaget_block: "UTREDNING"
+    indikation: "KOMPLETTERING"
+
+  - kod: "FK-02"
+    lagrum: "FL 25 §; SFB 27 kap."
+    beskrivning: "Inhämtning av medicinskt underlag"
+    mönster: ["läkarintyg", "medicinskt underlag", "inhämta intyg", "försäkringsmedicinskt"]
+    negativa_filter: []
+    föreslaget_block: "UTREDNING"
+    indikation: "MEDICINSKT_UNDERLAG"
+
+  - kod: "FK-03"
+    lagrum: "SFB 27 kap."
+    beskrivning: "Försäkringsmedicinsk bedömning"
+    mönster: ["försäkringsmedicinsk", "FMB", "medicinsk bedömning FK"]
+    negativa_filter: []
+    föreslaget_block: "BEDOMNING"
+    indikation: "FMB"
+
+  - kod: "FK-04"
+    lagrum: "FL 20 §, 23–27 §§"
+    beskrivning: "Sakprövning – utredning klar"
+    mönster: ["utredningen är klar", "sakprövning", "ärendet avgörs"]
+    negativa_filter: []
+    föreslaget_block: "SAKPROVNING"
+    indikation: "UTREDNING_KLAR"
+
+  - kod: "FK-05"
+    lagrum: "SFB (förmånsberoende)"
+    beskrivning: "Beslut – bifall"
+    mönster: ["beslut om bifall", "beviljas", "sjukpenning beviljas", "livränta beviljas"]
+    negativa_filter: ["bifall avslås"]
+    föreslaget_block: "BESLUT"
+    indikation: "BIFALL"
+
+  - kod: "FK-06"
+    lagrum: "SFB; FL 20, 32, 33 §§"
+    beskrivning: "Beslut – avslag"
+    mönster: ["beslut om avslag", "ansökan avslås", "sjukpenning avslås", "avslagsbeslut"]
+    negativa_filter: []
+    föreslaget_block: "BESLUT"
+    indikation: "AVSLAG"
+
+  - kod: "FK-07"
+    lagrum: "FL 32 §; SFB 112 kap. 2 §"
+    beskrivning: "Motivering och rättsregler"
+    mönster: ["motivering", "skälen för beslutet", "tillämpliga bestämmelser"]
+    negativa_filter: ["saknar motivering"]
+    föreslaget_block: "MOTIVERING"
+    indikation: "MOTIVERING"
+
+  - kod: "FK-08"
+    lagrum: "SFB 113 kap.; FL 27 §"
+    beskrivning: "Omprövning"
+    mönster: ["omprövning", "begär omprövning", "omprövar beslutet"]
+    negativa_filter: []
+    föreslaget_block: "OMPROVNING"
+    indikation: "OMPROVNING"
+
+  - kod: "FK-09"
+    lagrum: "FL 44 §; FPL 7 §"
+    beskrivning: "Överklagan inkommen"
+    mönster: ["överklagan", "överklagar beslutet", "överklagande till förvaltningsrätten"]
+    negativa_filter: ["överklagandet avvisas"]
+    föreslaget_block: "OVERKLAGAN"
+    indikation: "OVERKLAGAN"
+
+  - kod: "FK-10"
+    lagrum: "FPL 9 §; SFB 113 kap."
+    beskrivning: "Yttrande till domstol"
+    mönster: ["yttrande till förvaltningsrätten", "FK:s yttrande", "myndighetens yttrande"]
+    negativa_filter: []
+    föreslaget_block: "YTRANDE"
+    indikation: "YTRANDE_DOMSTOL"
+
+  - kod: "FK-11"
+    lagrum: "SFB 114 kap."
+    beskrivning: "Verkställighet av dom"
+    mönster: ["verkställighet", "verkställa domen", "utbetalning enligt dom"]
+    negativa_filter: []
+    föreslaget_block: "VERKSTALLIGHET"
+    indikation: "VERKSTALLIGHET"
+
+  # Bedömningstyper
+  - kod: "BD-01"
+    lagrum: "SFB 27 kap. 48–51 §§"
+    beskrivning: "Arbetsförmågebedömning"
+    mönster: ["arbetsförmåga", "nedsatt arbetsförmåga", "arbetsförmågebedömning"]
+    negativa_filter: []
+    föreslaget_block: "BEDOMNING"
+    indikation: "ARBETSFORMAGA"
+
+  - kod: "BD-02"
+    lagrum: "SFB 27 kap. 49 a §"
+    beskrivning: "Längre sjukfall"
+    mönster: ["längre sjukfall", "sjukpenning i mer än", "dag 180", "dag 365"]
+    negativa_filter: []
+    föreslaget_block: "BEDOMNING"
+    indikation: "LANGRE_SJKFALL"
+
+  - kod: "BD-03"
+    lagrum: "SFB 27 kap. 28–31 §§"
+    beskrivning: "Rehabiliteringskedjan"
+    mönster: ["rehabiliteringskedjan", "rehabilitering", "återgång i arbete"]
+    negativa_filter: []
+    föreslaget_block: "BEDOMNING"
+    indikation: "REHABILITERING"
+
+  - kod: "BD-04"
+    lagrum: "SFB 39 kap.; jfr NJA 2017 s. 437"
+    beskrivning: "Medicinsk invaliditet / arbetsskada"
+    mönster: ["medicinsk invaliditet", "arbetsskada", "livränta", "godkänd arbetsskada"]
+    negativa_filter: []
+    föreslaget_block: "ARBETSSKADA"
+    indikation: "INVALIDITET_ARBETSSKADA"
+
+  - kod: "BD-05"
+    lagrum: "SFB 100 kap."
+    beskrivning: "Sociala skäl / försörjningshinder"
+    mönster: ["försörjningshinder", "aktivitetsstöd", "sociala skäl"]
+    negativa_filter: []
+    föreslaget_block: "BEDOMNING"
+    indikation: "FORSORJNING"
+
+  # Dokumenttyper
+  - kod: "DOK-01"
+    lagrum: "SFB 27 kap."
+    beskrivning: "Läkarintyg"
+    mönster: ["läkarintyg", "medicinskt intyg"]
+    negativa_filter: []
+    föreslaget_block: "BEVISNING"
+    indikation: "LAKARINTYG"
+
+  - kod: "DOK-03"
+    lagrum: "FL 32 §"
+    beskrivning: "Beslutsmeddelande"
+    mönster: ["beslutsmeddelande", "ni har fått beslut"]
+    negativa_filter: []
+    föreslaget_block: "BESLUT"
+    indikation: "BESLUTSMEDDELANDE"
+
+  - kod: "DOK-06"
+    lagrum: "FL 44 §"
+    beskrivning: "Överklagan från försäkrad"
+    mönster: ["jag överklagar", "överklagar härmed", "överklagandeskrivelse"]
+    negativa_filter: []
+    föreslaget_block: "OVERKLAGAN"
+    indikation: "OVERKLAGANDEHANDLING"
+
+  # Feltyper (indikation för granskning — ej automatisk dom)
+  - kod: "ERR-01"
+    lagrum: "FL 20 §"
+    beskrivning: "Underlåten individuell prövning"
+    mönster: ["individuell prövning", "schablonmässig bedömning", "utan individuell"]
+    negativa_filter: []
+    föreslaget_block: "FELINDIKATION"
+    indikation: "INDIVIDUELL_PROVNING"
+
+  - kod: "ERR-02"
+    lagrum: "FL 23–25 §§"
+    beskrivning: "Otillräcklig utredning"
+    mönster: ["otillräcklig utredning", "bristande utredning", "utredningsskyldighet"]
+    negativa_filter: []
+    föreslaget_block: "FELINDIKATION"
+    indikation: "UTREDNINGSBRIST"
+
+  - kod: "ERR-03"
+    lagrum: "SFB 27 kap., 110 kap."
+    beskrivning: "Felaktig rättstillämpning"
+    mönster: ["felaktig rättstillämpning", "fel lagrum", "tillämpat fel bestämmelse"]
+    negativa_filter: []
+    föreslaget_block: "FELINDIKATION"
+    indikation: "RATTSTILLAMPNING"
+
+  - kod: "ERR-04"
+    lagrum: "FL 32 §"
+    beskrivning: "Avsaknad av motivering"
+    mönster: ["saknar motivering", "utebliven motivering", "omotiverat beslut"]
+    negativa_filter: []
+    föreslaget_block: "FELINDIKATION"
+    indikation: "MOTIVERINGSBRIST"
+
+  - kod: "ERR-05"
+    lagrum: "GDPR art. 22; FL 33 §"
+    beskrivning: "Automatiserat beslut utan mänsklig kontroll"
+    mönster: ["automatiserat beslut", "utan manuell prövning", "maskinellt beslut"]
+    negativa_filter: []
+    föreslaget_block: "FELINDIKATION"
+    indikation: "AUTOMATION"
+
+  - kod: "ERR-06"
+    lagrum: "FL 20 §; RF 1:9"
+    beskrivning: "Beslut i strid med bevisningen"
+    mönster: ["i strid med bevisningen", "bortsett från läkarintyg", "ignorerat underlag"]
+    negativa_filter: []
+    föreslaget_block: "FELINDIKATION"
+    indikation: "BEVISSTRID"
+
+  # Kommunikation
+  - kod: "KOM-01"
+    lagrum: "FL"
+    beskrivning: "Meddelande till försäkrad"
+    mönster: ["meddelande till dig", "vi skriver till dig", "information till försäkrad"]
+    negativa_filter: []
+    föreslaget_block: "KOMMUNIKATION"
+    indikation: "TILL_FORSAKRAD"
+
+  - kod: "KOM-03"
+    lagrum: "FPL"
+    beskrivning: "Begäran från domstol"
+    mönster: ["förvaltningsrätten begär", "domstolen förelägger", "yttrande senast"]
+    negativa_filter: []
+    föreslaget_block: "KOMMUNIKATION"
+    indikation: "FRAN_DOMSTOL"
+
+  # V2 intelligent patterns (indikativa — ej automatisk ogiltigförklaring)
+  - kod: "FL-23-UTREDNING"
+    lagrum: "FL 23 §; SFB 110:13 §"
+    beskrivning: "Bristande utredning"
+    mönster: ["utredningsskyldighet", "otillräckligt utrett", "bristfällig utredning", "ärendet inte tillräckligt utrett"]
+    negativa_filter: []
+    föreslaget_block: "FELINDIKATION"
+    indikation: "UTREDNINGSBRIST"
+
+  - kod: "FL-25-KOMMUNIKATION"
+    lagrum: "FL 25 §"
+    beskrivning: "Bristande kommunikation"
+    mönster: ["ej fått yttra sig", "material ej kommunicerat", "utebliven kommunikation"]
+    negativa_filter: []
+    föreslaget_block: "FELINDIKATION"
+    indikation: "KOMMUNIKATION"
+
+  - kod: "FL-32-MOTIVERING"
+    lagrum: "FL 32 §"
+    beskrivning: "Bristande motivering"
+    mönster: ["motivering saknas", "ej motiverat", "otillräcklig motivering"]
+    negativa_filter: []
+    föreslaget_block: "FELINDIKATION"
+    indikation: "MOTIVERING"
+
+  - kod: "SFB-26-SGI-SKYDD"
+    lagrum: "SFB 26 kap. 17 §"
+    beskrivning: "SGI-skydd / nollställning (indikation)"
+    mönster: ["SGI nollställ", "sjukpenninggrundande inkomst", "SGI-skydd"]
+    negativa_filter: []
+    föreslaget_block: "SGI"
+    indikation: "SGI"
+
+  - kod: "CRPS-DIAGNOS"
+    lagrum: "Patientskadelagen 6 §; jfr HFD 2018 ref. 3"
+    beskrivning: "CRPS-diagnos nämnd i material"
+    mönster: ["CRPS", "komplex regional", "Budapest"]
+    negativa_filter: []
+    föreslaget_block: "MEDICIN"
+    indikation: "CRPS_INFO"
+
+  - kod: "SKL-3-2-SKADESTAND"
+    lagrum: "SkL 3 kap. 2 §"
+    beskrivning: "Skadeståndsgrund mot staten (indikation)"
+    mönster: ["skadestånd staten", "Justitiekanslern", "ren förmögenhetsskada", "fel eller försummelse"]
+    negativa_filter: []
+    föreslaget_block: "SKADESTAND"
+    indikation: "JK_INDIKATION"
+
+  - kod: "SFB-27-48-ARBETSFORMAGA"
+    lagrum: "SFB 27 kap. 48–49 §§"
+    beskrivning: "Felaktig bedömning av arbetsförmåga (V2-mönster)"
+    mönster:
+      - "arbetsförmåga felaktigt"
+      - "normalt förekommande arbete"
+      - "stillasittande arbete"
+      - "SFB 27:48"
+    negativa_filter: []
+    föreslaget_block: "ARBETSFORMAGA"
+    indikation: "INDIKATIV_ENDAST"
+
+  - kod: "SFB-113-11-VIDAREBEFORDRAN"
+    lagrum: "SFB 113 kap. 11 §; HFD 2021 ref. 63"
+    beskrivning: "Otillåten rättshandlingskonversion / utebliven vidarebefordran"
+    mönster:
+      - "vidarebefordran utebliven"
+      - "överklagande ej vidarebefordrat"
+      - "rättshandlingskonversion"
+      - "SFB 113:11"
+    negativa_filter: []
+    föreslaget_block: "PROCESS"
+    indikation: "INDIKATIV_ENDAST"
+
+  - kod: "NERVSKADA-OBJEKTIV"
+    lagrum: "Medicinsk bevisning (objektivt fynd)"
+    beskrivning: "Objektiv nervskada påvisad (neurografi/EMG)"
+    mönster:
+      - "neurografi"
+      - "EMG"
+      - "denervation"
+      - "nervpåverkan påvisad"
+      - "n. fibularis"
+    negativa_filter: []
+    föreslaget_block: "MEDICINSKT"
+    indikation: "INDIKATIV_ENDAST"
+
+  - kod: "HD-T-7691-22"
+    lagrum: "HD T 7691-22; Patientskadelagen 6 §"
+    beskrivning: "Sänkt beviskrav / undvikbar skada (HD-praxis)"
+    mönster:
+      - "HD T 7691-22"
+      - "övervägande sannolikhet"
+      - "undvikbar skada"
+      - "NJA 2024:25"
+    negativa_filter: []
+    föreslaget_block: "BEVISKRAV"
+    indikation: "INDIKATIV_ENDAST"

@@ -1,0 +1,44 @@
+# config/ai_risk_config.yaml
+# Heuristisk AI-riskdetektion i juridisk text — INDIKATIV
+version: "1.0"
+meta:
+  not: >
+    Flaggar misstänkta mönster (fabricerade citat/fall-liknande strängar).
+    Verifierar inte mot extern databas. Juristen måste kontrollera källor.
+  provisional_output_only: true
+  zero_inference: true
+
+feltyper:
+  - fabricerade_fall
+  - fabricerade_citat
+  - felaktiga_auktoriteter
+  - fabricerade_lagrum
+  - felaktiga_citat
+
+konsekvenser_indikativa:
+  - varning
+  - monetär_sanktion
+  - disciplinär_åtgärd
+  - avvisning
+
+# Heuristiska mönster (svenska + generiska) — INTE bevis
+mönster:
+  - kod: SUSPECT_CASE_CITE
+    beskrivning: "Möjlig rättsfallscitering som kräver manuell verifiering"
+    triggers:
+      - "NJA 20"
+      - "HFD 20"
+      - "RH 20"
+      - "ref. "
+  - kod: SUSPECT_FABRICATED_TONE
+    beskrivning: "AI-typisk hedging i juridisk text"
+    triggers:
+      - "det är möjligt att rätten skulle"
+      - "man kan argumentera att"
+      - "sammanfattningsvis kan konstateras"
+  - kod: SUSPECT_UNVERIFIED_STATUTE
+    beskrivning: "Lagrumscitering — kontrollera lydelse/datum"
+    triggers:
+      - " enligt "
+      - " kap. "
+      - " § "

@@ -1,0 +1,55 @@
+# FK ANTI-TEMPLATE — mallsvar (TEMPLATE_RELIANCE) i Försäkringskassans
+# beslut/omprövningsbeslut, konfigurerbar kodtabell.
+#
+# Källa: references/skills_registry/fk-socialforsakring/SKILL.md,
+# avsnitt "ANTI-TEMPLATE — Identifiera mallsvar". Används TILLSAMMANS
+# med DFA-kedjeanalysen (redan implementerad i
+# runtime/socialforsakring_lager.py) — ersätter den inte.
+meta:
+  domän: FK_ANTITEMPLATE
+  version: "1.0"
+  källa: >
+    references/skills_registry/fk-socialforsakring/SKILL.md —
+    "FK använder ofta standardformuleringar (TEMPLATE_RELIANCE) som
+    saknar individuell förankring."
+  not: >
+    INDIKATIV_ENDAST. Flaggar ENDAST att en känd mallfras förekommer i
+    materialet — avgör inte om beslutet faktiskt saknar individuell
+    prövning, det kräver jämförelse mot den enskildas konkreta
+    situation som juristen gör. Källans egen motivering vid träff:
+    "Individuell prövning enligt FL 23 § och SFB kräver konkret
+    bedömning av den enskildas situation, inte standardtext."
+
+koder:
+  - kod: "FK-AT-ARBETSFORMAGA"
+    lagrum: "FL 23 §, SFB"
+    beskrivning: "Mallfras: 'arbetsförmåga inte nedsatt' utan individuell motivering"
+    mönster: ["arbetsförmåga inte är nedsatt", "arbetsförmågan inte är nedsatt",
+               "sammantaget bedömer försäkringskassan"]
+    negativa_filter: []
+    föreslaget_block: "FK_ANTITEMPLATE"
+    indikation: "FK_ANTITEMPLATE_ALLVARLIG"
+
+  - kod: "FK-AT-MEDICINSKT-UNDERLAG"
+    lagrum: "FL 23 §, SFB"
+    beskrivning: "Mallfras: 'det medicinska underlaget visar inte att' utan konkret hänvisning"
+    mönster: ["medicinska underlaget visar inte att"]
+    negativa_filter: []
+    föreslaget_block: "FK_ANTITEMPLATE"
+    indikation: "FK_ANTITEMPLATE_ALLVARLIG"
+
+  - kod: "FK-AT-BEKLAGAR-UPPLEVELSE"
+    lagrum: "FL 23 §, FL 32 §"
+    beskrivning: "Mallfras: missnöje bemöts med standardbeklagande i stället för saklig prövning"
+    mönster: ["beklagar din upplevelse", "beklagar er upplevelse"]
+    negativa_filter: []
+    föreslaget_block: "FK_ANTITEMPLATE"
+    indikation: "FK_ANTITEMPLATE_ALLVARLIG"
+
+  - kod: "FK-AT-ATERGA-ARBETE"
+    lagrum: "FL 23 §, SFB"
+    beskrivning: "Mallfras: krav på återgång till arbete utan individuell arbetsförmågeprövning"
+    mönster: ["behövde du återgå till ditt arbete", "behövde du återgå till arbetet"]
+    negativa_filter: []
+    föreslaget_block: "FK_ANTITEMPLATE"
+    indikation: "FK_ANTITEMPLATE_ALLVARLIG"

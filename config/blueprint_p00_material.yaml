@@ -1,0 +1,28 @@
+# P00 Materialregistrering — schema
+version: "1.0"
+meta:
+  provisional_output_only: true
+  zero_inference: true
+fält:
+  - SOURCE_ID
+  - SOURCE_TYPE
+  - SOURCE_ORIGIN
+  - DATE
+  - TIME
+  - RECEIVED_TIMESTAMP
+  - DOCUMENT_VERSION
+  - HASH
+  - RELATION_TO_CASE
+  - REQUESTED_OR_UNSOLICITED
+  - PREVIOUSLY_KNOWN_OR_NEW
+  - SOURCE_AUTHORITY
+  - PROCESSUAL_STATUS
+integrity_resultat:
+  - INTEGRITY_VERIFIED
+  - INTEGRITY_UNCERTAIN
+  - INTEGRITY_FAILED
+  - MISSING_MATERIAL
+  - DUPLICATE_MATERIAL
+  - VERSION_CONFLICT
+  - TEMPORAL_CONFLICT
+  - SOURCE_CONFLICT

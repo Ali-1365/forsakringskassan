@@ -1,0 +1,56 @@
+# config/skuldkedja_config.yaml
+# Teknisk skuldkedjeanalys — INGEN juridisk giltighetsbedömning
+version: "1.0"
+meta:
+  not: >
+    Extraherar och strukturerar dokumenterade ekonomiska uppgifter.
+    Avgör aldrig om skuld är giltig, preskriberad eller avgift laglig.
+  provisional_output_only: true
+  zero_inference: true
+
+dokumenttyper:
+  - faktura
+  - betalningspåminnelse
+  - inkassokrav
+  - betalningsföreläggande
+  - utslag
+  - verkställighetshandling
+  - kontoutdrag
+  - avtal
+  - korrespondens
+  - övrigt
+
+konfidens:
+  HÖG:
+    - samma OCR-nummer
+    - samma fakturanummer
+    - uttrycklig hänvisning
+  MEDEL:
+    - samma borgenär
+    - samma kapitalbelopp
+    - tidsmässigt samband
+  LÅG:
+    - endast namn
+    - ungefärliga belopp
+
+# LÅG får inte automatiskt skapa kedja
+auto_kedja_min_konfidens: MEDEL
+
+förbjudna_slutsatser:
+  - "skulden är bevisad"
+  - "personen är skyldig"
+  - "kravet är korrekt"
+  - "avgiften är olaglig"
+  - "motparten har gjort fel"
+
+tillåtna_formuleringar:
+  - "Dokumentet anger"
+  - "Handlingen innehåller uppgift om"
+  - "På sida X återfinns"
+  - "En ekonomisk differens har identifierats"
+  - "Uppgiften är inte verifierad"
+
+statusmodell:
+  - VERIFIERAD_ANALYS
+  - PRELIMINÄR_ANALYS_MED_FLAGGOR
+  - OTILLRÄCKLIGT_UNDERLAG

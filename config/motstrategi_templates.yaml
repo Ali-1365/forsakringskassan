@@ -1,0 +1,103 @@
+# motstrategi_templates.yaml
+# Motstrategiska mönster per domän. INDIKATIV_ENDAST - juristen bedömer relevans.
+# Steg 18: flyttad 1:1 (ordagrant, utan tillägg eller ändringar) ur
+# runtime/motstrategi_engine.py (_MOTSTRATEGI_MÖNSTER, rad 7-54 före steg 18).
+# zero_inference: true | provisional_output_only: true
+meta:
+  domän: MOTSTRATEGI
+  version: '1.0'
+  källa: runtime/motstrategi_engine.py _MOTSTRATEGI_MÖNSTER (rad 7-54 före steg 18), flyttad 1:1
+  not: 'INDIKATIV_ENDAST - mallar, inga slutsatser. Konsument: runtime/motstrategi_engine.py'
+zero_inference: true
+provisional_output_only: true
+mönster:
+  FK_SFB:
+  - motpartens_argument: Arbetsförmåga kvarstår delvis
+    lagrum: SFB 27 kap. 46 §
+    bemötande_struktur:
+    - Åberopa medicinsk dokumentation som styrker nedsättning
+    - Kontrollera DFA-kedjans alla tre steg
+    - Verifiera att FK inte tillämpat felaktig bedömningsnorm
+    bevisbörda: FK har utredningsskyldighet per FL 23 §
+  - motpartens_argument: SGI korrekt nollställd
+    lagrum: SFB 26 kap.
+    bemötande_struktur:
+    - Kontrollera om SGI-skyddsregler tillämpats
+    - Verifiera att sjukperiod korrekt registrerats
+    - Granska om karensdag-regel tillämpats felaktigt
+    bevisbörda: FK måste visa att nollställning är korrekt beräknad
+  - motpartens_argument: Rehabiliteringsplan genomförd
+    lagrum: SFB 30 kap.
+    bemötande_struktur:
+    - Kontrollera om rehabiliteringsplan faktiskt upprättats
+    - Verifiera att planen kommunicerats (FL 25 §)
+    - Granska om medicinska hinder beaktats
+    bevisbörda: FK måste visa att rehabiliteringskedjan respekterats
+  FK_SJUKPENNING_SGI:
+  - motpartens_argument: Arbetsförmågan ska prövas mot normalt förekommande arbete (dag 181+)
+    lagrum: SFB 27 kap. 48 §
+    bemötande_struktur:
+    - Kontrollera vilket DFA-trappsteg som faktiskt gäller vid beslutsdatumet
+    - Åberopa särskilda skäl för uppskjuten prövning (SFB 27 kap. 49-50 §§) om sådana föreligger
+    - Verifiera att den försäkrades faktiska yrke inte redan är normalt förekommande arbete
+    bevisbörda: FK har utredningsskyldighet per FL 23 § för att fastställa rätt trappsteg
+  - motpartens_argument: SGI korrekt beräknad utifrån anmäld inkomst
+    lagrum: SFB 25-26 kap.
+    bemötande_struktur:
+    - Åberopa lönebesked/inkomstdeklaration som visar avvikande inkomst
+    - Kontrollera om ändrade förhållanden (SFB 26 kap. 9 §) borde ha föranlett omräkning
+    - Granska om skyddad SGI (SFB 26 kap. 17-18 §§) tillämpats felaktigt eller uteblivit
+    bevisbörda: FK måste visa att SGI-beräkningen speglar faktisk inkomst vid insjuknandet
+  - motpartens_argument: Sen sjukanmälan/ansökan medför avslag
+    lagrum: SFB 27 kap. 7-8 §§
+    bemötande_struktur:
+    - Kontrollera om giltig anledning till dröjsmålet förelåg
+    - Verifiera det faktiska anmälningsdatumet mot FK:s journalanteckningar
+    - Granska om FK informerat om anmälningsskyldigheten (FL 6 § service)
+    bevisbörda: Den försäkrade ska visa giltig anledning — FK ska visa att information lämnats
+  SOL_LVU:
+  - motpartens_argument: Biståndsbehov ej styrkt
+    lagrum: SoL 4 kap. 1 §
+    bemötande_struktur:
+    - Åberopa behovsbedömning med konkreta uppgifter
+    - Visa att riksnorm korrekt beräknats
+    - Kontrollera om skälig levnadsnivå bedömts korrekt
+    bevisbörda: Nämnden har utredningsskyldighet per SoL 11 kap. 1 §
+  - motpartens_argument: Sökanden kan täcka behov på annat sätt
+    lagrum: SoL 4 kap. 1 § andra stycket
+    bemötande_struktur:
+    - Visa att alternativa inkomstkällor är uttömda
+    - Dokumentera att banktillgångar redovisats
+    - Kontrollera om aktivitetskrav är proportionerliga
+    bevisbörda: Nämnden måste utreda alternativ — inte bara påstå dem
+  - motpartens_argument: LVU-rekvisit uppfyllt
+    lagrum: LVU 2-3 §§
+    bemötande_struktur:
+    - Kontrollera om påtaglig risk faktiskt styrkts
+    - Verifiera att proportionalitet bedömts
+    - Granska om art. 8 EKMR beaktats
+    - Kontrollera barnets egna yttrande (art. 12 BK)
+    bevisbörda: Nämnden måste styrka påtaglig risk — inte presumera den
+  RB_TVIST:
+  - motpartens_argument: Avtalsbundenhet saknas
+    lagrum: AvtL 1 §
+    bemötande_struktur:
+    - Åberopa skriftlig accept eller konkludent handlande
+    - Visa att anbud och accept är identiska
+    - Kontrollera om handelsbruk stödjer avtalsbundenhet
+    bevisbörda: Den som påstår avtal har bevisbördan
+  - motpartens_argument: Preskription
+    lagrum: PreskL 2 §
+    bemötande_struktur:
+    - Kontrollera preskriptionstidpunkt
+    - Verifiera om preskriptionsavbrott skett
+    - Granska om ny preskriptionstid löpt
+    bevisbörda: Motparten måste åberopa preskription — det sker inte ex officio
+  KL_KONKURS:
+  - motpartens_argument: Återvinning ej möjlig — ordinär betalning
+    lagrum: KL 4 kap. 10 §
+    bemötande_struktur:
+    - Kontrollera om betalning skett inom återvinningsfristen
+    - Verifiera om beloppet var ordinärt eller extraordinärt
+    - Granska om gäldenären var insolvent vid betalningstillfället
+    bevisbörda: Konkursboet måste styrka återvinningsgrunden

@@ -1,0 +1,59 @@
+# Journal-/aktanteckningsgranskning — konfigurerbar kodtabell
+meta:
+  domän: JOURNAL_GRANSKNING
+  version: "1.0"
+  källa: >
+    references/skills_registry/journal-granskning/SKILL.md —
+    "Identifierar selektivitet, bias, felaktigheter och saknade uppgifter."
+  not: >
+    INDIKATIV_ENDAST. Scanner flaggar formuleringar som KAN indikera
+    selektiv eller bristfällig dokumentation — det är inte en slutsats om
+    att journalen faktiskt är felaktig eller vinklad. Kräver jämförelse
+    mot annat källmaterial (ljudinspelning, annan parts anteckningar) för
+    att styrkas.
+
+koder:
+  - kod: "JOURNAL-SELEKTIV"
+    lagrum: "FL 27 §; Patientdatalagen (om hälso-/sjukvårdsjournal)"
+    beskrivning: "Formulering som antyder att endast delar av ett samtal/möte dokumenterats"
+    mönster: ["sammanfattningsvis", "i korthet noterades", "huvudsakligen",
+               "i stora drag", "kortfattat antecknat"]
+    negativa_filter: []
+    föreslaget_block: "JOURNAL_SELEKTIV"
+    indikation: "JOURNAL_MOJLIG_SELEKTIVITET"
+
+  - kod: "JOURNAL-GAP"
+    lagrum: "FL 27 § (dokumentationsskyldighet)"
+    beskrivning: "Explicit angivet uppehåll eller lucka i den löpande dokumentationen"
+    mönster: ["ingen anteckning gjord", "journalen saknar uppgift om",
+               "dokumentation saknas för perioden", "inget noterat mellan"]
+    negativa_filter: []
+    föreslaget_block: "JOURNAL_GAP"
+    indikation: "JOURNAL_DOKUMENTATIONSLUCKA"
+
+  - kod: "JOURNAL-RATTELSE"
+    lagrum: "Patientdatalagen 3 kap. 8 §; FL 36 § (rättelse)"
+    beskrivning: "Begäran om eller genomförd journalrättelse"
+    mönster: ["begär rättelse av journal", "journalrättelse", "felaktig uppgift i journalen",
+               "yrkar att journalen rättas"]
+    negativa_filter: ["rättelsen är genomförd och godkänd av båda parter"]
+    föreslaget_block: "JOURNAL_RATTELSE"
+    indikation: "JOURNAL_RATTELSE_BEGARD"
+
+  - kod: "JOURNAL-EFTERHAND"
+    lagrum: "FL 27 § (samtidighetskrav i praxis)"
+    beskrivning: "Anteckning som enligt egen text förts in i efterhand"
+    mönster: ["noterat i efterhand", "kompletterande anteckning tillagd",
+               "efterhandskonstruerad", "retroaktivt tillagd"]
+    negativa_filter: []
+    föreslaget_block: "JOURNAL_EFTERHAND"
+    indikation: "JOURNAL_EFTERHANDSANTECKNING"
+
+  - kod: "JOURNAL-MOTSAGELSE"
+    lagrum: "RB 35 kap. (bevisvärdering, analogt)"
+    beskrivning: "Uppgift i journalen som motsäger annan handling i akten"
+    mönster: ["strider mot tidigare anteckning", "överensstämmer inte med",
+               "motsägs av", "avviker från vad som tidigare noterats"]
+    negativa_filter: []
+    föreslaget_block: "JOURNAL_MOTSAGELSE"
+    indikation: "JOURNAL_INTERN_MOTSAGELSE"

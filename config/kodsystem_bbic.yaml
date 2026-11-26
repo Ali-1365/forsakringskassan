@@ -1,0 +1,64 @@
+# BBIC (Barns Behov I Centrum) — konfigurerbar kodtabell
+# Triangelns tre sidor. Mönstren är hämtade direkt ur BBIC:s etablerade
+# begreppsapparat (Socialstyrelsens metodik), inte konstruerade av detta
+# system. Träff = indikation på vilken sida/behovsområde en handling berör,
+# inte en bedömning av om utredningen är fullständig eller korrekt.
+meta:
+  domän: BBIC_ANALYS
+  version: "1.0"
+  källa: >
+    references/skills_registry/bbic-analys/SKILL.md — "systematisk
+    genomgång av BBIC-triangelns tre sidor med alla behovsområden,
+    kontrollfrågor och bristidentifiering."
+  not: >
+    INDIKATIV_ENDAST. Scanner flaggar vilken BBIC-sida/behovsområde en
+    handling nämner — den bedömer inte om utredningen faktiskt uppfyller
+    BBIC-metodikens krav. Det kräver läsning av hela utredningen.
+
+koder:
+  - kod: "BBIC-TRIANGEL"
+    lagrum: "SoL 11 kap. 1 §; Socialstyrelsens BBIC-föreskrifter"
+    beskrivning: "Uttrycklig hänvisning till BBIC som utredningsmetod"
+    mönster: ["BBIC", "barns behov i centrum", "bbic-triangeln"]
+    negativa_filter: []
+    föreslaget_block: "BBIC_METOD"
+    indikation: "BBIC_METOD_ANVAND"
+
+  - kod: "BBIC-BARNETS-BEHOV"
+    lagrum: "SoL 11 kap. 1 §"
+    beskrivning: "Triangelns sida 1: barnets behov (hälsa, utbildning, identitet, sociala relationer)"
+    mönster: ["barnets behov", "hälsa och utveckling", "känslomässig utveckling",
+               "identitetsutveckling", "sociala relationer", "socialt uppträdande",
+               "klara sig själv"]
+    negativa_filter: []
+    föreslaget_block: "BBIC_BARNETS_BEHOV"
+    indikation: "BBIC_SIDA_1"
+
+  - kod: "BBIC-FORALDRAFORMAGA"
+    lagrum: "SoL 11 kap. 1 §"
+    beskrivning: "Triangelns sida 2: föräldrarnas förmåga"
+    mönster: ["föräldraförmåga", "föräldrarnas förmåga", "grundläggande omsorg",
+               "känslomässig tillgänglighet", "vägledning och gränssättning",
+               "stimulans och stabilitet"]
+    negativa_filter: []
+    föreslaget_block: "BBIC_FORALDRAFORMAGA"
+    indikation: "BBIC_SIDA_2"
+
+  - kod: "BBIC-FAMILJ-MILJO"
+    lagrum: "SoL 11 kap. 1 §"
+    beskrivning: "Triangelns sida 3: familj och miljö"
+    mönster: ["familj och miljö", "familjenätverk", "boendeförhållanden",
+               "socioekonomiska förhållanden", "lokalsamhällets resurser",
+               "social integrering"]
+    negativa_filter: []
+    föreslaget_block: "BBIC_FAMILJ_MILJO"
+    indikation: "BBIC_SIDA_3"
+
+  - kod: "BBIC-BRIST"
+    lagrum: "SoL 11 kap. 1 §; FL 23 §"
+    beskrivning: "Explicit angiven brist eller ofullständighet i utredningen"
+    mönster: ["utredningen saknar", "ej utrett", "otillräckligt underlag i utredningen",
+               "ingen bedömning gjord av", "saknas dokumentation om"]
+    negativa_filter: []
+    föreslaget_block: "BBIC_BRIST"
+    indikation: "BBIC_BRIST_INDIKATION"

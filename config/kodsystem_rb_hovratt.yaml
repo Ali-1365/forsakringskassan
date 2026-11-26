@@ -1,0 +1,216 @@
+# Kodtabell: RB hovrätt — ABL/SkL/BrB-domän
+# Migrerad från archive/kodsystem_parser.py (KODSYSTEM_ROBUST).
+# version: 1.0
+# Validering i YAML-format: negativa_filter + valideringsfält (krävs i kontext).
+
+meta:
+  domän: RB_HOVRATT
+  instans: HOVRÄTT
+  version: "1.0"
+  källa: "Rättegångsbalken, SkL, ABL, BrB"
+  not: >
+    Träffar är sökhjälp. Ingen träff är bevisvärdering eller slutsats.
+    Varje träff kräver källkedja i AUDIT.
+
+koder:
+
+  - kod: "PERSONLIGT_ANSVAR"
+    lagrum: "SkL 2:1; ABL 29 kap."
+    beskrivning: "Personligt eller solidariskt ansvar"
+    mönster:
+      - "personligt ansvar"
+      - "personligen ansvarig"
+      - "solidariskt ansvar"
+      - "ställföreträdaransvar"
+    validering:
+      - "ansvar"
+      - "skuld"
+      - "betalning"
+      - "skada"
+    negativa_filter:
+      - "inte personligt"
+      - "saknar ansvar"
+      - "ingen ansvar"
+    föreslaget_block: "YRKANDEN"
+    indikation: "PERSONLIGT_ANSVAR_KONTROLL"
+
+  - kod: "BEVISUPPGIFT"
+    lagrum: "RB 42:2"
+    beskrivning: "Formellt åberopande av bevis"
+    mönster:
+      - "åberopas som bevis"
+      - "åberopas till bevis"
+      - "åberopar som bevis"
+      - "åberopar till bevis"
+    validering:
+      - "bevis"
+      - "dokument"
+      - "inspelning"
+      - "vittne"
+      - "handling"
+    negativa_filter:
+      - "kan inte åberopa"
+      - "saknar bevis"
+    föreslaget_block: "BEVISNING"
+    indikation: "BEVISUPPGIFT_KONTROLL"
+
+  - kod: "BEVISKEDJA_STYRKA"
+    lagrum: "RB 35:1-3"
+    beskrivning: "Beviskedja som stärker talan"
+    mönster:
+      - "styrka bevis"
+      - "styrker påstående"
+      - "bevisar talan"
+      - "styrkt av"
+      - "styrker talan"
+    validering:
+      - "bevis"
+      - "påstående"
+      - "talan"
+      - "fakta"
+    negativa_filter:
+      - "kan inte styrka"
+      - "svårt att bevisa"
+    föreslaget_block: "RÄTTSLIG_BEDÖMNING"
+    indikation: "BEVISKEDJA_KONTROLL"
+
+  - kod: "PARTSUTSAGA_ERKÄNNANDE"
+    lagrum: "RB 35:3; RB 35:5"
+    beskrivning: "Direkta erkännanden"
+    mönster:
+      - "erkänner"
+      - "medger"
+      - "medgav"
+      - "erkände"
+      - "jag gjorde"
+      - "jag köpte"
+      - "jag betalade"
+    validering:
+      - "jag"
+      - "han"
+      - "hon"
+      - "motpart"
+    negativa_filter:
+      - "inte erkänner"
+      - "nekar"
+    föreslaget_block: "BEVISNING"
+    indikation: "ERKANNANDE_KONTROLL"
+
+  - kod: "EFTERHANDSKONSTRUKTION"
+    lagrum: "AvtL 34 §; RB 35:8"
+    beskrivning: "Dokument konstruerat i efterhand"
+    mönster:
+      - "efterhandskonstruktion"
+      - "skenhandling"
+      - "i efterhand"
+      - "senare ändrat"
+      - "konstruerat"
+    validering:
+      - "dokument"
+      - "avtal"
+      - "handling"
+      - "papper"
+      - "bevis"
+    negativa_filter:
+      - "inte en efterhand"
+      - "äkta handling"
+    föreslaget_block: "RÄTTSLIG_BEDÖMNING"
+    indikation: "EFTERHANDSKONSTRUKTION_KONTROLL"
+
+  - kod: "VILSELEDANDE_DOKUMENTATION"
+    lagrum: "RB 35:8; RB 35:14"
+    beskrivning: "Vilseledande dokumentation"
+    mönster:
+      - "vilseleda"
+      - "vilseledande"
+      - "falsk dokumentation"
+      - "förfalsk"
+      - "förfalskad"
+    validering:
+      - "dokument"
+      - "uppgift"
+      - "handling"
+      - "papper"
+      - "bevis"
+    negativa_filter:
+      - "inte vilseledande"
+      - "korrekt dokumentation"
+    föreslaget_block: "RÄTTSLIG_BEDÖMNING"
+    indikation: "VILSELEDANDE_KONTROLL"
+
+  - kod: "MENED"
+    lagrum: "BrB 15:1"
+    beskrivning: "Mened — falska uppgifter under ed"
+    mönster:
+      - "osanna uppgifter"
+      - "ljuga under ed"
+      - "ljög i domstol"
+      - "ljög under ed"
+    validering:
+      - "ed"
+      - "domstol"
+      - "vittne"
+      - "förklaring"
+    negativa_filter:
+      - "inte ljög"
+      - "sanningsenlig"
+    föreslaget_block: "RÄTTSLIG_BEDÖMNING"
+    indikation: "MENED_KONTROLL"
+
+  - kod: "VITNESMÅLSKONTRAST"
+    lagrum: "RB 35 kap."
+    beskrivning: "Motsägelser i vittnesmål"
+    mönster:
+      - "vittnet ljög"
+      - "motsägelse i vittnesmål"
+      - "avvek från"
+      - "vittnet inte stämde"
+    validering:
+      - "vittne"
+      - "utsaga"
+      - "berättelse"
+      - "förklaring"
+    negativa_filter:
+      - "vittnet talade sanning"
+      - "stämde överens"
+    föreslaget_block: "RÄTTSLIG_BEDÖMNING"
+    indikation: "VITTNESMÅL_KONTROLL"
+
+  - kod: "VÅRDSLÖS_PROCESS"
+    lagrum: "RB 18:7"
+    beskrivning: "Vårdslös processföring"
+    mönster:
+      - "vårdslös processföring"
+      - "uppenbart ogrundad talan"
+      - "vårdslöshet i process"
+    validering:
+      - "process"
+      - "talan"
+      - "tingsrätt"
+      - "domstol"
+    negativa_filter:
+      - "inte vårdslös"
+      - "välgrundad talan"
+    föreslaget_block: "RÄTTEGÅNGSKOSTNADER"
+    indikation: "VÅRDSLÖS_PROCESS_KONTROLL"
+
+  - kod: "RÄTTEGÅNGSKOSTNADER_KRAV"
+    lagrum: "RB 18 kap."
+    beskrivning: "Krav på rättegångskostnader"
+    mönster:
+      - "rättegångskostnad"
+      - "ersättning för rättegångskostnader"
+      - "ersättning för kostnader"
+      - "ombudsarvode"
+    validering:
+      - "ersättning"
+      - "kostnad"
+      - "yrka"
+      - "utge"
+    negativa_filter:
+      - "inga kostnader"
+      - "avslå kostnader"
+    föreslaget_block: "YRKANDEN"
+    indikation: "RÄTTEGÅNGSKOSTNADER_KONTROLL"
+
+

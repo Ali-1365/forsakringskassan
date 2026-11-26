@@ -1,0 +1,120 @@
+---
+# judgment_audit.yaml
+# SVENSK FORENSIC COURT AUDIT ENGINE v10.3
+# Konfiguration för MODE A: JUDGMENT_AUDIT
+
+version: "10.3"
+mode: "JUDGMENT_AUDIT"
+mode_kod: "MODE_A"
+hs01_variant: "HS01A"
+
+# ── SYFTE ───────────────────────────────────────────────────────────────────
+purpose: >
+  Granskning av befintlig dom eller beslut.
+  Central input: Tidigare dom eller beslut krävs som primärkälla.
+  En frånvarande dom utlöser HS01A (partiellt stopp).
+
+# ── TRIGGER-EXEMPEL ─────────────────────────────────────────────────────────
+trigger_examples:
+  - "granska domen"
+  - "granska domskälen"
+  - "identifiera fel i domen"
+  - "auditera beslutet"
+  - "kontrollera om domen är korrekt"
+  - "analysera domskälskedjan"
+
+# ── AKTIVA LAGER ────────────────────────────────────────────────────────────
+active_layers:
+  always_active: [L0, L1, L2, L4, L5, L6, L7, L8, L8_5, L12, L13, L14, L15, L16]
+  blocked_by_HS01A: [L9, L10, L11]
+  conditional:
+    L2b: "om ljudmaterial finns"
+    L3: "om ljudmaterial finns"
+
+# ── L9 DOMSKÄLSMATRIS – AUDIT-LÄGE ──────────────────────────────────────────
+L9_audit_mode:
+  uppgift: "Granska domstolens befintliga resonemang"
+  obligatoriskt_format_per_domspåstående:
+    DOMSTOLENS_BEVISPREMISS: "[exakt domtext | DOM-ID | SIDA]"
+    DOMSTOLENS_KÄLLA: "[angiven källa]"
+    PRIMÄRKÄLLA: "[KÄLL-ID | FIL | SIDA | DATUM | VERSION]"
+    KÄLLAN_VISAR: "[vad primärkällan faktiskt innehåller]"
+    MOTBEVISNING: "[motbevis | KÄLL-ID eller SAKNAS]"
+    DOMSTOLENS_BEMÖTANDE: "[hur domstolen hanterat motbevisning | DOM-ID | SIDA]"
+    VERIFIERAD_DISKREPANS: "JA / NEJ / KAN EJ AVGÖRAS"
+    RÄTTSLIG_BETYDELSE: "KAN INTE AVGÖRAS / KAN PRÖVAS / VERIFIERAD"
+  circular_reasoning_blocker: true
+  domens_text_aldrig_primärkälla: true
+
+# ── FELKLASSIFICERING ───────────────────────────────────────────────────────
+error_classification:
+  MÖJLIGT_PROCESSFEL: "Processuell avvikelse identifierad"
+  MÖJLIGT_RÄTTSFEL: "Rättsregel felaktig eller felaktigt tillämpad"
+  MÖJLIGT_FAKTAFEL: "Faktapåstående avviker från primärkälla"
+  MÖJLIGT_BEVISVÄRDERINGSFEL: "Bevisvärdering avviker från faktisk bevisning"
+  MÖJLIGT_UTELÄMNANDE: "Central bevisning eller argument ej behandlat"
+
+# ── KONSEKVENSKONTROLL (L11) ─────────────────────────────────────────────────
+L11_consequence_control:
+  blockeras_vid: "HS01A aktiv (dom saknas)"
+  aktiv_i: "JUDGMENT_AUDIT när dom finns och avvikelser verifierats"
+
+# ── PARTIELL KÖRNING VID HS01A ───────────────────────────────────────────────
+partial_execution_HS01A:
+  blockerade_lager: [L9, L10, L11]
+  aktiva_lager: [L0, L1, L2, L4, L5, L6, L7, L8, L12, L13, L14, L15]
+  kompletteringsbegäran: true
+  slutstatus_utan_dom: "G (potentiellt rättsligt relevant)"
+  slutstatus_aldrig: "I (enbart pga HS01A)"
+
+# ── AUDIT-AGENTER ───────────────────────────────────────────────────────────
+audit_agents:
+  agent_A:
+    roll: "Falsifiering – söker avvikelser aktivt"
+    söker: [faktafel, bevisvärderingsfel, rättsfel, processfel, utelämnanden]
+    alltid_aktiv: true
+    oavsett_hs: true
+
+  agent_B:
+    roll: "Verifiering – bekräftar giltiga stöd"
+    söker: [stödjande_bevisning, korrekt_rättsregel, korrekt_bevisbörda]
+    alltid_aktiv: true
+    oavsett_hs: true
+
+  agent_C:
+    roll: "Second-order audit – kontrollerar A och B"
+    kontrollerar: [A_har_källstöd, B_missat_något, otillåten_inferens, saknad_källhänvisning]
+    alltid_aktiv: true
+    oavsett_hs: true
+
+# ── AGENT_C_STRESS_TEST ─────────────────────────────────────────────────────
+agent_C_stress_test:
+  aktiveras: "alltid – efter L14, innan L15"
+  kan_hoppas_över: false
+  kontroller:
+    - SVAGASTE_LÄNK
+    - ALTERNATIVA_TOLKNINGAR
+    - PROCESSUELLA_INVÄNDNINGAR
+  output_sektion: "RISKANALYS OCH SVAGASTE LÄNK I TALAN"
+  samlad_riskbedömning: [HÖG, MEDEL, LÅG]
+
+# ── COUNTER_AUDIT_AGENT B01–B15 ─────────────────────────────────────────────
+counter_audit_agent:
+  aktiveras: "efter L14, före FALSIFICATION"
+  buggregister: "B01–B15"
+  referensfil: "references/counter-audit-agent.md"
+  kritiska_buggar_blockerar_falsification: [B07, B09, B10, B11, B15]
+
+# ── FALSIFICATION ENGINE ────────────────────────────────────────────────────
+falsification_engine:
+  aktiveras: "alltid – efter COUNTER_AUDIT_AGENT"
+  verdict_skala: [ROBUST, VULNERABLE, INCONCLUSIVE, NOT_RUN]
+  robust_kräver: "motkedjan kollapsade"
+  aldrig_automatisk_statusupplösning: true
+
+# ── OUTPUT FORMAT ───────────────────────────────────────────────────────────
+output_format:
+  L16_sektioner_alltid: [A, B, I, J, K, L, T, U]
+  L16_sektioner_blockerade_vid_HS01A: [C, D, E, F, G, H]
+  AUDIT_TELEMETRY_HEADER: "alltid första blocket i L16-rapport"
+  RISKANALYS_SEKTION: "alltid i L16-rapport"

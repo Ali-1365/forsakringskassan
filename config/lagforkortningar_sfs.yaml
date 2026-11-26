@@ -1,0 +1,25 @@
+# Steg 20 – lagförkortning -> SFS-nummer för verifieringsgrinden.
+# Varje rad är kontrollerad mot data.riksdagen.se/dokument/sfs-ÅÅÅÅ-NR.text
+# (rubrik "SFS nr:" och "Upphävd:") 2026-10-13. Grinden prövar ändå varje
+# upplösning online vid varje körning. Tvetydiga förkortningar (t.ex. KL =
+# kommunallag 2017:725 eller konkurslag 1987:672) finns MEDVETET inte med:
+# ett sådant lagrum måste anges med SFS-nummer.
+# giltig_till = "Upphävd:" i riksdagens rubrik. SoL 2025:400 giltig_fran = dagen
+# då 2001:453 upphävdes enligt samma rubrik (2025-07-01).
+forkortningar:
+  FB:   [{sfs: "1949:381", titel: "Föräldrabalk (1949:381)"}]
+  FPL:  [{sfs: "1971:291", titel: "Förvaltningsprocesslag (1971:291)"}]
+  LVU:  [{sfs: "1990:52", titel: "Lag (1990:52) med särskilda bestämmelser om vård av unga", giltig_till: "2027-01-01"}]
+  LSS:  [{sfs: "1993:387", titel: "Lag (1993:387) om stöd och service till vissa funktionshindrade"}]
+  PSL:  [{sfs: "1996:799", titel: "Patientskadelag (1996:799)"}]
+  SoL:
+    - {sfs: "2001:453", titel: "Socialtjänstlag (2001:453)", giltig_till: "2025-07-01"}
+    - {sfs: "2025:400", titel: "Socialtjänstlag (2025:400)", giltig_fran: "2025-07-01"}
+  SFB:  [{sfs: "2010:110", titel: "Socialförsäkringsbalk (2010:110)"}]
+  HSL:  [{sfs: "2017:30", titel: "Hälso- och sjukvårdslag (2017:30)"}]
+  FL:   [{sfs: "2017:900", titel: "Förvaltningslag (2017:900)"}]
+  RB:   [{sfs: "1942:740", titel: "Rättegångsbalk (1942:740)"}]
+  BrB:  [{sfs: "1962:700", titel: "Brottsbalk (1962:700)"}]
+  OSL:  [{sfs: "2009:400", titel: "Offentlighets- och sekretesslag (2009:400)"}]
+  SkL:  [{sfs: "1972:207", titel: "Skadeståndslag (1972:207)"}]
+  RF:   [{sfs: "1974:152", titel: "Kungörelse (1974:152) om beslutad ny regeringsform"}]

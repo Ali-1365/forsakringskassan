@@ -1,0 +1,20 @@
+# Rättstid / intertemporal lagversion — indikativ
+version: "1.0"
+regler:
+  - id: "SOL_SKIFTE_2025"
+    lag: "SoL"
+    gammal: "2001:453"
+    ny: "2025:400"
+    ikraftträdande: "2025-07-01"
+    regel: >
+      Beslut före 2025-07-01 → 2001:453 som huvudregel.
+      Beslut från 2025-07-01 → 2025:400.
+      Juristen verifierar övergångsbestämmelser.
+
+  - id: "FL_2018"
+    lag: "FL"
+    ny: "2017:900"
+    ikraftträdande: "2018-07-01"
+    regel: "FL 2017:900 gäller för beslut efter ikraftträdande."
+
+not: "Indikativ. Kräver beslutsdatum i material. Ingen automatisk subsumtion."

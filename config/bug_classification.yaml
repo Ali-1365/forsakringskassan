@@ -1,0 +1,82 @@
+# config/bug_classification.yaml
+# B01–B15 — teknisk/forensisk felklassificering (INDIKATIV)
+# Inte juridisk giltighetsbedömning. Harmonierar med HS/GAP i SFCAE.
+version: "1.0"
+meta:
+  provisional_output_only: true
+  zero_inference: true
+  not: >
+    Klassificerar avvikelser i underlag och kedja.
+    Producerar aldrig domslut eller partsansvar.
+
+bug_klasser:
+  - kod: B01
+    namn: DATAINTEGRITET
+    beskrivning: Fil/hash/metadata/ofullständig akt
+    sfcae_koppling: [HS01B, UNDERLAG_SAKNAS, aktgranskning]
+  - kod: B02
+    namn: KÄLLFEL
+    beskrivning: Saknad eller overifierad källa
+    sfcae_koppling: [HS09, source_hygiene]
+  - kod: B03
+    namn: TIDSFEL
+    beskrivning: Datum/lagversion/intertemporal konflikt
+    sfcae_koppling: [HS11, lagskifte_validator, rattstid]
+  - kod: B04
+    namn: IDENTITETSFEL
+    beskrivning: Oklar dokument-/partsidentitet
+    sfcae_koppling: [claim_id, forum]
+  - kod: B05
+    namn: FAKTAAVVIKELSE
+    beskrivning: Motstridiga faktapåståenden i underlag
+    sfcae_koppling: [claims, contradiction]
+  - kod: B06
+    namn: BEVISAVVIKELSE
+    beskrivning: Bevis vs påstående avviker
+    sfcae_koppling: [evidence, bevisstyrka]
+  - kod: B07
+    namn: UTELÄMNANDE
+    beskrivning: Saknat material som nämns men saknas
+    sfcae_koppling: [aktgranskning luckor, bilageförteckning]
+  - kod: B08
+    namn: PROCESSFEL
+    beskrivning: Formella processbrister
+    sfcae_koppling: [processratt, FL_23/25/32]
+  - kod: B09
+    namn: RÄTTSKÄLLEFEL
+    beskrivning: Overifierad eller felaktig rättskälla
+    sfcae_koppling: [ai_risk, deep_search, HS09]
+  - kod: B10
+    namn: REKVISITFEL
+    beskrivning: Rekvisit saknas eller feltillämpat i underlag
+    sfcae_koppling: [requisites, LSB/kodsystem]
+  - kod: B11
+    namn: SUBSUMTIONSFEL
+    beskrivning: Hopp lag→slutsats utan underlag
+    sfcae_koppling: [SUBSUMPTION, zero_inference]
+  - kod: B12
+    namn: DOMSKÄLSFEL
+    beskrivning: Domskälslänk obruten/spårbarhetsbrott
+    sfcae_koppling: [JUDGMENT_AUDIT, COUNTER_AUDIT]
+  - kod: B13
+    namn: BEVISBÖRDE_BEVISKRAVSFEL
+    beskrivning: Fel beviskravsnivå i analyskedja
+    sfcae_koppling: [bevisstyrka, RequisiteStatus]
+  - kod: B14
+    namn: INTERN_MOTSÄGELSE
+    beskrivning: Intern motsägelse i CaseState
+    sfcae_koppling: [contradiction, FALSIFICATION]
+  - kod: B15
+    namn: OUPPLÖST_FRÅGA
+    beskrivning: Fråga kan inte avgöras på underlaget
+    sfcae_koppling: [OTILLRÄCKLIGT_UNDERLAG, frågan oklar]
+
+# Statusord från blueprint (maskinläsbara)
+avgörbarhet:
+  - KAN_AVGÖRAS
+  - KAN_INTE_AVGÖRAS
+  - KRÄVER_KOMPLETTERING
+  - MOTSÄGELSE
+  - RÄTTSKÄLLA_EJ_VERIFIERAD
+  - BEVISKEDJA_BRUTEN
+  - PROCESSUELL_FRÅGA_OUPPLÖST

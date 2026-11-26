@@ -1,0 +1,45 @@
+# Barnsamtal — kvalitetsbedömning av barnets delaktighet — konfigurerbar kodtabell
+meta:
+  domän: BARNSAMTAL
+  version: "1.0"
+  källa: >
+    references/skills_registry/barnsamtal/SKILL.md — "kvalitetsbedömning
+    av barnets delaktighet och rätt att höras."
+  not: >
+    INDIKATIV_ENDAST. Flaggar om och hur barnets röst dokumenterats —
+    avgör inte om delaktigheten var TILLRÄCKLIG, det kräver läsning av
+    hela utredningen.
+
+koder:
+  - kod: "BARNSAMTAL-GENOMFORT"
+    lagrum: "Barnkonv. art. 12, 36 § LVU"
+    beskrivning: "Barnsamtal explicit dokumenterat som genomfört"
+    mönster: ["barnsamtal genomfört", "samtal med barnet", "barnet har hörts"]
+    negativa_filter: []
+    föreslaget_block: "BARNSAMTAL_GENOMFORT"
+    indikation: "BARNSAMTAL_DOKUMENTERAT"
+
+  - kod: "BARNSAMTAL-SAKNAS"
+    lagrum: "Barnkonv. art. 12, 36 § LVU"
+    beskrivning: "Barnsamtal uttryckligen uteblivet eller ej dokumenterat"
+    mönster: ["barnet har inte hörts", "inget barnsamtal", "barnets inställning saknas",
+               "samtal med barnet genomfördes inte"]
+    negativa_filter: []
+    föreslaget_block: "BARNSAMTAL_SAKNAS"
+    indikation: "BARNSAMTAL_SAKNAS_KRITISK"
+
+  - kod: "BARNSAMTAL-VILJA"
+    lagrum: "Barnkonv. art. 12"
+    beskrivning: "Barnets egen vilja/åsikt explicit återgiven"
+    mönster: ["barnets vilja", "barnet uttrycker", "barnet önskar", "barnets åsikt"]
+    negativa_filter: []
+    föreslaget_block: "BARNSAMTAL_VILJA"
+    indikation: "BARNETS_VILJA_ATERGIVEN"
+
+  - kod: "BARNSAMTAL-FORMAGA"
+    lagrum: "Barnkonv. art. 12 (ålder och mognad)"
+    beskrivning: "Bedömning av barnets ålder/mognad kopplad till delaktighet"
+    mönster: ["ålder och mognad", "förmåga att uttrycka", "med hänsyn till barnets ålder"]
+    negativa_filter: []
+    föreslaget_block: "BARNSAMTAL_FORMAGA"
+    indikation: "BARNETS_FORMAGA_BEDOMD"

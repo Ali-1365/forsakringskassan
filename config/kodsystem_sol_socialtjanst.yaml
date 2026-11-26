@@ -1,0 +1,62 @@
+# SoL / LVU / LSS — konfigurerbar kodtabell
+meta:
+  domän: SOL_SOCIALTJANST
+  # Systemets domänkod för SoL/LVU (MCP-enum, bevisstyrka, sessioner).
+  alias: [SOL_LVU]
+  version: "1.0"
+  lagskifte:
+    gammal_sol: "2001:453"
+    ny_sol: "2025:400"
+    ikraftträdande: "2025-07-01"
+  not: >
+    Beslutsdatum avgör SoL-version. Scanner flaggar lagrum — juristen verifierar mot datum.
+    Träff = indikativ, inte bevisvärdering.
+
+koder:
+  - kod: "SOL-INSATS"
+    lagrum: "SoL (version beroende av beslutsdatum)"
+    beskrivning: "Bistånd / insats"
+    mönster: ["bistånd", "ekonomiskt bistånd", "insats enligt SoL", "socialnämnden beslutar"]
+    negativa_filter: []
+    föreslaget_block: "INSATS"
+    indikation: "SOL_BISTAND"
+
+  - kod: "SOL-UTREDNING"
+    lagrum: "SoL; FL 23 §"
+    beskrivning: "Utredning socialtjänst"
+    mönster: ["social utredning", "barnavårdsutredning", "utredning enligt SoL"]
+    negativa_filter: []
+    föreslaget_block: "UTREDNING"
+    indikation: "SOL_UTREDNING"
+
+  - kod: "LVU-2"
+    lagrum: "LVU 2 §"
+    beskrivning: "LVU miljöfallen"
+    mönster: ["LVU 2", "miljöfallen", "brister i omsorgen", "påtaglig risk"]
+    negativa_filter: []
+    föreslaget_block: "LVU"
+    indikation: "LVU_MILJO"
+
+  - kod: "LVU-3"
+    lagrum: "LVU 3 §"
+    beskrivning: "LVU beteendefallen"
+    mönster: ["LVU 3", "beteendefallen", "eget beteende"]
+    negativa_filter: []
+    föreslaget_block: "LVU"
+    indikation: "LVU_BETEENDE"
+
+  - kod: "LSS-INSATS"
+    lagrum: "LSS 9 §"
+    beskrivning: "LSS-insats"
+    mönster: ["personlig assistans", "daglig verksamhet", "LSS-insats", "LSS 9"]
+    negativa_filter: []
+    föreslaget_block: "LSS"
+    indikation: "LSS"
+
+  - kod: "SOL-OVERKLAGAN"
+    lagrum: "FL 44 §; FPL"
+    beskrivning: "Överklagande socialnämndsbeslut"
+    mönster: ["överklagar socialnämndens", "överklagande SoL", "förvaltningsrätten social"]
+    negativa_filter: ["överklagandet avvisas"]
+    föreslaget_block: "OVERKLAGAN"
+    indikation: "OVERKLAGAN_SOL"

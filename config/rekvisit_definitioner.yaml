@@ -1,0 +1,181 @@
+# REKVISITDEFINITIONER OCH MÅLTYPSPROFILER
+# SVENSK FORENSIC COURT AUDIT ENGINE v10.3
+#
+# Denna fil är enda källan för (a) hur en måltyp identifieras ur aktmaterialet
+# och (b) vilka rekvisit som gäller för måltypen.
+#
+# SYFTE MED EXTERNALISERINGEN
+# ---------------------------
+# Definitionerna låg tidigare hårdkodade i runtime/requisite_claim_mapper.py.
+# Det innebar att en ny måltyp krävde ändring i källkod — otillåtet på en
+# domstolsdator. Här kan en behörig jurist lägga till eller rätta rekvisit utan
+# att röra Python.
+#
+# SIGNALHIERARKI VID IDENTIFIERING (starkast först)
+# -------------------------------------------------
+#   rubricering_mönster : uttrycklig brottsrubricering/saksbenämning som står
+#                         ORDAGRANT i materialet (t.ex. polisens fält
+#                         "underrättad om misstanke"). Starkaste signalen —
+#                         materialet säger själv vad saken gäller.
+#   lagrum_mönster      : uttrycklig lagrumshänvisning i materialet.
+#   nyckelord           : svag stödsignal. Räknas per UNIKT ord, aldrig per
+#                         förekomst, så att ett enstaka blankettord inte kan
+#                         styra klassificeringen.
+#
+# ABSOLUT REGEL
+# -------------
+# Saknas rekvisitdefinitioner för en identifierad måltyp ska rekvisitmatrisen
+# lämnas TOM och bristen rapporteras öppet. Rekvisit från en annan måltyp får
+# aldrig användas som ersättning.
+
+version: 1
+
+måltyper:
+
+  olovligt_förfogande:
+    beskrivning: "Olovligt förfogande, BrB 10 kap. 4 §"
+    rubricering_mönster:
+      - "olovligt förfogande"
+    lagrum_mönster:
+      - "brb 10 kap. 4"
+      - "10 kap. 4 § brottsbalken"
+    nyckelord:
+      - leasing
+      - leasingavtal
+      - äganderättsförbehåll
+      - återlämna
+      - återlämnande
+      - avbetalningsköp
+    rekvisit:
+      - text: "Egendom tillhör annan (äganderätt förbehållen)"
+        modal: MUST
+        lagrum: "BrB 10 kap. 4 § (SFS 1962:700)"
+        nyckelord: ["äganderätt", "förbehållen", "leasing", "leasingavtal",
+                    "tillhör", "äger", "ägare", "hyra", "hyresavtal"]
+      - text: "Giltig uppsägning kommunicerad till gäldenären"
+        modal: MUST
+        lagrum: "BrB 10 kap. 4 § + leasingavtalets punkt 11"
+        nyckelord: ["uppsägning", "uppsagt", "sagt upp", "rekommenderat",
+                    "brev", "avsänt", "mottagit", "delgivning", "delgiven"]
+      - text: "Underlåtenhet att återlämna efter fristens utgång"
+        modal: MUST
+        lagrum: "BrB 10 kap. 4 §"
+        nyckelord: ["återlämna", "återlämnande", "inte lämnat", "behållit",
+                    "frist", "fristen", "löpt ut", "förfallen"]
+      - text: "Uppsåt att olovligen förfoga"
+        modal: MUST
+        lagrum: "BrB 10 kap. 4 § + BrB 1:2"
+        nyckelord: ["uppsåt", "avsiktligt", "medvetet", "visste", "kände till",
+                    "insåg", "förstod", "hade kännedom"]
+
+  sjukpenning:
+    beskrivning: "Sjukpenning, 27 kap. socialförsäkringsbalken"
+    rubricering_mönster:
+      - "sjukpenning"
+    lagrum_mönster:
+      - "27 kap. 2 § sfb"
+      - "27 kap. 25 § sfb"
+    nyckelord:
+      - sjukpenning
+      - arbetsförmåga
+      - sjukskrivning
+      - rehabilitering
+      - sgi
+      - försäkringskassan
+    rekvisit:
+      - text: "Nedsatt arbetsförmåga på grund av sjukdom"
+        modal: MUST
+        lagrum: "27 kap. 2 § SFB (SFS 2010:110)"
+        nyckelord: ["arbetsförmåga", "nedsatt", "sjukdom", "diagnos",
+                    "funktionsnedsättning", "aktivitetsbegränsning"]
+      - text: "Arbetsförmågan nedsatt med minst 25 procent"
+        modal: MUST
+        lagrum: "27 kap. 2 § SFB"
+        nyckelord: ["25 procent", "50 procent", "75 procent", "100 procent",
+                    "hel", "halv", "tre fjärdedelar", "en fjärdedel"]
+      - text: "Läkarintyg styrker nedsättningen"
+        modal: MUST
+        lagrum: "27 kap. 25 § SFB"
+        nyckelord: ["läkarintyg", "intyg", "läkare", "specialist",
+                    "behandlande", "utfärdat"]
+
+  lvu:
+    beskrivning: "Vård av unga, LVU (SFS 1990:52)"
+    # "LVU" är en lagförkortning, inte en saksbenämning. En förkortning som
+    # nämns i förbigående i en handling utpekar inte måltypen — den utpekar en
+    # författning. Den hör därför hemma bland lagrum_mönster, inte bland
+    # rubricering_mönster. Samma princip gäller alla profiler: rubricering =
+    # det saken kallas, lagrum = vilken författning som åberopas.
+    rubricering_mönster:
+      - "vård av unga"
+    lagrum_mönster:
+      - "lvu"
+      - "lvu 2 §"
+      - "lvu 3 §"
+    nyckelord:
+      - tvångsvård
+      - socialnämnd
+      - omhändertagande
+      - familjehem
+      - placering
+    rekvisit:
+      - text: "Risk för skada på barnets hälsa eller utveckling"
+        modal: MUST
+        lagrum: "LVU 2 § (SFS 1990:52)"
+        nyckelord: ["risk", "skada", "hälsa", "utveckling", "barn",
+                    "fara", "utsatt", "misshandel", "försummelse"]
+      - text: "Brister i hemförhållandena eller barnets eget beteende"
+        modal: MUST
+        lagrum: "LVU 2-3 §§"
+        nyckelord: ["hemförhållanden", "beteende", "missbruk", "kriminalitet",
+                    "brister", "föräldrar", "vårdnadshavare"]
+      - text: "Barnets bästa avgörande"
+        modal: MUST
+        lagrum: "LVU 1 § + SoL 1 kap. 2 §"
+        nyckelord: ["barnets bästa", "barnets behov", "barnets vilja",
+                    "barnets åsikt"]
+
+  fordon:
+    beskrivning: "Fordonsrelaterade tvångsmedel (stödprofil, ej självständig måltyp)"
+    självständig: false
+    rubricering_mönster: []
+    lagrum_mönster: []
+    nyckelord:
+      - registreringsnummer
+      - regnr
+      - fordonet
+    rekvisit:
+      - text: "Fordonet identifierat och beslagtaget"
+        modal: MUST
+        lagrum: "RB 27:1"
+        nyckelord: ["fordon", "bil", "beslag", "beslagtaget", "omhändertaget",
+                    "registreringsnummer", "regnr"]
+
+  # ── Måltyper som identifieras men saknar rekvisitdefinitioner ────────────
+  # Profilerna nedan gör att måltypen KAN IDENTIFIERAS korrekt ur materialet.
+  # Rekvisitlistan är medvetet tom: rekvisiten ska författas av behörig jurist,
+  # inte av motorn. Tills dess rapporterar motorn öppet att rekvisitdefinitioner
+  # saknas och bygger INGEN rekvisitmatris — i stället för att tyst låna
+  # rekvisit från en annan brottstyp.
+
+  sexuellt_ofredande:
+    beskrivning: "Sexuellt ofredande, BrB 6 kap. 10 §"
+    rubricering_mönster:
+      - "sexuellt ofredande"
+    lagrum_mönster:
+      - "brb 6 kap. 10"
+      - "6 kap. 10 § brottsbalken"
+    nyckelord: []
+    rekvisit: []
+    rekvisit_status: "EJ_DEFINIERADE — kräver författning av behörig jurist"
+
+  våldtäkt_mot_barn:
+    beskrivning: "Våldtäkt mot barn, BrB 6 kap. 4 §"
+    rubricering_mönster:
+      - "våldtäkt mot barn"
+    lagrum_mönster:
+      - "brb 6 kap. 4"
+      - "6 kap. 4 § brottsbalken"
+    nyckelord: []
+    rekvisit: []
+    rekvisit_status: "EJ_DEFINIERADE — kräver författning av behörig jurist"

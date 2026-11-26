@@ -1,0 +1,55 @@
+# Processuella tryckmedel och källkritik av rättsfallshänvisningar —
+# konfigurerbar kodtabell.
+#
+# Motsvarar ai-motstrategi/SKILL.md, de delar av metod 2 och 4 som är
+# objektiva, lagrumsbundna och inte kräver att "förutse" eller
+# "överlista" motparten:
+#   - metod 2: ospecificerad rättsfallshänvisning (ett genuint,
+#     kontrollerbart kvalitetsproblem — jämför VerbatimAnchor-principen
+#     att ett citat/en referens ska gå att slå upp exakt)
+#   - metod 4: namngivna RB-mekanismer (kompletteringsanmodan,
+#     editionsyrkande, invändning) — inte "attackvektorer" i sig, bara
+#     identifiering av VAR i processen dessa mekanismer är relevanta.
+# INTE implementerat: "förutse motpartens sannolika svar" och
+# "kontra med oväntade infallsvinklar som bryter motpartens förväntade
+# responsmodell" — det är taktisk optimering mot en motpart, inte
+# sakgranskning av inlämnat material, och byggs inte.
+meta:
+  domän: PROCESSUELL_PRESS
+  version: "1.0"
+  not: >
+    INDIKATIV_ENDAST. Flaggar att texten berör ett tema — avgör inte om
+    en invändning eller ett yrkande faktiskt är välgrundat.
+
+koder:
+  - kod: "OSPECIFICERAD_PRAXIS"
+    lagrum: "RB 35 kap. (bevisvärdering, analogt — källkritik)"
+    beskrivning: "Rättsfall/praxis åberopas utan specificerad referens (målnummer/avgörande)"
+    mönster: ["enligt praxis", "rättspraxis visar", "domstolar har funnit", "det är fastslaget i praxis"]
+    negativa_filter: []
+    föreslaget_block: "OSPECIFICERAD_PRAXIS"
+    indikation: "PROC_OSPECIFICERAD_PRAXIS"
+
+  - kod: "KOMPLETTERINGSANMODAN"
+    lagrum: "RB 42 kap. 8 §"
+    beskrivning: "Kompletteringsanmodan relevant eller begärd"
+    mönster: ["kompletteringsanmodan", "föreläggande att komplettera", "42 kap. 8 §"]
+    negativa_filter: []
+    föreslaget_block: "KOMPLETTERINGSANMODAN"
+    indikation: "PROC_KOMPLETTERINGSANMODAN"
+
+  - kod: "EDITIONSYRKANDE"
+    lagrum: "RB 38 kap. 2 §"
+    beskrivning: "Editionsyrkande relevant eller begärt"
+    mönster: ["editionsyrkande", "edition av handling", "38 kap. 2 §"]
+    negativa_filter: []
+    föreslaget_block: "EDITIONSYRKANDE"
+    indikation: "PROC_EDITIONSYRKANDE"
+
+  - kod: "INVANDNING_42_15"
+    lagrum: "RB 42 kap. 15 §"
+    beskrivning: "Formell invändning enligt RB 42:15"
+    mönster: ["invändning enligt 42 kap", "42 kap. 15 §"]
+    negativa_filter: []
+    föreslaget_block: "INVANDNING"
+    indikation: "PROC_INVANDNING"

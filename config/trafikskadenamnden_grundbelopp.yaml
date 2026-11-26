@@ -1,0 +1,29 @@
+# Grundbelopp för invaliditetsersättning efter ålder vid skadetillfället.
+#
+# KÄLLA: siffrorna nedan är transkriberade ORDAGRANT ur
+# references/skills_registry/fk-monsterkatalog-crps-patientskada/SKILL.md
+# ("Trafikskadenämndens tabeller (2025)"). De är INTE oberoende
+# verifierade av detta system mot Trafikskadenämndens egen, aktuella
+# publicering — SFCAE har ingen nätverksåtkomst till en sådan källa och
+# skriver aldrig ut ett belopp som "verifierat" utan att faktiskt ha
+# kontrollerat det. Verifiera beloppen mot Trafikskadenämndens senaste
+# tabell innan de används i ett verkligt skadeståndsanspråk.
+
+källhänvisning: >
+  Transkriberat ur SKILL.md (extern referenspack), ej oberoende
+  verifierat av SFCAE mot Trafikskadenämndens egen publicering.
+giltighetsår_enligt_källa: 2025
+
+grundbelopp_efter_ålder:
+  - min_ålder: 0
+    max_ålder: 29
+    belopp: 1200000
+  - min_ålder: 30
+    max_ålder: 49
+    belopp: 1000000
+  - min_ålder: 50
+    max_ålder: 64
+    belopp: 800000
+  - min_ålder: 65
+    max_ålder: null
+    belopp: 600000

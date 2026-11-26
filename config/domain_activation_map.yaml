@@ -1,0 +1,164 @@
+# Domänaktiveringskarta — datadrivet, ingen hårdkodning per mål
+# Varje domän definierar: skills, advocacy_templates, core_resources
+# Läses av arende_aktivator.py vid aktivering av ett ärende.
+version: "1.0"
+not: >
+  Denna karta definierar INTE ärenden utan DOMÄNER.
+  Ärendespecifika resurser registreras i session-JSON under 'extra.case_resources'.
+
+domains:
+
+  RB_TVIST:
+    skills:
+      - juridisk-processmotor
+      - bevisvardering
+      - kvalitetskontroll
+      - fmjam-master
+    advocacy_templates:
+      - systemprompt_juridisk_analys_yttrande.md
+    core_resources:
+      - kodsystem_rb_tvist.yaml
+      - kodsystem_rb_hovratt.yaml
+      - case_routing.yaml
+      - pattern_rules_v2.yaml
+    scan_modules:
+      - kodsystem_scanner
+      - pattern_scanner
+      - konversation_scanner
+    yttrande_generator: true
+
+  SOL_LVU:
+    skills:
+      - analysera-socialtjanstutredning
+      - juridisk-processmotor
+      - kvalitetskontroll
+      - bristrapport
+    advocacy_templates:
+      - fl_inlaga_metodologi.md
+    core_resources:
+      - kodsystem_sol_socialtjanst.yaml
+      - kodsystem_fpl_forvaltning.yaml
+      - case_routing.yaml
+    scan_modules:
+      - kodsystem_scanner
+      - pattern_scanner
+    yttrande_generator: false
+
+  SOL_BISTND:
+    # SoL bistånd — ekonomiskt bistånd och vård (Socialtjänstlagen 4 kap.)
+    skills:
+      - analysera-socialtjanstutredning
+      - juridisk-processmotor
+      - kvalitetskontroll
+    advocacy_templates:
+      - fl_inlaga_metodologi.md
+    core_resources:
+      - kodsystem_sol_socialtjanst.yaml
+      - kodsystem_fpl_forvaltning.yaml
+      - case_routing.yaml
+    scan_modules:
+      - kodsystem_scanner
+      - pattern_scanner
+    yttrande_generator: false
+
+  FK_SFB:
+    skills:
+      - juridisk-processmotor
+      - kvalitetskontroll
+    advocacy_templates: []
+    core_resources:
+      - kodsystem_fk_sfb.yaml
+      - kodsystem_fpl_forvaltning.yaml
+      - case_routing.yaml
+    scan_modules:
+      - kodsystem_scanner
+      - pattern_scanner
+    yttrande_generator: false
+
+  KL_KONKURS:
+    skills:
+      - juridisk-processmotor
+      - bevisvardering
+      - kvalitetskontroll
+      - fmjam-master
+    advocacy_templates:
+      - systemprompt_juridisk_analys_yttrande.md
+    core_resources:
+      - kodsystem_kl_konkurs.yaml
+      - kodsystem_konkl_process.yaml
+      - case_routing.yaml
+      - pattern_rules_v2.yaml
+    scan_modules:
+      - kodsystem_scanner
+      - pattern_scanner
+      - konversation_scanner
+    yttrande_generator: true
+
+  KFM_BF:
+    # KFM betalningsföreläggande och utslag (Lag 1990:746)
+    skills:
+      - juridisk-processmotor
+      - kvalitetskontroll
+    advocacy_templates: []
+    core_resources:
+      - case_routing.yaml
+    scan_modules:
+      - kodsystem_scanner
+    yttrande_generator: false
+
+  KFM_VE:
+    # KFM verkställighet (UB 1981:774)
+    skills:
+      - juridisk-processmotor
+      - kvalitetskontroll
+    advocacy_templates: []
+    core_resources:
+      - case_routing.yaml
+    scan_modules:
+      - kodsystem_scanner
+    yttrande_generator: false
+
+  JB_HYRESRATT:
+    skills:
+      - juridisk-processmotor
+      - bevisvardering
+      - kvalitetskontroll
+      - fmjam-master
+    advocacy_templates:
+      - systemprompt_juridisk_analys_yttrande.md
+    core_resources:
+      - kodsystem_jb_hyresratt.yaml
+      - kodsystem_rb_tvist.yaml
+      - case_routing.yaml
+      - pattern_rules_v2.yaml
+    scan_modules:
+      - kodsystem_scanner
+      - pattern_scanner
+      - konversation_scanner
+    yttrande_generator: true
+
+  LSB_SKYDDAT:
+    skills:
+      - juridisk-processmotor
+      - kvalitetskontroll
+    advocacy_templates: []
+    core_resources:
+      - kodsystem_lsb_skyddat.yaml
+      - kodsystem_lsb_skyddat_boende.yaml
+      - case_routing.yaml
+    scan_modules:
+      - kodsystem_scanner
+    yttrande_generator: false
+
+  ALLMAN_FORVALTNING:
+    skills:
+      - juridisk-processmotor
+      - kvalitetskontroll
+    advocacy_templates: []
+    core_resources:
+      - kodsystem_fpl_forvaltning.yaml
+      - case_routing.yaml
+    scan_modules:
+      - kodsystem_scanner
+      - pattern_scanner
+    yttrande_generator: false

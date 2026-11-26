@@ -1,0 +1,111 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "AI-Vortex-Juridisk-Riskhantering",
+    "description": "Ramverk för strukturering av juridiska AI-agenter, hantering av feltyper, konsekvensklassificering och riskmatriser.",
+    "version": "1.0.0",
+    "pipeline_steps": {
+        "SW": {
+            "name": "Structured Web-extraction",
+            "components": {
+                "SW1": "Rå extraktion (Inhämtning av ostrukturerat juridiskt källmaterial)",
+                "SW2": "Strikt rensning (Normalisering, borttagning av brus och metadata-validering)"
+            }
+        },
+        "FM": {
+            "name": "Failure Mode Extraction",
+            "description": "Identifiering och koppling av verktyg till specifika juridiska feltyper.",
+            "failure_modes": [
+                {
+                    "id": "FM_001",
+                    "type": "Fabricerade fall",
+                    "description": "AI genererar icke-existerande domstolsbeslut eller praxis (hallucinationer).",
+                    "assigned_agent": "Hallucinationsdetektorn",
+                    "verification_rule": "Kontrollera att alla fall existerar via officiella databaser."
+                },
+                {
+                    "id": "FM_002",
+                    "type": "Fabricerade lagrum",
+                    "description": "Felaktiga eller påhittade lagparagrafer och författningar.",
+                    "assigned_agent": "Hallucinationsdetektorn",
+                    "verification_rule": "Kontrollera att alla lagrum är korrekt återgivna mot gällande SFS/lagtext."
+                },
+                {
+                    "id": "FM_003",
+                    "type": "Felaktiga citat",
+                    "description": "Förvrängda eller helt fabricerade citat från domar, förarbeten eller doktrin.",
+                    "assigned_agent": "Verifieringsagenten",
+                    "verification_rule": "Kontrollera att alla citat är exakta och matchar originaltexten."
+                },
+                {
+                    "id": "FM_004",
+                    "type": "Felaktiga doktriner",
+                    "description": "Missvisande tolkningar eller felaktigt framställda juridiska auktoriteter.",
+                    "assigned_agent": "Verifieringsagenten",
+                    "verification_rule": "Verifiera PIN-referenser och sidhänvisningar mot originalkällan."
+                }
+            ]
+        },
+        "RC": {
+            "name": "Recorded Consequences",
+            "description": "Klassificering av juridiska och processuella konsekvenser vid felaktiga inlagor.",
+            "consequences": [
+                {
+                    "level": "Warning",
+                    "description": "Mindre allvarligt fel, domstolen eller motparten påpekar bristen utan formell åtgärd.",
+                    "action_required": "Korrigeras omedelbart av handläggare."
+                },
+                {
+                    "level": "Dismissal",
+                    "description": "Talan eller delar av inlagan avvisas på grund av felaktiga grunder eller felaktig processföring.",
+                    "action_required": "Eskaleras till chefsjurist, formellt yttrande krävs."
+                },
+                {
+                    "level": "Fine",
+                    "description": "Ekonomiska sanktioner eller rättegångskostnadsansvar på grund av vårdslös processföring.",
+                    "action_required": "Ledningsåtgärd samt anmälan till ansvarsförsäkring."
+                },
+                {
+                    "level": "Bar Referral",
+                    "description": "Disciplinär anmälan till Advokatsamfundets disciplinnämnd vid grov oskicklighet eller etiska övertramp.",
+                    "action_required": "Strikkt internutredning och obligatorisk juridisk representation."
+                }
+            ]
+        },
+        "RM": {
+            "name": "Risk Matrix",
+            "description": "Riskmatris baserad på sannolikhet och konsekvens för AI-genererat material.",
+            "matrix_structure": {
+                "axes": [
+                    "Sannolikhet (1-5)",
+                    "Konsekvens (1-5)"
+                ],
+                "mitigation_strategies": [
+                    "Proceduragentens regler: Identifiera och flagga risker för avvisning, sanktion och disciplin innan inskick.",
+                    "Verifieringsagentens regler: Obligatorisk källmatchning på alla externa referenser.",
+                    "Hallucinationsdetektorns regler: Automatisk blockering av inlagor med osäkra eller ej verifierade referensbetyg."
+                ]
+            }
+        }
+    },
+    "agent_rules": {
+        "Proceduragenten": [
+            "Identifiera risk för avvisning",
+            "Identifiera risk för sanktion",
+            "Identifiera risk för disciplin",
+            "Identifiera risk för felaktig inlaga"
+        ],
+        "Verifieringsagenten": [
+            "Kontrollera att alla fall existerar",
+            "Kontrollera att alla lagrum är korrekt återgivna",
+            "Kontrollera att alla citat är korrekta",
+            "Kontrollera att alla PIN-referenser matchar originalet"
+        ],
+        "Hallucinationsdetektorn": [
+            "Flagga fabricerade fall",
+            "Flagga fabricerade lagrum",
+            "Flagga fabricerade citat",
+            "Flagga felaktiga doktriner",
+            "Flagga felaktigt framställda auktoriteter"
+        ]
+    }
+}

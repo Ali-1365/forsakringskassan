@@ -1,0 +1,53 @@
+# config/ersattning_config.yaml
+# Ersättningstyper och beräkningsgrunder — INDIKATIVA
+# Inga hårdkodade belopp. Juristen anger faktiska siffror.
+# version: 1.0
+
+meta:
+  not: >
+    Denna fil styr aldrig domslut.
+    Alla belopp är platshållare.
+    Juristen anger och verifierar alla siffror.
+
+ersättningstyper:
+
+  - kod: LIVRÄNTA
+    lagrum: "SFB 41-44 kap."
+    beräkningsgrunder:
+      - "Inkomstbortfall: [JURIST: ange belopp]"
+      - "Invaliditetsgrad: [JURIST: ange procent]"
+      - "Samordning med sjukpenning: [JURIST: kontrollera]"
+    indikation: INDIKATIV_ENDAST
+
+  - kod: PATIENTSKADA_LOF
+    lagrum: "PatSkL 6 §, LÖF villkor"
+    beräkningsgrunder:
+      - "Sveda och värk: [JURIST: ange belopp]"
+      - "Lyte och men: [JURIST: ange invaliditetsgrad]"
+      - "Inkomstförlust: [JURIST: ange belopp]"
+    indikation: INDIKATIV_ENDAST
+
+  - kod: SKADESTAND_SKL
+    lagrum: "SkL 3 kap. 2 §"
+    beräkningsgrunder:
+      - "Ren förmögenhetsskada: [JURIST: ange belopp]"
+      - "Personskada: [JURIST: ange belopp]"
+      - "Kränkningsersättning: [JURIST: ange belopp]"
+    indikation: INDIKATIV_ENDAST
+
+  - kod: CRPS_INVALIDITET
+    lagrum: "PatSkL, Trafikskadenämnden"
+    beräkningsgrunder:
+      - "Budapest-kriterier uppfyllda: [JURIST: verifiera diagnos]"
+      - "Invaliditetsgrad: [JURIST: ange procent per tabell]"
+      - "Ersättning per poäng: [JURIST: hämta aktuell tabell]"
+    indikation: INDIKATIV_ENDAST
+    not: "CRPS-diagnos kräver alltid medicinsk expertis"
+
+  - kod: JK_ANSPRAK
+    lagrum: "SkL 3 kap. 2 §, JK-förordningen"
+    beräkningsgrunder:
+      - "Felaktig myndighetsutövning: [JURIST: styrk kausalitet]"
+      - "Ekonomisk skada: [JURIST: ange belopp]"
+      - "Preskription: [JURIST: kontrollera 10-årsregel]"
+    indikation: INDIKATIV_ENDAST

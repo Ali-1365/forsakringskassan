@@ -1,0 +1,30 @@
+meta:
+  domän: KL_KONKURS
+  version: "1.0"
+  källa: "Konkurslagen, ABL"
+  not: Indikativ. Forum konkurs ≠ FK/socialtjänst.
+
+koder:
+  - kod: "KL-KONKURS"
+    lagrum: "KL"
+    beskrivning: "Konkurs"
+    mönster: ["konkurs", "konkursförvaltare", "konkursbo"]
+    negativa_filter: []
+    föreslaget_block: "KONKURS"
+    indikation: "KONKURS"
+
+  - kod: "KL-FORDING"
+    lagrum: "KL"
+    beskrivning: "Fordran i konkurs"
+    mönster: ["bevaka fordran", "fordran i konkurs", "oprioriterad fordran"]
+    negativa_filter: []
+    föreslaget_block: "FORDING"
+    indikation: "FORDING"
+
+  - kod: "ABL-29"
+    lagrum: "ABL 29 kap."
+    beskrivning: "Personligt ansvar / styrelseansvar"
+    mönster: ["personligt ansvar", "styrelseansvar", "ABL 29"]
+    negativa_filter: []
+    föreslaget_block: "ANSVAR"
+    indikation: "ABL29"

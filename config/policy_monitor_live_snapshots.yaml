@@ -1,0 +1,68 @@
+# policy_monitor_live_snapshots.yaml
+# VERIFIERAD_LIVE_SYSTEM_BASELINE — struktur från offentliga källor 2026-09-16
+# zero_inference: true — ingen juridisk/medicinsk slutbedömning
+version: "1.2"
+status: "VERIFIERAD_LIVE_SYSTEM_BASELINE"
+timestamp: "2026-09-16T01:30:00Z"
+provisional_output_only: true
+zero_inference: true
+källor:
+  - "https://lagen.nu/2025:400"
+  - "https://svenskforfattningssamling.se/doc/2025400.html"
+  - "https://svenskforfattningssamling.se/doc/202479.html"
+  - "IASP Budapest clinical diagnostic criteria (public summaries)"
+
+data_sol_2025:
+  sfs: "2025:400"
+  ikraftträdande: "2025-07-01"
+  upphäver: "2001:453"
+  overgangsbestammelser:
+    - punkt: 1
+      text: "Denna lag träder i kraft den 1 juli 2025."
+    - punkt: 2
+      text: "Genom lagen upphävs socialtjänstlagen (2001:453)."
+    - punkt: 5a
+      text: "Den upphävda lagen gäller fortfarande för återkrav av ekonomiskt bistånd som beviljats före ikraftträdandet."
+    - punkt: 5b
+      text: "Den upphävda lagen gäller fortfarande för ersättningskrav för kostnader som kommunen har haft enligt 8 kap. 1 § första eller andra stycket den lagen."
+    - punkt: 6
+      text: "Den upphävda lagen gäller fortfarande vid prövningen av ett överklagande av ett beslut som har meddelats före ikraftträdandet."
+  not: "INDIKATIV snapshot — verifiera alltid mot autentisk SFS."
+
+data_lsb_2024:
+  sfs: "2024:79"
+  titel: "Lag om placering av barn i skyddat boende"
+  ikraftträdande: "2024-04-01"
+  nyckelbestämmelser_indikativa:
+    - "3 kap. 1 § — förutsättningar för placering trots saknat samtycke från andra vårdnadshavaren"
+    - "4 kap. 1 § — omedelbar insats"
+  not: "INDIKATIV — fulltext i autentisk SFS/lagen.nu."
+
+data_crps_budapest:
+  not: "KLINISKT REFERENSMÖNSTER — inte diagnosmotor. Kräver medicinsk expert."
+  clinical_criteria_summary:
+    - "Fortsatt smärta oproportionerlig mot utlösande händelse"
+    - "Minst ett symptom i tre av fyra kategorier: sensorisk, vasomotorisk, sudomotorisk/ödem, motorisk/trofisk"
+    - "Minst ett tecken vid undersökning i två eller fler av samma kategorier"
+    - "Ingen annan diagnos förklarar bättre tecken och symptom"
+  kategorier:
+    - sensorisk
+    - vasomotorisk
+    - sudomotorisk_ödem
+    - motorisk_trofisk
+  indikation: "INDIKATIV_ENDAST"
+
+data_fk_sfb_arbetsskada:
+  kapitel_indikativa: ["SFB 39", "SFB 40", "SFB 41", "SFB 42", "SFB 43", "SFB 44"]
+  not: "Routing/prövningsordning — inte automatisk rätt till ersättning."
+
+data_phal_strukturell:
+  not: "PHAL här = strukturell validering av tidsserie/logg — inte hårdvarudrivrutin."
+  obligatoriska_fält_för_logg:
+    - timestamp
+    - source_id
+    - value
+  valfria_fält:
+    - unit
+    - sequence_id
+    - sensor_type

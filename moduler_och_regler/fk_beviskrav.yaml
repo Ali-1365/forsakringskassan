@@ -1,0 +1,66 @@
+# Beviskravskatalog per FK-ärendetyp (DEL B).
+#
+# Källa: references/skills_registry/fk-monsterkatalog-crps-patientskada/
+#        SKILL.md, "DEL B — BEVISKRAVSKATALOG PER ÄRENDETYP".
+#
+# KRITISK PRINCIP (källans egen text): "Innan en fullständig analys eller
+# processhandling produceras, kontrollera att nedanstående bevis finns.
+# Om kategorier saknas — generera en kompletteringsbegäran enligt FL 23 §
+# istället för att fortsätta analysen på bristfälligt underlag."
+#
+# Granulariteten är KATEGORI (Medicinsk/Inkomst/Omständighet/Processuell
+# m.fl.), precis som källtexten själv uttrycker principen — inte de
+# enskilda dokumenten inom varje kategori, som är fritext-exempel snarare
+# än en strikt uppräkningsbar lista.
+meta:
+  källa: "fk-monsterkatalog-crps-patientskada/SKILL.md, DEL B"
+  not: >
+    INDIKATIV_ENDAST. Kontrollerar bara att minst ett dokument finns per
+    obligatorisk kategori (efter dokumentklassificering eller jurist-
+    bekräftelse) — bedömer aldrig bevisvärdet eller om beviset räcker för
+    bifall.
+
+ärendetyper:
+  FK_SJUKPENNING_SGI:
+    kategorier:
+      Medicinsk: ["läkarintyg för sjukpenning (aktuellt)", "journalhandlingar", "ev. specialistutlåtande"]
+      Inkomst: ["lönebesked/lönelistor", "SGI-beslut från FK", "inkomstdeklaration"]
+      Omständighet: ["sjukanmälan till arbetsgivare", "ansökan om sjukpenning", "FK:s beslut"]
+      Processuell: ["korrespondens med FK", "eventuella tidigare beslut"]
+
+  FK_ARBETSSKADA:
+    kategorier:
+      Medicinsk: ["läkarintyg med diagnos", "journalhandlingar från akutbesök", "specialistutlåtande", "dokumentation av skadans omfattning"]
+      Inkomst: ["lönebesked före skadan", "SGI-underlag", "dokumentation av inkomstförlust"]
+      Omständighet: ["arbetsskadeanmälan (SKV 5011)", "arbetsgivarens utredning", "vittnesmål", "dokumentation av hur skadan inträffade", "bevis på orsakssamband"]
+      Processuell: ["FK:s beslut om arbetsskada", "korrespondens med FK", "eventuella tidigare omprövningar"]
+
+  FK_LIVRANTA:
+    kategorier:
+      Medicinsk: ["läkarintyg som dokumenterar varaktig nedsättning (>1 år)", "specialistutlåtande om prognos", "funktionsbedömning", "dokumentation av invaliditetsgrad"]
+      Inkomst: ["lönebesked före skadan", "aktuell inkomst", "beräkning av inkomstförlust >1/15", "dokumentation av framtida förvärvskapacitet"]
+      Omständighet: ["arbetsskadeanmälan", "FK:s beslut om arbetsskada", "dokumentation av skadans varaktighet"]
+      Processuell: ["FK:s beslut om livränta (om fattat)", "korrespondens med FK"]
+
+  CRPS_PATIENTSKADA:
+    kategorier:
+      Medicinsk: ["läkarintyg med CRPS-diagnos enligt Budapestkriterierna", "specialistutlåtande från smärtspecialist/neurolog", "journalhandlingar från ursprunglig behandling", "dokumentation av diagnostisk fördröjning", "funktionsbedömning och invaliditetsgradsbedömning", "prognos och behandlingshistorik"]
+      Omständighet: ["tidslinje för behandling och symtomutveckling", "dokumentation av vårdkontakter före/efter diagnos", "ev. patientklagomål", "bevis på orsakssamband mellan vård/behandling och CRPS"]
+      Ekonomisk: ["lönebesked före CRPS-utveckling", "dokumentation av arbetsoförmåga och inkomstförlust", "prognoser för framtida förvärvskapacitet", "beräkning av livränta", "dokumentation av merkostnader"]
+      Processuell: ["LÖF:s beslut (om fattat)", "korrespondens med LÖF", "eventuell patientanmälan till IVO"]
+
+  SKADESTAND_JK:
+    kategorier:
+      "Grund för fel": ["dokumentation av felaktig handläggning", "FK-beslut som är felaktiga", "bevis på brott mot FL 23/25/32 §§", "dokumentation av processuella fel"]
+      "Ekonomisk skada": ["beräkning av ekonomisk förlust", "lönebesked/inkomstunderlag", "kontoutdrag som visar påverkan", "fakturor för merkostnader", "dokumentation av framtida ekonomisk skada"]
+      Orsakssamband: ["tydlig koppling mellan myndighetens fel och skadan", "tidslinje som visar kausalitet", "dokumentation att skadan inte skulle uppstått utan felet"]
+      Processuell: ["samtliga FK-beslut", "all korrespondens med FK", "eventuella domstolsbeslut"]
+
+# Dokumentigenkänningsmönster (källans egen rubrik) — för att klassificera
+# ett okänt dokument. Textmönstren är transkriberade ordagrant.
+dokumentigenkänningsmönster:
+  läkarintyg: ["läkarintyg", "sjukpenning", "läkare", "diagnos"]
+  journalhandling: ["journal", "anteckning", "besök"]
+  specialistutlåtande: ["specialist", "ortoped", "neurolog", "smärtläkare", "anestesi"]
+  sgi_beslut: ["SGI", "sjukpenninggrundande"]
+  arbetsskadeanmälan: ["arbetsskada", "skadeanmälan", "SKV 5011"]

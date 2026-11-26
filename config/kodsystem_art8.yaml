@@ -1,0 +1,54 @@
+# Artikel 8 EKMR — trestegsprövningen — konfigurerbar kodtabell
+meta:
+  domän: ART8_EKMR
+  version: "1.0"
+  källa: >
+    references/skills_registry/art8-provning/SKILL.md — "Styr
+    trestegsprövningen enligt art. 8 EKMR." Triggers: 'artikel 8', 'EKMR',
+    'Europakonventionen', 'familjeliv', 'rätt till privatliv',
+    'proportionalitet EKMR', 'Europadomstolen', 'margin of appreciation'.
+  not: >
+    INDIKATIV_ENDAST. Trestegsprövningen enligt art. 8 EKMR (1. föreligger
+    ett ingrepp i skyddat familje-/privatliv, 2. har ingreppet stöd i lag,
+    3. är det nödvändigt i ett demokratiskt samhälle/proportionerligt) är
+    en juridisk avvägning som denna tabell inte utför. Scanner flaggar
+    ENDAST vilket av de tre stegen en handling BERÖR textmässigt — den
+    gör ingen proportionalitetsbedömning och drar ingen slutsats om
+    utfallet av prövningen.
+
+koder:
+  - kod: "ART8-STEG1-INGREPP"
+    lagrum: "EKMR art. 8.1"
+    beskrivning: "Steg 1: föreligger ett ingrepp i familjeliv/privatliv"
+    mönster: ["familjeliv", "rätt till privatliv", "ingrepp i familjelivet",
+               "separation från barnet", "omhändertagande", "tvångsplacering"]
+    negativa_filter: []
+    föreslaget_block: "ART8_STEG1"
+    indikation: "ART8_INGREPP_PASTAS"
+
+  - kod: "ART8-STEG2-LAGSTOD"
+    lagrum: "EKMR art. 8.2 (in accordance with the law)"
+    beskrivning: "Steg 2: ingreppets lagstöd åberopas eller ifrågasätts"
+    mönster: ["stöd i lag", "lagligt stöd för ingreppet", "lagstöd saknas",
+               "rättslig grund för beslutet", "tillämpligt lagrum"]
+    negativa_filter: []
+    föreslaget_block: "ART8_STEG2"
+    indikation: "ART8_LAGSTOD_ARGUMENTERAS"
+
+  - kod: "ART8-STEG3-PROPORTIONALITET"
+    lagrum: "EKMR art. 8.2 (necessary in a democratic society)"
+    beskrivning: "Steg 3: nödvändighet/proportionalitet argumenteras"
+    mönster: ["proportionalitet", "proportionerlig", "nödvändigt i ett demokratiskt samhälle",
+               "mindre ingripande åtgärd", "margin of appreciation", "avvägning mot"]
+    negativa_filter: []
+    föreslaget_block: "ART8_STEG3"
+    indikation: "ART8_PROPORTIONALITET_ARGUMENTERAS"
+
+  - kod: "ART8-PRAXIS"
+    lagrum: "Europadomstolens praxis"
+    beskrivning: "Explicit hänvisning till Europadomstolen eller EKMR-praxis"
+    mönster: ["Europadomstolen", "EKMR", "Europakonventionen", "art. 8 EKMR",
+               "artikel 8"]
+    negativa_filter: []
+    föreslaget_block: "ART8_PRAXIS"
+    indikation: "ART8_PRAXISHANVISNING"

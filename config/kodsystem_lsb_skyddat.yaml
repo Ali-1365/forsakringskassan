@@ -1,0 +1,68 @@
+# config/kodsystem_lsb_skyddat.yaml
+# INDIKATIV_ENDAST — lagreferenser för mönstersökning. zero_inference.
+# Källa: references/attachments_implant (LSB 2024:79 verifieringsmemo)
+meta:
+  domän: LSB_SKYDDAT_BOENDE
+  sfs: "2024:79"
+  ikraft: "2024-04-01"
+  not: >
+    Beviskrav "kan antas" är lagtext i 4 kap. 1 §. Status EJ_AVGJORT vid scan.
+    SoL-lagskifte: beslut < 2025-07-01 → 2001:453; annars 2025:400.
+version: "1.0"
+koder:
+  - kod: "LSB_3_1"
+    lagrum: "3 kap. 1 § LSB"
+    beskrivning: "Förutsättningar placering barn skyddat boende"
+    mönster: ["skyddat boende", "3 kap. 1", "risk för att barnets säkerhet"]
+    negativa_filter: []
+    föreslaget_block: "REKVISIT"
+    indikation: "INDIKATIV_ENDAST"
+  - kod: "LSB_4_1"
+    lagrum: "4 kap. 1 § LSB"
+    beskrivning: "Omedelbar insats — kan antas"
+    mönster: ["omedelbar insats", "kan antas", "4 kap. 1", "ordförandebeslut"]
+    negativa_filter: []
+    föreslaget_block: "REKVISIT"
+    indikation: "INDIKATIV_ENDAST"
+  - kod: "FL_23"
+    lagrum: "23 § FL"
+    beskrivning: "Utredningsansvar"
+    mönster: ["utredningsansvar", "23 §", "ärende blir utrett"]
+    negativa_filter: []
+    föreslaget_block: "PROCESS"
+    indikation: "INDIKATIV_ENDAST"
+  - kod: "FL_25"
+    lagrum: "25 § FL"
+    beskrivning: "Kommunikation (inte motivering)"
+    mönster: ["kommunicering", "25 §", "yttra sig över materialet"]
+    negativa_filter: ["motivering av beslut"]
+    föreslaget_block: "PROCESS"
+    indikation: "INDIKATIV_ENDAST"
+  - kod: "FL_32"
+    lagrum: "32 § FL"
+    beskrivning: "Motivering av beslut"
+    mönster: ["motivering", "32 §", "klargörande motivering"]
+    negativa_filter: []
+    föreslaget_block: "PROCESS"
+    indikation: "INDIKATIV_ENDAST"
+  - kod: "SOL_14_2"
+    lagrum: "14 kap. 2 § SoL 2025:400"
+    beskrivning: "Inleda utredning"
+    mönster: ["14 kap. 2", "inleda en utredning", "genast inleda"]
+    negativa_filter: ["11 kap."]
+    föreslaget_block: "REKVISIT"
+    indikation: "INDIKATIV_ENDAST"
+  - kod: "SOL_20_3"
+    lagrum: "20 kap. 3 § SoL 2025:400"
+    beskrivning: "Barnutredning fyra månader"
+    mönster: ["20 kap. 3", "fyra månader", "barnutredning"]
+    negativa_filter: []
+    föreslaget_block: "REKVISIT"
+    indikation: "INDIKATIV_ENDAST"
+  - kod: "EKMR_8"
+    lagrum: "EKMR artikel 8"
+    beskrivning: "Familjeliv — tresteg"
+    mönster: ["artikel 8", "familjeliv", "Strand Lobben", "proportionalitet"]
+    negativa_filter: []
+    föreslaget_block: "PROPORTIONALITET"
+    indikation: "INDIKATIV_ENDAST"

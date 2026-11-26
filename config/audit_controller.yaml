@@ -1,0 +1,162 @@
+---
+# audit_controller.yaml
+# SVENSK FORENSIC COURT AUDIT ENGINE v10.3
+# Audit Controller – protokollefterlevnad och slutvalidering
+
+version: "10.3"
+
+# ── SYFTE ───────────────────────────────────────────────────────────────────
+purpose: >
+  Audit Controller validerar att hela körningen uppfyller
+  protokollkraven innan output levereras.
+  Läser AUDIT_TELEMETRY_HEADER för automatisk validering.
+
+# ── KONTROLLER ──────────────────────────────────────────────────────────────
+controls:
+  source_traceability: "Varje slutsats spårbar till primärkälla"
+  no_layer_contamination: "Senare lager ändrar inte låsta fakta"
+  audio_uncertainty_preserved: "[OHÖRBART] bevaras oförändrat"
+  symmetry_verified: "Båda parters argument behandlade identiskt (P18)"
+  legal_sources_verified: "Alla lagrum verifierade med rätt lydelse"
+  no_invented_content: "Inga uppfunna fakta, citat eller lagrum"
+  process_profile_applied: "Rätt processlag tillämpat per domstolsslag"
+  beviskrav_dynamic: "Beviskrav hämtat dynamiskt, ej hårdkodat"
+  mode_respected: "MODE A/B styr hard stops och output korrekt"
+  conclusion_first_forbidden: "Inget domslut före verifierad subsumtion"
+  process_position_clean: "Inga infererade yrkanden/grunder"
+
+# ── P18 SYMMETRI ────────────────────────────────────────────────────────────
+# Mäts av AuditController._check_symmetry på L4-positionerna (enda platsen
+# där material är attribuerat till en bestämd part).
+symmetry:
+  # Högsta tillåtna kvot mellan mest och minst prövad part innan
+  # fördelningen redovisas som asymmetrisk. Tröskeln kan bara SKÄRPAS
+  # härifrån: värden över fallbacken (5.0) avvisas, så configen inte kan
+  # stänga av kontrollen.
+  max_position_ratio: 5.0
+  icke_parter: [Domstolen, OKÄND]
+  ej_verifierbar: >
+    Saknas L4-positioner, eller har färre än två parter attribuerat
+    material, redovisas P18 som EJ_VERIFIERBAR — aldrig som verifierad.
+
+# ── OUTPUT STATUS ───────────────────────────────────────────────────────────
+output_status:
+  GODKÄND:
+    beskrivning: "Alla kontroller passerade"
+    krav: "Alla obligatoriska kontroller OK"
+  UNDERKÄND:
+    beskrivning: "Formfel – se felrapport"
+    trigger: "En eller flera kontroller misslyckades"
+    åtgärd: "Körningen ska göras om"
+  STOPPAD:
+    beskrivning: "Kritisk avvikelse – rapport blockerad"
+    trigger: "Kritisk säkerhetsregel bruten (HS09, HS10, HS11)"
+  FLAGGAD:
+    beskrivning: "Varning – manuell granskning rekommenderas"
+    trigger: "Varning utan kritiskt fel"
+
+# ── AUTOMATISK VALIDERING VIA TELEMETRI ─────────────────────────────────────
+telemetry_validation:
+  hallucination_check_FAILED:
+    åtgärd: "Rapport underkänns automatiskt"
+    status: UNDERKÄND
+  citation_coverage_under_100:
+    åtgärd: "FLAGGAS med exakt antal saknade källhänvisningar"
+    status: FLAGGAD
+  adversarial_pass_EJ_GENOMFÖRD:
+    åtgärd: "HS09 (förbjuden output-typ)"
+    status: STOPPAD
+  requisite_gate_SPÄRRAD:
+    åtgärd: "overall_status kan aldrig vara A eller B"
+    status: FLAGGAD
+  counter_audit_kritisk_bugg:
+    åtgärd: "FALSIFICATION blockeras"
+    status: STOPPAD
+    trigger_buggar: [B07, B09, B10, B11, B15]
+
+# ── AUDIT_TELEMETRY_HEADER SCHEMA ───────────────────────────────────────────
+telemetry_schema:
+  engine_version: "[hämtas dynamiskt från frontmatter – aldrig hårdkodad]"
+  scan_timestamp: "[ISO 8601 UTC]"
+  case_id: "[CASE_YYYYMMDD_HHMMSS]"
+  target_jurisdiction: "SE"
+  analysis_date: "[ÅÅÅÅ-MM-DD]"
+  process_mode: "[JUDGMENT_AUDIT | JUDGMENT_CONSTRUCTION]"
+  court_type: "[CIVIL_COURT | CRIMINAL_COURT | ADMINISTRATIVE_COURT]"
+  active_modules: "[lista över aktiverade specialmoduler]"
+  hallucination_check: "[PASSED | FAILED]"
+  hard_stop_triggered: "[true | false]"
+  hard_stop_codes: "[lista HS-koder | null]"
+  missing_evidence_flagged: "[true | false]"
+  missing_evidence_count: "[antal | 0]"
+  citation_coverage: "[procent av påståenden med källhänvisning]"
+  citation_level_breakdown:
+    nivå_1_exakt: "[antal]"
+    nivå_2_fallback: "[antal]"
+    nivå_3_korrespondens: "[antal]"
+    nivå_4_muntlig: "[antal]"
+  requisite_gate_status: "[PASSERAD | SPÄRRAD | EJ TILLÄMPLIG]"
+  adversarial_pass_status: "[GENOMFÖRD | EJ GENOMFÖRD]"
+  risk_level: "[HÖG | MEDEL | LÅG | EJ BEDÖMD]"
+  audit_agent_a_findings: "[antal avvikelser]"
+  audit_agent_b_findings: "[antal stöd]"
+  audit_agent_c_findings: "[antal second-order observationer]"
+  overall_status: "[A | B | C | D | E | F | G | H | I]"
+  audit_controller_verdict: "[GODKÄND | UNDERKÄND | STOPPAD | FLAGGAD]"
+  # Utökade V10-fält
+  total_files: "[int | EJ TILLÄMPLIG]"
+  locked_baseline: "[int | EJ TILLÄMPLIG]"
+  quarantine: "[int | EJ TILLÄMPLIG]"
+  category_a: "[int | EJ TILLÄMPLIG]"
+  category_b: "[int | EJ TILLÄMPLIG]"
+  gatekeeper_passed: "[int | EJ TILLÄMPLIG]"
+  gatekeeper_blocked: "[int | EJ TILLÄMPLIG]"
+  graph_nodes: "[int | EJ TILLÄMPLIG]"
+  graph_edges: "[int | EJ TILLÄMPLIG]"
+  graph_verified_edges: "[int | EJ TILLÄMPLIG]"
+  graph_unresolved: "[int | EJ TILLÄMPLIG]"
+  subsumtioner: "[int | EJ TILLÄMPLIG]"
+  falsification_verdict: "[ROBUST | VULNERABLE | INCONCLUSIVE | NOT_RUN | EJ TILLÄMPLIG]"
+  counter_chain_strength: "[beskrivning | EJ TILLÄMPLIG]"
+  patches: "[int | 0]"
+  sårbarhet_risk: "[KRITISK | HÖG | MEDEL | LÅG | EJ BEDÖMD]"
+  verbatim_gate: "[VERBATIM_ANCHOR_GATE_ACTIVE | EJ TILLÄMPLIG]"
+  subsumption_gate: "[SUBSUMPTION_GATEKEEPER_ACTIVE | EJ TILLÄMPLIG]"
+  standard_iso: "ISO/IEC 27037:2012"
+  standard_enfsi: "ENFSI FSA-BPM-002 FIXED-2026"
+
+# ── HARD STOPS HS01–HS19 ────────────────────────────────────────────────────
+hard_stops:
+  HS01A: {trigger: "Central dom saknas för granskning", åtgärd: "Partiellt stopp", mode: "JUDGMENT_AUDIT"}
+  HS01B: {trigger: "Central processhandling saknas", åtgärd: "Stoppa + kompletteringsbegäran", mode: "Båda"}
+  HS01C: {trigger: "Otillräckligt underlag för konstruktion", åtgärd: "Blockera domslut", mode: "JUDGMENT_CONSTRUCTION"}
+  HS02: {trigger: "Domversion kan inte verifieras", åtgärd: "Stoppa", mode: "AUDIT"}
+  HS03: {trigger: "Autenticitet kan inte verifieras", åtgärd: "Stoppa", mode: "Båda"}
+  HS04: {trigger: "Central bevisning saknas", åtgärd: "Stoppa", mode: "Båda"}
+  HS05: {trigger: "Ljud kan inte verifieras", åtgärd: "Stoppa", mode: "Om ljud"}
+  HS06: {trigger: "Lagversion kan inte fastställas", åtgärd: "Stoppa", mode: "Båda"}
+  HS07: {trigger: "Prejudikatets räckvidd kan inte fastställas", åtgärd: "H1/H2/H3", mode: "Båda"}
+  HS08: {trigger: "Central källmotsägelse olöst", åtgärd: "Konfliktlösningsmatris", mode: "Båda"}
+  HS09: {trigger: "Förbjuden inferens krävs", åtgärd: "Stoppa", mode: "Båda"}
+  HS10: {trigger: "Cirkulär påverkan", åtgärd: "Stoppa", mode: "Båda"}
+  HS11: {trigger: "Subsumtionskedja saknar verifierat rättsfaktum", åtgärd: "Stoppa domslut", mode: "Båda"}
+  HS12: {trigger: "Negativ bevisstatus saknas", åtgärd: "Stoppa", mode: "Båda"}
+  HS13: {trigger: "Ärendenummer kan inte verifieras", åtgärd: "Stoppa", mode: "Båda"}
+  HS14: {trigger: "Muntlig källa avviker från skriftlig utan lösning", åtgärd: "Stoppa", mode: "Båda"}
+  HS15: {trigger: "FORUM_CONFLICT – processordning tvetydig", åtgärd: "Stoppa", mode: "Båda"}
+  HS16: {trigger: "Källkontaminering", åtgärd: "Karantän", mode: "Båda"}
+  HS17: {trigger: "Vittnesutsaga V4–V6 bär ensamt MUST-rekvisit", åtgärd: "Stoppa", mode: "Båda"}
+  HS18: {trigger: "Substantiell avvikelse med materiell betydelse", åtgärd: "Stoppa", mode: "AUDIT"}
+  HS19: {trigger: "EXPECTED_NOT_FOUND för materiellt rekvisit", åtgärd: "Stoppa", mode: "Båda"}
+
+# ── KÖRNINGSSEKVENS ─────────────────────────────────────────────────────────
+pipeline_sequence: >
+  MODE_ROUTER → L0 → L1 → L2 → L2b/L3 (om ljud) → L4 → L5 → L6 → L7 →
+  L8 → L8.5 → L9 → L10 → L11 → L12 → L13 → L14 →
+  COUNTER_AUDIT_AGENT (B01–B15) → AGENT_C_STRESS_TEST → L15 → L16 → AC
+
+mode_A_HS01A: "L9/L10/L11 blockeras"
+mode_B_HS01C: "Domslut blockeras; övriga lager kan köra partiellt"
+HS11: "Domslut blockeras oavsett mode"
+layer_lock_marker: "[LX | LAGERNAMN | LOCKED]"
+layer_block_marker: "[LX | LAGERNAMN | BLOCKERAD – HSxx]"

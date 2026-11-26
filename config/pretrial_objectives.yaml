@@ -1,0 +1,46 @@
+version: '1.0'
+meta:
+  provisional_output_only: true
+  zero_inference: true
+  not: Systemet avgör inte vem som har rätt. Det konstruerar prövningsfrågor.
+  version: '2.0'
+  blueprint: §8 PRE-TRIAL OBJECTIVE ENGINE
+frågor:
+- id: PT01
+  text: Vad är föremålet för prövningen?
+- id: PT02
+  text: Vilka yrkanden föreligger?
+- id: PT03
+  text: Vilka grunder åberopas?
+- id: PT04
+  text: Vilka invändningar föreligger?
+- id: PT05
+  text: Vad är ostridigt?
+- id: PT06
+  text: Vad är tvistigt?
+- id: PT07
+  text: Vilka rättsliga frågor föreligger?
+- id: PT08
+  text: Vilka rättsfakta måste fastställas?
+- id: PT09
+  text: Vilka rekvisit är relevanta?
+- id: PT10
+  text: Vilken bevisning är relevant?
+- id: PT11
+  text: Vem bär bevisbördan?
+- id: PT12
+  text: Vilket beviskrav gäller?
+- id: PT13
+  text: Vilka rättskällor måste verifieras?
+- id: PT14
+  text: Vilka processuella frågor måste avgöras?
+- id: PT15
+  text: Vilket material saknas?
+- id: PT16
+  text: Vilka frågor kan inte avgöras på befintligt material?
+- id: PT17
+  text: Vilket nytt material skulle kunna förändra analysen?
+intake:
+  REQUESTED: Normal evidence intake efter integrity gate
+  UNSOLICITED: Kräver source verification, relevance, duplication, temporal, procedural
+    status innan analys

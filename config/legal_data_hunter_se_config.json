@@ -1,0 +1,76 @@
+{
+  "provider": "Legal Data Hunter",
+  "website": "https://legaldatahunter.com",
+  "this_file": "https://legaldatahunter.com/llms.txt",
+  "integration_endpoints": {
+    "api_documentation": "https://legaldatahunter.com/docs",
+    "interactive_swagger": "https://legaldatahunter.com/swagger",
+    "mcp_endpoint": "https://legaldatahunter.com/mcp"
+  },
+  "target_jurisdiction": {
+    "country": "SE",
+    "system": "Civil Law (Scandinavian variant)",
+    "last_updated": "2026-02-21"
+  },
+  "available_capabilities": [
+    {
+      "feature": "Hybrid Search",
+      "description": "Kombinerad semantisk sökning och nyckelordssökning i svensk lagtext och domar."
+    },
+    {
+      "feature": "Document Retrieval",
+      "description": "Hämtar fulltext och metadata för specifika lagar (t.ex. SFS 2024:79)."
+    },
+    {
+      "feature": "Citation Resolution",
+      "description": "Omvandlar lösa juridiska hänvisningar och laghänvisningar till exakta dokument."
+    }
+  ],
+  "ai_knowledge_sources": [
+    {
+      "source_name": "Riksdag SFS",
+      "data_type": "Consolidated legislation",
+      "access_type": "Public Domain Open Data",
+      "reliability": "Excellent",
+      "description": "Innehåller över 11 000 konsoliderade svenska lagar och förordningar."
+    },
+    {
+      "source_name": "Domstolsverket",
+      "data_type": "Court decisions",
+      "access_type": "REST API",
+      "reliability": "Excellent",
+      "description": "Täckning av officiella domstolsbeslut och domar i Sverige."
+    },
+    {
+      "source_name": "Högsta Domstolen (HDO)",
+      "data_type": "Case law",
+      "access_type": "Via Domstolsverket API",
+      "reliability": "Excellent",
+      "description": "Över 5 500 vägledande prejudikat från HD."
+    },
+    {
+      "source_name": "Högsta Förvaltningsdomstolen (HFD)",
+      "data_type": "Administrative case law",
+      "access_type": "rattspraxis API",
+      "reliability": "Good",
+      "description": "Prejudikat rörande förvaltningsrättsliga mål."
+    },
+    {
+      "source_name": "RiksdagenDB",
+      "data_type": "Parliamentary documents",
+      "access_type": "Open Data Portal",
+      "reliability": "Excellent",
+      "description": "Över 500 000 offentliga dokument, motioner och propositioner."
+    }
+  ],
+  "unsupported_sources": [
+    {
+      "source_name": "Lower courts",
+      "reason": "Tingsrätter och förvaltningsrätter publiceras inte systematiskt digitalt."
+    },
+    {
+      "source_name": "Finansinspektionen / IMY / Konkurrensverket",
+      "reason": "Kräver separat webbskrapning från respektive myndighetssida."
+    }
+  ]
+}

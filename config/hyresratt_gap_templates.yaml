@@ -1,0 +1,26 @@
+# Generiska gap-mallar för lokalhyrestvister — fylls från akt, inte hårdkodade domslut
+version: "1.0"
+meta:
+  zero_inference: true
+  provisional_output_only: true
+gap_typer:
+  - id: TEMPORAL_UPSAGNING
+    kategori: TEMPORAL_RISK
+    lagrum_indikativa: ["JB 12:58"]
+    fråga: "Delgavs uppsägningsvillkor inom svarsfrist?"
+  - id: UNDERLAG_BRANDSKYDD
+    kategori: UNDERLAG_SAKNAS
+    lagrum_indikativa: ["JB 12:42"]
+    fråga: "Finns myndighetsbeslut/protokoll som styrker förverkandegrund?"
+  - id: EDITION_PROPORTIONALITET
+    kategori: PROPORTIONALITY_RISK
+    lagrum_indikativa: ["RB 36:6", "NJA 2001 s. 878"]
+    fråga: "Är edition av rå bokföring proportionerlig?"
+  - id: DELGIVNING_ADRESS
+    kategori: DELGIVNING_BRIST
+    lagrum_indikativa: ["JB 12 kap."]
+    fråga: "Skickades anmodanden till korrekt delgivningsadress?"
+  - id: TALEANDRING
+    kategori: PROCESS
+    lagrum_indikativa: ["RB 13:3"]
+    fråga: "Utgör sent tillkommet belopp/krav otillåten taleändring?"

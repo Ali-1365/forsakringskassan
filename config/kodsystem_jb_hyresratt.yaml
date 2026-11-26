@@ -1,0 +1,104 @@
+# kodsystem_jb_hyresratt.yaml
+# Lokalhyra / JB 12 kap. — INDIKATIV mönstermatchning
+# Inga partsnamn, inga belopp som facit, ingen automatisk ogiltigförklaring.
+version: "1.0"
+meta:
+  domän: JB_HYRESRATT
+  processordning: RB
+  provisional_output_only: true
+  zero_inference: true
+  not: >
+    Träffar är sökhjälp. JB 12:58 m.m. kräver källkedja i akt.
+    Systemet avgör inte uppsägnings giltighet automatiskt.
+
+koder:
+  - kod: "JB_12_58"
+    lagrum: "12 kap. 58 § JB"
+    beskrivning: "Formkrav vid uppsägning — villkor/delgivning"
+    mönster:
+      - "12 kap. 58"
+      - "JB 12:58"
+      - "uppsägning"
+      - "villkor för uppsägning"
+      - "svarsfrist"
+    negativa_filter: []
+    föreslaget_block: "PROCESS"
+    indikation: "INDIKATIV_ENDAST"
+
+  - kod: "JB_12_57"
+    lagrum: "12 kap. 57 § JB"
+    beskrivning: "Skadestånd vid uppsägning / indirekt besittningsskydd"
+    mönster:
+      - "12 kap. 57"
+      - "JB 12:57"
+      - "indirekt besittningsskydd"
+      - "skadestånd hyra"
+    negativa_filter: []
+    föreslaget_block: "ERSATTNING"
+    indikation: "INDIKATIV_ENDAST"
+
+  - kod: "JB_12_42"
+    lagrum: "12 kap. 42 § JB"
+    beskrivning: "Förverkande"
+    mönster:
+      - "förverkande"
+      - "12 kap. 42"
+      - "JB 12:42"
+    negativa_filter: []
+    föreslaget_block: "REKVISIT"
+    indikation: "INDIKATIV_ENDAST"
+
+  - kod: "RB_13_3"
+    lagrum: "13 kap. 3 § RB"
+    beskrivning: "Taleändring"
+    mönster:
+      - "taleändring"
+      - "13 kap. 3"
+      - "RB 13:3"
+      - "ny grund"
+    negativa_filter: []
+    föreslaget_block: "PROCESS"
+    indikation: "INDIKATIV_ENDAST"
+
+  - kod: "RB_36_6"
+    lagrum: "36 kap. 6 § RB"
+    beskrivning: "Edition / företagshemlighet"
+    mönster:
+      - "edition"
+      - "36 kap. 6"
+      - "RB 36:6"
+      - "företagshemlighet"
+      - "SIE4"
+    negativa_filter: []
+    föreslaget_block: "PROCESS"
+    indikation: "INDIKATIV_ENDAST"
+
+  - kod: "RB_35_5"
+    lagrum: "35 kap. 5 § RB"
+    beskrivning: "Bevisvärdering skön / skadeståndsbelopp"
+    mönster:
+      - "35 kap. 5"
+      - "RB 35:5"
+      - "skälig uppskattning"
+    negativa_filter: []
+    föreslaget_block: "BEVIS"
+    indikation: "INDIKATIV_ENDAST"
+
+  - kod: "NJA_2001_878"
+    lagrum: "NJA 2001 s. 878"
+    beskrivning: "Proportionalitet edition"
+    mönster:
+      - "NJA 2001 s. 878"
+      - "proportionalitet edition"
+    negativa_filter: []
+    föreslaget_block: "PRAXIS"
+    indikation: "INDIKATIV_ENDAST"
+
+  - kod: "NJA_2014_377"
+    lagrum: "NJA 2014 s. 377"
+    beskrivning: "Företagshemligheter / edition"
+    mönster:
+      - "NJA 2014 s. 377"
+    negativa_filter: []
+    föreslaget_block: "PRAXIS"
+    indikation: "INDIKATIV_ENDAST"

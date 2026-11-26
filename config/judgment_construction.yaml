@@ -1,0 +1,139 @@
+---
+# judgment_construction.yaml
+# SVENSK FORENSIC COURT AUDIT ENGINE v10.3
+# Konfiguration för MODE B: JUDGMENT_CONSTRUCTION
+
+version: "10.3"
+mode: "JUDGMENT_CONSTRUCTION"
+mode_kod: "MODE_B"
+hs01_variant: "HS01C"
+
+# ── SYFTE ───────────────────────────────────────────────────────────────────
+purpose: >
+  Konstruktion av domsutkast utifrån komplett processmaterial
+  när ingen tidigare dom finns. Framtida domen är OUTPUT.
+  En frånvarande tidigare dom utlöser ALDRIG HS01C.
+  Endast otillräckligt processmaterial utlöser HS01C.
+
+# ── ABSOLUT REGEL ───────────────────────────────────────────────────────────
+absolute_rule: >
+  En frånvarande tidigare dom får ALDRIG utlösa HS01A när MODE = JUDGMENT_CONSTRUCTION.
+  Systemet får ALDRIG försöka hitta en tidigare dom som förutsättning
+  när användaren uttryckligen begär konstruktion.
+
+# ── TRIGGER-EXEMPEL ─────────────────────────────────────────────────────────
+trigger_examples:
+  - "utifrån akten, ta fram ett domsutkast"
+  - "producera dom"
+  - "konstruera domskäl och domslut utifrån materialet"
+  - "skapa beslutsunderlag för dom"
+  - "bygg domsutkast"
+  - "skriv ett domsutkast baserat på akten"
+
+# ── CENTRAL INPUT ───────────────────────────────────────────────────────────
+central_input:
+  required_elements:
+    - "domstol, mål, parter"
+    - "uttryckliga yrkanden och grunder"
+    - "uttryckliga invändningar / bestridanden / medgivanden"
+    - "processuell ram"
+    - "relevanta faktiska omständigheter"
+    - "bevisning"
+    - "rättsliga frågor"
+  not_required: "Tidigare dom"
+  hs01C_trigger: "Underlaget är otillräckligt för att fastställa nödvändiga element"
+
+# ── AKTIVA LAGER ────────────────────────────────────────────────────────────
+active_layers:
+  always_active: [L0, L1, L2, L4, L5, L6, L7, L8, L8_5, L12, L13, L14, L15, L16]
+  conditional:
+    L9: "CONSTRUCTION_MATRIX – konstruerar domskälskedja"
+    L10: "OUTPUT ENGINE – producerar domsutkast"
+    L11: "konsekvensanalys av konstruerade domskäl"
+    L2b: "om ljudmaterial finns"
+    L3: "om ljudmaterial finns"
+  blocked_by_HS01C:
+    - "Domslut-sektion"
+    - "Fullständig CONSTRUCTION_MATRIX"
+
+# ── L9 DOMSKÄLSMATRIS – CONSTRUCTION-LÄGE ───────────────────────────────────
+L9_construction_mode:
+  uppgift: "Konstruera DOMSKÄLSMATRIS från processmaterialet"
+  ordning_per_rättsfråga:
+    - RÄTTSFRÅGA
+    - RÄTTSREGEL
+    - REKVISIT
+    - RÄTTSFAKTA
+    - BEVISNING
+    - BEVISKRAV
+    - BEVISBEDÖMNING
+    - SUBSUMTION
+    - SLUTSATS
+  conclusion_first_forbidden: true
+  saknad_länk_blockerar: true
+  hs11_vid_saknad_länk: true
+
+# ── DOMSUTKAST STRUKTUR ─────────────────────────────────────────────────────
+judgment_draft_structure:
+  - DOM
+  - DOMSTOL
+  - MÅLNUMMER
+  - DATUM
+  - PARTER
+  - "YRKANDEN OCH INSTÄLLNING (endast EXPLICIT_*)"
+  - "SAKFRAMSTÄLLNING (endast verifierat)"
+  - UTREDNINGEN
+  - "DOMSKÄL (resultat av L8 + L8.5 + L9 CONSTRUCTION)"
+  - "DOMSLUT (endast efter passerad subsumtionsgate)"
+
+# ── SUBSUMTIONSGATE ─────────────────────────────────────────────────────────
+subsumption_gate:
+  krav_för_domslut:
+    - "Alla MUST-rekvisit har verifierat rättsfaktum"
+    - "Beviskedjan är komplett eller luckor är explicit markerade"
+    - "Ingen förbjuden inferens"
+  vid_saknad_länk: "HS11"
+  domslut_aldrig_utan_passerad_gate: true
+
+# ── OUTPUT MODES ────────────────────────────────────────────────────────────
+output_modes:
+  - PROCESSHANDLING
+  - DOMSUTKAST
+  - BESLUTSUTKAST
+  - GRANSKNINGSRAPPORT
+
+# ── PROCESS POSITION MODEL ──────────────────────────────────────────────────
+process_position_model:
+  tillåtna_klasser:
+    - EXPLICIT_YRKANDE
+    - EXPLICIT_GRUND
+    - EXPLICIT_INVÄNDNING
+    - EXPLICIT_MEDGIVANDE
+    - EXPLICIT_BESTRIDANDE
+    - SAKOMSTÄNDIGHET
+    - BEVISFAKTUM
+    - RÄTTSFAKTUM
+    - BEVISNING
+  infererade_yrkanden_förbjudna: true
+  hs09_vid_brott: true
+
+# ── P18 SYMMETRIREGELN ──────────────────────────────────────────────────────
+p18_symmetry:
+  domskäl_redovisar_båda: true
+  stärkande_omständigheter: "Kategori-A, verifierade, Gatekeeper-godkända"
+  friande_omständigheter: "Identifierade av Audit-A + Agent-C"
+  saknas_friande: "symmetry_verified = false → varning i rapport"
+
+# ── PROVISORISKT MANDAT ─────────────────────────────────────────────────────
+provisional_mandate:
+  ai_saknar_dömande_mandat: true
+  alltid_provisoriskt_utkast: true
+  domstolen_avgör_självständigt: true
+  mandate_warning_alltid_synlig: true
+  aldrig_verkställbart_avgörande: true
+
+# ── PARTIELL KÖRNING VID HS01C ───────────────────────────────────────────────
+partial_execution_HS01C:
+  blockerade: ["Domslut-sektion", "Fullständig CONSTRUCTION_MATRIX"]
+  aktiva: "L9 CONSTRUCTION_MATRIX kan köras partiellt om tillräckligt material finns"
+  kompletteringsbegäran: true

@@ -1,0 +1,42 @@
+# Kreditupplysningskedja — konfigurerbar kodtabell
+meta:
+  domän: KREDITUPPLYSNING
+  version: "1.0"
+  källa: >
+    references/skills_registry/kreditupplysningskedja-analys/SKILL.md —
+    "Analyserar kedja av kreditupplysningar (D&B, UC) över tid och
+    kopplar förändringar i riskklass/score/PD till externa händelser."
+  not: >
+    INDIKATIV_ENDAST. SFCAE har ingen egen anslutning till UC/D&B och
+    hämtar aldrig kreditdata live — detta flaggar ENDAST att ett
+    dokument I MATERIALET nämner en kreditupplysning eller
+    scoreförändring, för vidare manuell granskning. Kopplar inte
+    självständigt någon förändring till en händelse — det kräver
+    jämförelse mot en faktisk tidslinje som juristen gör.
+
+koder:
+  - kod: "KREDIT-UPPLYSNING"
+    lagrum: "Kreditupplysningslagen (1973:1173)"
+    beskrivning: "Kreditupplysning från UC eller D&B omnämns"
+    mönster: ["UC", "D&B", "kreditupplysning", "kreditvärdighet"]
+    negativa_filter: []
+    föreslaget_block: "KREDIT_UPPLYSNING"
+    indikation: "KREDITUPPLYSNING_I_MATERIALET"
+
+  - kod: "KREDIT-FORSAMRING"
+    lagrum: "Kreditupplysningslagen (1973:1173)"
+    beskrivning: "Försämrad riskklass/score/PD omnämns"
+    mönster: ["riskklass försämrad", "score försämring", "sänkt kreditvärdighet",
+               "nedgraderad kreditvärdighet"]
+    negativa_filter: []
+    föreslaget_block: "KREDIT_FORSAMRING"
+    indikation: "KREDITFORSAMRING_PASTAS"
+
+  - kod: "KREDIT-RATTELSE"
+    lagrum: "Kreditupplysningslagen 20 §, GDPR art. 16"
+    beskrivning: "Begäran om rättelse av kreditupplysning"
+    mönster: ["rättelse kreditupplysning", "felaktig kreditupplysning",
+               "begär rättelse av kreditvärdering"]
+    negativa_filter: []
+    föreslaget_block: "KREDIT_RATTELSE"
+    indikation: "KREDITRATTELSE_BEGARD"

@@ -1,0 +1,58 @@
+# Ekonomisk dokumentgranskning — konfigurerbar kodtabell
+meta:
+  domän: EKONOMI_FORENSIK
+  version: "1.0"
+  källa: >
+    references/skills_registry/ekonomi-forensik/SKILL.md — "granskning av
+    ekonomisk dokumentation: fakturor, avtal, kvitton, kontoutdrag,
+    betalningshistorik, skulder, fordringar."
+  not: >
+    INDIKATIV_ENDAST. Scanner flaggar att en handling BERÖR ett
+    ekonomiskt tema och vilket. Den extraherar inte belopp, jämför inte
+    siffror mellan dokument och upptäcker inte faktiska diskrepanser
+    eller dubbelbetalningar — det kräver numerisk dataextraktion som
+    inte finns i den här kodtabellen. Se runtime/skuldkedja_scanner.py
+    för den delmängd (OCR-nummer/skuldeskalering) som redan har sådan
+    extraktion.
+
+koder:
+  - kod: "EKONOMI-FAKTURA"
+    lagrum: "Bokföringslagen; SkbrL (analogt)"
+    beskrivning: "Faktura eller betalningskrav"
+    mönster: ["faktura", "betalningskrav", "förfallodatum", "fakturanummer"]
+    negativa_filter: []
+    föreslaget_block: "EKONOMI_FAKTURA"
+    indikation: "EKONOMI_FAKTURA_FORELIGGER"
+
+  - kod: "EKONOMI-AVTAL"
+    lagrum: "AvtL"
+    beskrivning: "Ekonomiskt avtal (köp, kredit, hyra av kapital)"
+    mönster: ["avtal om", "kreditavtal", "amorteringsplan", "återbetalningsvillkor"]
+    negativa_filter: []
+    föreslaget_block: "EKONOMI_AVTAL"
+    indikation: "EKONOMI_AVTAL_FORELIGGER"
+
+  - kod: "EKONOMI-KONTOUTDRAG"
+    lagrum: "Bokföringslagen (analogt, underlag)"
+    beskrivning: "Kontoutdrag eller transaktionshistorik"
+    mönster: ["kontoutdrag", "transaktionshistorik", "banköverföring", "kontotransaktion"]
+    negativa_filter: []
+    föreslaget_block: "EKONOMI_KONTOUTDRAG"
+    indikation: "EKONOMI_KONTOUTDRAG_FORELIGGER"
+
+  - kod: "EKONOMI-SKULD-FORDRAN"
+    lagrum: "PreskL; SkbrL"
+    beskrivning: "Skuld eller fordran omnämns explicit"
+    mönster: ["skuld om", "fordran på", "obetald", "restskuld", "kvarstående belopp"]
+    negativa_filter: ["skulden är reglerad", "fordran är betald i sin helhet"]
+    föreslaget_block: "EKONOMI_SKULD_FORDRAN"
+    indikation: "EKONOMI_SKULD_ELLER_FORDRAN"
+
+  - kod: "EKONOMI-MISSTANKT"
+    lagrum: "BrB 9 kap. (bedrägeri, analogt — endast indikation)"
+    beskrivning: "Formulering som antyder misstänkt eller dubbel transaktion"
+    mönster: ["dubbelbetalning", "betalt två gånger", "misstänkt transaktion",
+               "obekräftad betalning", "avvikande belopp"]
+    negativa_filter: []
+    föreslaget_block: "EKONOMI_MISSTANKT"
+    indikation: "EKONOMI_MOJLIG_DISKREPANS_PASTAS"

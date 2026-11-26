@@ -1,0 +1,29 @@
+# config/advocacy_config.yaml
+meta:
+  version: "1.0"
+  not: >
+    Advokatlagret är ett konsumentlager.
+    CaseState ändras aldrig.
+    All output är PROVISORISK.
+
+perspektiv:
+  - KLAGANDE
+  - SVARANDE
+
+handlingstyper:
+  - ÖVERKLAGANDE
+  - YTTRANDE
+  - KRAVBREV
+  - FÖRSVARSSKRIFT
+
+output_spärr:
+  blockeras_vid: ["HS09", "HS09B", "HS11", "HS15"]
+  not: "Overifierat underlag spärrar textproduktion — inte exekvering"
+
+kedje_abort:
+  blockeras_vid: ["HS01A", "HS06", "HS_CANONICAL_MISSING", "HS_CANONICAL_ERROR"]
+  not: "Ingen advokatoutput möjlig vid kedje-abort"
+
+provisorisk_märkning: true
+gap_list_bevaras: true
+jurist_godkänner: true

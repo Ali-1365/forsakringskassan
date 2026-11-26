@@ -1,0 +1,626 @@
+# Kanoniskt ärenderegister — SFCAE
+# Primär källa för ärenderegistrering.
+# session_context.py läser detta som fallback när ingen runtime-JSON finns.
+#
+# Klassificering per post:
+#   AKTIVERAD      — verifierad runtime-aktivering (kräver bevis)
+#   REGISTRERAD    — känt i systemet, resurser saknas delvis eller källfiler ej tillgängliga
+#   HISTORISK      — verifierat avslutat ärende
+#   BLOCKERAD      — identifierat blockerande hinder
+#   EJ_VERIFIERAT  — otillräckligt underlag för statusklassning
+#
+# Ägandeskap: SYSTEM_RESOURCE / CASE_METADATA (ej privat sakhandling)
+# Privat källmaterial lagras INTE i detta register.
+# Ärendespecifika resurser länkas via extra.case_resources (runtime).
+#
+# version: 1.0
+
+meta:
+  version: "1.0"
+  not: >
+    Detta register innehåller enbart metadata — inga personuppgifter,
+    inga sakhandlingar, inget bevisningsmaterial. Privat källmaterial
+    hanteras som runtime-resurser utanför Git.
+
+ärenden:
+
+  # ── Befintliga registrerade ärenden (källa: session_index.yaml) ──────────
+
+  - canonical_id: "KR-1878-26"
+    original_id: "KR-1878-26"
+    aliases: []
+    status: "REGISTRERAD"
+    domän: "SOL_LVU"
+    forum: "KAMMARRÄTTEN_I_SUNDSVALL"
+    processordning: "FPL"
+    instans: "KR"
+    verification_status: "METADATA_VERIFIED"
+    evidence: "session_index.yaml"
+    resource_policy: "DOMAIN_RESOURCES_ONLY"
+    source_availability: "UNKNOWN"
+
+  - canonical_id: "14-271476-25"
+    original_id: "14-271476-25"
+    aliases: []
+    status: "REGISTRERAD"
+    domän: "KL_KONKURS"
+    forum: "KFM"
+    processordning: "KL"
+    instans: "KFM"
+    verification_status: "METADATA_VERIFIED"
+    evidence: "session_index.yaml"
+    resource_policy: "DOMAIN_RESOURCES_ONLY"
+    source_availability: "UNKNOWN"
+
+  - canonical_id: "305-26"
+    original_id: "305-26"
+    aliases: []
+    status: "REGISTRERAD"
+    domän: "SOL_LVU"
+    forum: "FÖRVALTNINGSRÄTTEN_I_FALUN"
+    processordning: "FPL"
+    instans: "FR"
+    verification_status: "METADATA_VERIFIED"
+    evidence: "session_index.yaml"
+    resource_policy: "DOMAIN_RESOURCES_ONLY"
+    source_availability: "UNKNOWN"
+    not: >
+      SOL_LVU biståndsärende Förvaltningsrätten Falun.
+      Generell metodologiresurs: references/advocacy-templates/fl_inlaga_metodologi.md.
+      Privat källmaterial hanteras utanför Git.
+
+  - canonical_id: "330-26"
+    original_id: "330-26"
+    aliases: []
+    status: "REGISTRERAD"
+    domän: "SOL_LVU"
+    forum: "FÖRVALTNINGSRÄTTEN_I_FALUN"
+    processordning: "FPL"
+    instans: "FR"
+    verification_status: "METADATA_VERIFIED"
+    evidence: "session_index.yaml"
+    resource_policy: "DOMAIN_RESOURCES_ONLY"
+    source_availability: "UNKNOWN"
+
+  - canonical_id: "ALJ23P"
+    original_id: "ALJ23P"
+    aliases: []
+    status: "REGISTRERAD"
+    domän: "RB_TVIST"
+    forum: "FALUNS_TINGSRÄTT"
+    processordning: "RB"
+    instans: "TR"
+    verification_status: "METADATA_VERIFIED"
+    evidence: "session_index.yaml"
+    resource_policy: "DOMAIN_RESOURCES_ONLY"
+    source_availability: "UNKNOWN"
+
+  - canonical_id: "797-26"
+    original_id: "797-26"
+    aliases: []
+    status: "REGISTRERAD"
+    domän: "SOL_LVU"
+    forum: "FÖRVALTNINGSRÄTTEN_I_FALUN"
+    processordning: "FPL"
+    instans: "FR"
+    verification_status: "METADATA_VERIFIED"
+    evidence: "session_index.yaml"
+    resource_policy: "DOMAIN_RESOURCES_ONLY"
+    source_availability: "UNKNOWN"
+
+  - canonical_id: "1724-25"
+    original_id: "1724-25"
+    aliases: []
+    status: "REGISTRERAD"
+    domän: "FK_SFB"
+    forum: "FÖRVALTNINGSRÄTTEN"
+    processordning: "FPL"
+    instans: "FR"
+    verification_status: "METADATA_VERIFIED"
+    evidence: "session_index.yaml"
+    resource_policy: "DOMAIN_RESOURCES_ONLY"
+    source_availability: "UNKNOWN"
+
+  - canonical_id: "T-14150-25"
+    original_id: "T-14150-25"
+    aliases: ["T14150-25"]
+    status: "REGISTRERAD"
+    domän: "RB_TVIST"
+    forum: "SVEA_HOVRÄTT"
+    processordning: "RB"
+    instans: "HVR"
+    verification_status: "METADATA_VERIFIED"
+    evidence: "session_index.yaml"
+    resource_policy: "DOMAIN_RESOURCES_ONLY"
+    source_availability: "UNKNOWN"
+
+  - canonical_id: "1561-25"
+    original_id: "1561-25"
+    aliases: []
+    status: "REGISTRERAD"
+    domän: "FK_SFB"
+    forum: "FÖRVALTNINGSRÄTTEN"
+    processordning: "FPL"
+    instans: "FR"
+    verification_status: "METADATA_VERIFIED"
+    evidence: "session_index.yaml"
+    resource_policy: "DOMAIN_RESOURCES_ONLY"
+    source_availability: "UNKNOWN"
+
+  - canonical_id: "1884-25"
+    original_id: "1884-25"
+    aliases: []
+    status: "REGISTRERAD"
+    domän: "FK_SFB"
+    forum: "FÖRVALTNINGSRÄTTEN"
+    processordning: "FPL"
+    instans: "FR"
+    verification_status: "METADATA_VERIFIED"
+    evidence: "session_index.yaml"
+    resource_policy: "DOMAIN_RESOURCES_ONLY"
+    source_availability: "UNKNOWN"
+
+  - canonical_id: "T-736-26"
+    original_id: "T-736-26"
+    aliases: ["T736-26"]
+    status: "REGISTRERAD"
+    domän: "RB_TVIST"
+    forum: "FALUNS_TINGSRÄTT"
+    processordning: "RB"
+    instans: "TR"
+    verification_status: "METADATA_VERIFIED"
+    evidence: "session_index.yaml"
+    resource_policy: "DOMAIN_RESOURCES_ONLY"
+    source_availability: "UNKNOWN"
+
+  # ── T-3098-23: verifierad närvaro i repositoryt ──────────────────────────
+
+  - canonical_id: "T-3098-23"
+    original_id: "T-3098-23"
+    aliases: ["T3098-23", "T 3098-23"]
+    status: "REGISTRERAD"
+    domän: "JB_HYRESRATT"
+    forum: "FALUNS_TINGSRÄTT"
+    processordning: "RB"
+    instans: "TR"
+    verification_status: "REPO_PRESENCE_VERIFIED"
+    evidence:
+      - "config/policy_monitor_case_snapshot_t3098_23.yaml"
+      - "references/t3098_23/fall_konfiguration.yaml"
+      - "references/t3098_23/projekt_config.yaml"
+      - "references/knowledge/other/t3098-23-hyresratt-protokoll.md"
+    resource_policy: "CASE_SPECIFIC_DIR"
+    case_dir: "references/t3098_23"
+    source_availability: "PARTIAL_IN_REPO"
+    not: >
+      Har dedikerat case-katalog i references/t3098_23/.
+      Innehåller ingen privat sakhandling utan systemarkitektur
+      och processkonfiguration.
+
+  # ── Identifierare från OneDrive-inventering: EJ VERIFIERAT ───────────────
+  # Dessa förekommer i OneDrive-materialet men saknar tillräckligt underlag
+  # i detta repository för statusklassning.
+  #
+  # IDENTIFIER_EXISTENCE_VERIFIED = JA för samtliga nedan.
+  # VERIFICATION_SOURCE: OWNER (ägarorder 2026-09-20).
+  # Identifierarverifiering: ÄGARVERIFIERAD — ägaren har bekräftat att dessa identifierare existerar.
+  # Metadata (domän, forum, instans, processordning) verifieras separat per fält.
+  # Fält som saknar verifierbart underlag behåller värdet UNKNOWN.
+  # Status ÄGARVERIFIERAD ≠ EJ_VERIFIERAT: identifieraren är aktiv och registrerad,
+  # men sakmetadata kan vara delvis eller helt UNKNOWN tills extern källa verifierar.
+
+  - canonical_id: "2790-26"
+    original_id: "2790-26"
+    aliases: []
+    status: "ÄGARVERIFIERAD"
+    domän: "LSB_SKYDDAT"
+    forum: "FÖRVALTNINGSRÄTTEN_I_FALUN"
+    processordning: "FPL"
+    instans: "FR"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    source_detail: >
+      Falun FR 2790-26 Aktbil 29.pdf och Aktbil 29 (1).pdf (OneDrive) —
+      handlingen anger "Målet gäller: placering av barn i skyddat boende"
+      samt nämndens beslut med stöd av 3 kap. 1 och 3 §§ lagen om placering
+      av barn i skyddat boende (LBB). Forum och domän verifierade.
+    evidence: "OneDrive-inventering (källa ej reproducerbar i repo)"
+    resource_policy: "NONE"
+    source_availability: "EXTERNAL_IDENTIFIED"
+    not: >
+      Forum (Förvaltningsrätten i Falun) och domän (LSB_SKYDDAT) verifierade
+      via ägaridentifierade OneDrive-handlingar (Aktbil 29, Aktbil 29(1)).
+      Processordning FPL: config/court_profiles.yaml — förvaltningsrätten:
+      processlag: "FPL (SFS 1971:291)".
+
+  - canonical_id: "2792-26"
+    original_id: "2792-26"
+    aliases: []
+    status: "ÄGARVERIFIERAD"
+    domän: "SOL_BISTND"
+    forum: "FÖRVALTNINGSRÄTTEN_I_FALUN"
+    processordning: "FPL"
+    instans: "FR"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    source_detail: >
+      Falun FR 2792-26 Aktbil 7_Yttrande.pdf (OneDrive) —
+      anger uttryckligen "Mål nr 2792-26", Förvaltningsrätten i Falun,
+      "socialtjänstlagen - bistånd".
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "EXTERNAL_IDENTIFIED"
+    not: >
+      Forum, instans och domän (SoL bistånd) verifierade via ägaridentifierat
+      OneDrive-dokument. Processordning FPL: config/court_profiles.yaml —
+      SOL_BISTÅND: processlag: "FPL + SoL"; förvaltningsrätten:
+      processlag: "FPL (SFS 1971:291)".
+
+  - canonical_id: "2793-26"
+    original_id: "2793-26"
+    aliases: []
+    status: "ÄGARVERIFIERAD"
+    domän: "SOL_BISTND"
+    forum: "FÖRVALTNINGSRÄTTEN_I_FALUN"
+    processordning: "FPL"
+    instans: "FR"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    source_detail: >
+      Falun FR 2793-26 Aktbil 9_Yttrande.pdf (OneDrive) —
+      anger mål 2793-26, Förvaltningsrätten i Falun,
+      "socialtjänstlagen - bistånd".
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "EXTERNAL_IDENTIFIED"
+    not: >
+      Forum, instans och domän (SoL bistånd) verifierade via ägaridentifierat
+      OneDrive-dokument. Processordning FPL: config/court_profiles.yaml —
+      SOL_BISTÅND: processlag: "FPL + SoL"; förvaltningsrätten:
+      processlag: "FPL (SFS 1971:291)".
+
+  - canonical_id: "2794-26"
+    original_id: "2794-26"
+    aliases: []
+    status: "ÄGARVERIFIERAD"
+    domän: "UNKNOWN"
+    forum: "FÖRVALTNINGSRÄTTEN_I_FALUN"
+    processordning: "FPL"
+    instans: "FR"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    source_detail: >
+      Svar_Registrator_FR_Falun_030826.docx (Microsoft 365/OneDrive) —
+      anger uttryckligen att 2792-26, 2793-26 och 2794-26 är pågående mål
+      och att övriga överklaganden i brevet är separata från dessa.
+      Dokumentet anger inte vad 2794-26 gäller.
+    evidence: "OneDrive-inventering; Svar_Registrator_FR_Falun_030826.docx"
+    resource_policy: "NONE"
+    source_availability: "EXTERNAL_IDENTIFIED"
+    not: >
+      Forum (Förvaltningsrätten i Falun) och instans (FR) verifierade via
+      Svar_Registrator_FR_Falun_030826.docx. Domän UNKNOWN — källan anger
+      inte sakfrågan. Processordning FPL: config/court_profiles.yaml —
+      förvaltningsrätten: processlag: "FPL (SFS 1971:291)"; tillämpas
+      oavsett domän eftersom forum är verifierat.
+
+  - canonical_id: "64110"
+    original_id: "64110"
+    aliases: []
+    status: "ÄGARVERIFIERAD"
+    domän: "SOL_BISTND"
+    forum: "FÖRVALTNINGSRÄTTEN_I_FALUN"
+    processordning: "FPL"
+    instans: "FR"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    source_detail: >
+      Flera Word-dokument (OneDrive) —
+      anger ekonomiskt bistånd och att överklagandet ska vidarebefordras till
+      Förvaltningsrätten i Falun.
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "EXTERNAL_IDENTIFIED"
+    not: >
+      Forum, instans och domän (ekonomiskt bistånd, SoL) verifierade via
+      ägaridentifierade OneDrive-handlingar. Processordning FPL:
+      config/court_profiles.yaml — SOL_BISTÅND: processlag: "FPL + SoL";
+      förvaltningsrätten: processlag: "FPL (SFS 1971:291)".
+
+  - canonical_id: "T-4878-25"
+    original_id: "T-4878-25"
+    aliases: ["T4878-25"]
+    status: "ÄGARVERIFIERAD"
+    domän: "UNKNOWN"
+    forum: "UNKNOWN"
+    processordning: "UNKNOWN"
+    instans: "UNKNOWN"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "UNKNOWN"
+    not: >
+      Identifieraren verifierad av ägare. Ingen extern handling lokaliserad.
+      Samtliga metadatafält EJ_VERIFIERAT.
+
+  - canonical_id: "T-2694-24"
+    original_id: "T-2694-24"
+    aliases: ["T2694-24"]
+    status: "ÄGARVERIFIERAD"
+    domän: "UNKNOWN"
+    forum: "UNKNOWN"
+    processordning: "UNKNOWN"
+    instans: "UNKNOWN"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "UNKNOWN"
+    not: >
+      Identifieraren verifierad av ägare. Ingen extern handling lokaliserad.
+      Samtliga metadatafält EJ_VERIFIERAT.
+
+  - canonical_id: "14-316151-25"
+    original_id: "14-316151-25"
+    aliases: []
+    status: "ÄGARVERIFIERAD"
+    domän: "KFM_BF"
+    forum: "KFM"
+    processordning: "UNKNOWN"
+    instans: "KFM"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    source_detail: >
+      bilagerekommendation.csv (OneDrive): post "KFM-BF_14-316151-25..."
+      bekräftar KFM betalningsföreläggande. Ansökan_om_återvinning_av_utslag
+      01-248855-26 (TFF)_2026-06-05.docx anger "Målnummer: 14-316151-25"
+      och kopplar identifieraren till KFM-utslaget 01-248855-26.
+    related_ids:
+      - "01-248855-26"
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "EXTERNAL_IDENTIFIED"
+    not: >
+      Forum (KFM), instans och domän (KFM_BF) verifierade via CSV-posten
+      "KFM-BF_14-316151-25" i bilagerekommendation.csv.
+      KFM_BF är ny kanonisk domänkod för KFM betalningsföreläggande.
+
+  - canonical_id: "01-248855-26"
+    original_id: "01-248855-26"
+    aliases: []
+    status: "ÄGARVERIFIERAD"
+    domän: "KFM_BF"
+    forum: "KFM"
+    processordning: "UNKNOWN"
+    instans: "KFM"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    source_detail: >
+      Ansökan_om_återvinning_av_utslag01-248855-26 (TFF)_2026-06-05.docx
+      (OneDrive) — anger uttryckligen "Utslagets nummer: 01-248855-26"
+      och "Målnummer: 14-316151-25". Identifieraren är KFM:s utslagnummer
+      i betalningsföreläggande-ärendet, skilt från TR:s återvinningsärende.
+    related_ids:
+      - "14-316151-25"
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "EXTERNAL_IDENTIFIED"
+    not: >
+      Forum (KFM), instans och domän (KFM_BF) verifierade — identifieraren
+      är KFM:s utslagnummer (ej TR-mål). KFM_BF är ny kanonisk domänkod
+      för KFM betalningsföreläggande/utslag.
+
+  - canonical_id: "199105240262-1"
+    original_id: "199105240262-1"
+    aliases: ["199105240262-2", "199105240262-3", "199105240262-4", "199105240262-5"]
+    status: "ÄGARVERIFIERAD"
+    domän: "KFM_VE"
+    forum: "KFM"
+    processordning: "UB"
+    instans: "KFM"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    source_detail: >
+      Bestridande-Av-Verkstallighet-Shaghayegh_KFM_2026-07-01.docx (OneDrive)
+      — anger identifieraren som målnummer hos Kronofogdemyndigheten.
+      Dokumentets titel ("Bestridande av verkställighet") bekräftar KFM-verkställighet.
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "EXTERNAL_IDENTIFIED"
+    not: >
+      Forum (KFM), instans och domän (KFM_VE) verifierade via dokumenttitel
+      "Bestridande-Av-Verkstallighet...KFM". KFM_VE är ny kanonisk domänkod
+      för KFM-verkställighetsärenden. Processordning UB:
+      config/domain_activation_map.yaml — KFM_VE: "KFM verkställighet
+      (UB 1981:774)".
+
+  - canonical_id: "T-2718-24"
+    original_id: "T2718-24"
+    aliases: ["T-2718-24"]
+    status: "ÄGARVERIFIERAD"
+    domän: "UNKNOWN"
+    forum: "UNKNOWN"
+    processordning: "UNKNOWN"
+    instans: "UNKNOWN"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "UNKNOWN"
+    not: >
+      Identifieraren verifierad av ägare. Ingen extern handling lokaliserad.
+      Samtliga metadatafält EJ_VERIFIERAT.
+
+  - canonical_id: "T-1268-25"
+    original_id: "T1268-25"
+    aliases: ["T-1268-25"]
+    status: "ÄGARVERIFIERAD"
+    domän: "UNKNOWN"
+    forum: "UNKNOWN"
+    processordning: "UNKNOWN"
+    instans: "UNKNOWN"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "UNKNOWN"
+    not: >
+      Identifieraren verifierad av ägare. Ingen extern handling lokaliserad.
+      Samtliga metadatafält EJ_VERIFIERAT.
+
+  - canonical_id: "PMFT-1986-24"
+    original_id: "PMFT 1986-24"
+    aliases: ["PMFT1986-24"]
+    status: "ÄGARVERIFIERAD"
+    domän: "UNKNOWN"
+    forum: "UNKNOWN"
+    processordning: "UNKNOWN"
+    instans: "UNKNOWN"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "UNKNOWN"
+    not: >
+      Identifieraren verifierad av ägare. Ingen extern handling lokaliserad.
+      Samtliga metadatafält EJ_VERIFIERAT.
+
+  - canonical_id: "PMFT-17123-24"
+    original_id: "PMFT 17123-24"
+    aliases: ["PMFT17123-24"]
+    status: "ÄGARVERIFIERAD"
+    domän: "UNKNOWN"
+    forum: "UNKNOWN"
+    processordning: "UNKNOWN"
+    instans: "UNKNOWN"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "UNKNOWN"
+    not: >
+      Identifieraren verifierad av ägare. Ingen extern handling lokaliserad.
+      Samtliga metadatafält EJ_VERIFIERAT.
+
+  - canonical_id: "T-1456-23"
+    original_id: "T1456-23"
+    aliases: ["T-1456-23"]
+    status: "ÄGARVERIFIERAD"
+    domän: "UNKNOWN"
+    forum: "UNKNOWN"
+    processordning: "UNKNOWN"
+    instans: "UNKNOWN"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "UNKNOWN"
+    not: >
+      Identifieraren verifierad av ägare. Ingen extern handling lokaliserad.
+      Samtliga metadatafält EJ_VERIFIERAT.
+
+  - canonical_id: "Ö-3584-25"
+    original_id: "Ö3584-25"
+    aliases: ["Ö-3584-25"]
+    status: "ÄGARVERIFIERAD"
+    domän: "UNKNOWN"
+    forum: "UNKNOWN"
+    processordning: "UNKNOWN"
+    instans: "UNKNOWN"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "UNKNOWN"
+    not: >
+      Identifieraren verifierad av ägare. Ingen extern handling lokaliserad.
+      Samtliga metadatafält EJ_VERIFIERAT.
+
+  - canonical_id: "Ö-4014-25"
+    original_id: "Ö4014-25"
+    aliases: ["Ö-4014-25"]
+    status: "ÄGARVERIFIERAD"
+    domän: "UNKNOWN"
+    forum: "UNKNOWN"
+    processordning: "UNKNOWN"
+    instans: "UNKNOWN"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "UNKNOWN"
+    not: >
+      Identifieraren verifierad av ägare. Ingen extern handling lokaliserad.
+      Samtliga metadatafält EJ_VERIFIERAT.
+
+  - canonical_id: "Ö-2152-25"
+    original_id: "Ö2152-25"
+    aliases: ["Ö-2152-25"]
+    status: "ÄGARVERIFIERAD"
+    domän: "UNKNOWN"
+    forum: "UNKNOWN"
+    processordning: "UNKNOWN"
+    instans: "UNKNOWN"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "UNKNOWN"
+    not: >
+      Identifieraren verifierad av ägare. Ingen extern handling lokaliserad.
+      Samtliga metadatafält EJ_VERIFIERAT.
+
+  - canonical_id: "Ö-12588-24"
+    original_id: "Ö12588-24"
+    aliases: ["Ö-12588-24"]
+    status: "ÄGARVERIFIERAD"
+    domän: "UNKNOWN"
+    forum: "UNKNOWN"
+    processordning: "UNKNOWN"
+    instans: "UNKNOWN"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "UNKNOWN"
+    not: >
+      Identifieraren verifierad av ägare. Ingen extern handling lokaliserad.
+      Samtliga metadatafält EJ_VERIFIERAT.
+
+  - canonical_id: "Ö-4257-25"
+    original_id: "Ö4257-25"
+    aliases: ["Ö-4257-25"]
+    status: "ÄGARVERIFIERAD"
+    domän: "UNKNOWN"
+    forum: "UNKNOWN"
+    processordning: "UNKNOWN"
+    instans: "UNKNOWN"
+    verification_status: "IDENTIFIER_VERIFIED"
+    identifier_existence_verified: true
+    verification_source: "OWNER"
+    evidence: "OneDrive-inventering"
+    resource_policy: "NONE"
+    source_availability: "UNKNOWN"
+    not: >
+      Identifieraren verifierad av ägare. Ingen extern handling lokaliserad.
+      Samtliga metadatafält EJ_VERIFIERAT.

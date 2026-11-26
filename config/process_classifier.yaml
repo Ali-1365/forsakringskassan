@@ -1,0 +1,142 @@
+---
+# process_classifier.yaml
+# SVENSK FORENSIC COURT AUDIT ENGINE v10.3
+# Dynamisk processklassificering – identifierar domstolsslag, instans och processlag
+
+version: "10.3"
+
+# ── KLASSIFICERINGSLOGIK ────────────────────────────────────────────────────
+classification_logic:
+  source: "aktmaterialet"           # Aldrig hårdkodad – alltid från källmaterialet
+  layer: "L1"
+  fallback_on_ambiguity: "HS15"     # FORUM_CONFLICT
+
+# ── DOMSTOLSSLAG ────────────────────────────────────────────────────────────
+court_types:
+
+  ADMINISTRATIVE_COURT:
+    domstolar: [förvaltningsrätten, kammarrätten, HFD]
+    processlag: "FPL (SFS 1971:291)"
+    officialprincip: "8 § FPL"
+    beviskrav: "varierar med sakens beskaffenhet (HFD-praxis)"
+    prövningstillstånd:
+      kammarrätten: "34a § FPL"
+      HFD: "36 § FPL"
+    aktiverar_moduler:
+      - SOCIALFÖRSÄKRING_FK_SFB
+      - SOCIALTJÄNST
+      - PATIENTSKADA_SKADESTÅND
+
+  CIVIL_COURT:
+    domstolar: [tingsrätten, hovrätten, HD]
+    processlag: "RB (SFS 1942:740)"
+    beviskrav_tvistemål: "styrkt / sannolikhetsövervikt (RB 35:1)"
+    beviskrav_brottmål: "bortom rimligt tvivel"
+    bevisprövning: "fri (RB 35:1)"
+    prövningstillstånd:
+      hovrätten: "49 kap. 12 § RB"
+      HD: "54 kap. 10 § RB"
+    aktiverar_moduler:
+      - DISPOSITIVT_TVISTEMÅL
+      - PATIENTSKADA_SKADESTÅND
+    # Tingsrätten/hovrätten/HD handlägger BÅDE tvistemål och brottmål —
+    # domstolsnamnet kan aldrig ensamt skilja dem åt. Vid lika poäng
+    # avgör den processuella vokabulären (se kör_processklassificering).
+    särskiljande_ord: [kärande, svarande, tvistemål, tvisteföremål]
+
+  CRIMINAL_COURT:
+    domstolar: [tingsrätten, hovrätten, HD]
+    processlag: "RB (SFS 1942:740)"
+    beviskrav: "bortom rimligt tvivel"
+    in_dubio_pro_reo: true
+    lex_mitior: "BrB 5 §"
+    kritisk_tidsfrist_beslag: "RB 27:7 – ex lege"
+    aktiverar_moduler: []
+    särskiljande_ord: [åklagaren, misstänkte, misstänkt, målsägande, tilltalade, åtal, brottmål]
+
+# ── SPECIALPROCESSER ────────────────────────────────────────────────────────
+special_processes:
+
+  migrationsdomstolen:
+    processlag: "FPL + UtlL (SFS 2005:716)"
+    prövningstillstånd: "16 kap. 11 § UtlL"
+
+  mark_och_miljödomstolen:
+    processlag: "FPL + MB (SFS 1998:808)"
+
+  arbetsdomstolen:
+    processlag: "LRA (SFS 1974:371)"
+
+  hyresnämnden:
+    processlag: "HyresL (SFS 1970:994)"
+
+  kommunal_laglighetsprövning:
+    processlag: "KL 13 kap. (SFS 2017:725)"
+    prövningsram: "laglighet, inte lämplighet"
+    klagorätt: "kommunmedlem"
+
+# ── MÅLTYPER ────────────────────────────────────────────────────────────────
+case_types:
+
+  socialförsäkring:
+    lag: "SFB (SFS 2010:110)"
+    domstol: "förvaltningsrätten → kammarrätten → HFD"
+    processlag: "FPL"
+    beviskrav: "varierar per förmån"
+    referensfil: "references/socialforsakring-modul.md"
+
+  socialtjänst_SoL:
+    lag: "SoL (SFS 2001:453)"
+    domstol: "förvaltningsrätten"
+    processlag: "FPL"
+    referensfil: "references/socialtjanst-kunskapsbas.md"
+
+  LVU:
+    lag: "LVU (SFS 1990:52)"
+    domstol: "förvaltningsrätten"
+    beviskrav: "styrkt (HFD 2015 ref. 42)"
+    referensfil: "references/socialtjanst-kunskapsbas.md"
+
+  LVM:
+    lag: "LVM (SFS 1988:870)"
+    domstol: "förvaltningsrätten"
+    referensfil: "references/socialtjanst-kunskapsbas.md"
+
+  LSS:
+    lag: "LSS (SFS 1993:387)"
+    domstol: "förvaltningsrätten → kammarrätten → HFD"
+    referensfil: "references/socialtjanst-kunskapsbas.md"
+
+  skattemål:
+    lag: "SFL (SFS 2011:1244) + IL (SFS 1999:1229)"
+    domstol: "förvaltningsrätten → kammarrätten → HFD"
+    skattetillägg_beviskrav: "klar och övertygande bevisning (HFD)"
+
+  dispositivt_tvistemål:
+    lag: "RB (SFS 1942:740)"
+    domstol: "tingsrätten → hovrätten → HD"
+    referensfil: "references/tvistemaal-forensisk.md"
+
+  patientskada:
+    lag: "Patientskadelagen (SFS 1996:799)"
+    domstol: "tingsrätten → hovrätten → HD"
+    referensfil: "references/patientskada-skadestand.md"
+
+# ── FÖRVALTNINGSPRINCIPER ───────────────────────────────────────────────────
+administrative_principles:
+  proportionalitetsprincipen: "5 § tredje stycket FL (SFS 2017:900)"
+  officialprincip_FL: "23 § FL (SFS 2017:900)"
+  objektivitetsprincipen: "5 § andra stycket FL + 1 kap. 9 § RF"
+  legalitetsprincipen: "5 § första stycket FL + 1 kap. 1 § RF"
+
+# ── OUTPUT FORMAT ───────────────────────────────────────────────────────────
+output_format:
+  DOMSTOL: "[identifierat domstolsslag]"
+  INSTANS: "[tingsrätt | hovrätt | HD | FR | KR | HFD | etc.]"
+  PROCESSLAG: "[RB | FPL | speciallag]"
+  MÅLTYP: "[brottmål | tvistemål | förvaltningsmål | etc.]"
+  PRÖVNINGSTYP: "[överklagande | ansökan | laglighetsprövning | etc.]"
+  PRÖVNINGSTILLSTÅND: "[krävs | krävs ej | beviljat | ej beviljat]"
+  OFFICIALPRINCIP: "[aktiv | ej tillämplig]"
+  BEVISKRAV: "[hämtas dynamiskt i L6 per rättsfråga]"
+  MODE: "[JUDGMENT_AUDIT | JUDGMENT_CONSTRUCTION]"

@@ -1,0 +1,134 @@
+---
+# audio_forensics.yaml
+# SVENSK FORENSIC COURT AUDIT ENGINE v10.3
+# Konfiguration för Audio Forensics (L2b + L3)
+# Standard: ENFSI FSA-BPM-002 FIXED-2026 + ISO/IEC 27037:2012
+
+version: "10.3"
+standard_primary: "ENFSI FSA-BPM-002 FIXED-2026"
+standard_secondary: "ISO/IEC 27037:2012"
+standard_url: "enfsi.eu/wp-content/uploads/2026/01/FSA-BPM-002_Digital-Audio-Authenticity-Analysis-FIXED.pdf"
+
+# ── ABSOLUTA REGLER ─────────────────────────────────────────────────────────
+absolute_rules:
+  dom_aldrig_facit_för_ljud: true
+  ohörbart_bevaras_oförändrat: true
+  överlappande_tal_markeras: true
+  talaridentifiering_kräver_referensupptagning: true
+  inferens_om_troligen_sagt_förbjuden: true
+  parafras_förbjuden: true
+  meningskomplettering_förbjuden: true
+  tystnad_som_medgivande_förbjuden: true
+  tonfall_som_bevisavsikt_förbjuden: true
+
+# ── ZERO INFERENCE POLICY ───────────────────────────────────────────────────
+zero_inference_policy:
+  enabled: true
+  prohibited_inferences:
+    - "fylla i ohörbara ord från sammanhang"
+    - "tolka tonfall som bevis för avsikt"
+    - "tolka paus som bevis för tvekan"
+    - "tolka tystnad som medgivande"
+    - "identifiera talare via röstgissning, kön eller accent"
+    - "parafrasera som om det vore ordagrant citat"
+    - "komplettera meningar"
+    - "sammanfoga separata uttalanden"
+    - "bestämma vad talaren måste ha menat"
+    - "ersätta faktiskt uttalande med sannolik formulering"
+    - "anta att domstolens formulering är korrekt"
+
+# ── ANALYSMODULER M1–M5 ─────────────────────────────────────────────────────
+analysis_modules:
+
+  M1_TEKNISK_KVALITET:
+    syfte: "Bedöm om ljudkvaliteten tillåter forensisk analys"
+    kontrollpunkter: [SNR, klippning, kodek, metadata]
+    output_värden:
+      kvalitetsbedömning: [TILLRÄCKLIG, OTILLRÄCKLIG, GRÄNSFALL]
+      analysbarhet: [KAN_ANALYSERAS, KAN_EJ_ANALYSERAS, DELVIS]
+
+  M2_AUTENTICITET:
+    syfte: "Verifiera att ljudfilen inte manipulerats"
+    standard: "ISO/IEC 27037:2012 + ENFSI FSA-BPM-002"
+    kontrollpunkter: [hash_SHA256_MD5, metadata_konsistens, redigeringstecken, kodek_konsistens]
+    output_värden:
+      integritet: [VERIFIERAD, MODIFIERAD, KAN_EJ_VERIFIERAS]
+
+  M3_TALARIDENTIFIERING:
+    syfte: "Identifiera talare i ljudmaterialet"
+    krav: "Verifierad referensupptagning krävs för jämförelse"
+    metoder: [auditiv_analys, akustisk_analys, lingvistisk_analys]
+    utan_referens_markering: "[TALARIDENTIFIERING EJ VERIFIERBAR]"
+
+  M4_TRANSKRIPTION:
+    syfte: "Ordagrann, tidsstämplad transkription av hörbart tal"
+    format: "[AUDIO-ID] | [HH:MM:SS.mmm]–[HH:MM:SS.mmm]"
+    markeringar:
+      hörbart: "HÖRBART: \"[exakt text]\" | Talare: [verifierad/EJ SÄKERT]"
+      ohörbart: "[OHÖRBART] | Källstatus: KAN EJ VERIFIERAS"
+      överlappande: "[ÖVERLAPPANDE TAL: talare A + talare B]"
+      osäkert_ord: "[OSÄKERT ORD: X]"
+      rekonstruerad: "[REKONSTRUERAD – EJ ORIGINAL]"
+    fallback_citation_nivå: 4
+    fallback_format: "[AUDIO-ID | Talare | HH:MM:SS | exakt citat]"
+
+  M5_DISKREPANSANALYS:
+    syfte: "Jämför domstolens återgivning av ljud mot originalljudet"
+    riktning: "ORIGINALLJUD → TRANSKRIPTION → DOMSTOLENS PÅSTÅENDE"
+    förbjuden_riktning: "DOM → LJUD (cirkel)"
+    output_format:
+      DOMSTOLENS_PÅSTÅENDE: "[exakt domtext | DOM-ID | SIDA]"
+      ORIGINALLJUD_VISAR: "[exakt transkription | AUDIO-ID | tidskod]"
+      DISKREPANS: "[JA | NEJ | KAN EJ AVGÖRAS]"
+      DISKREPANSTYP: "[UTELÄMNAT | TILLAGT | FÖRÄNDRAT | OHÖRBART]"
+      RÄTTSLIG_BETYDELSE: "[KAN PRÖVAS | KAN INTE AVGÖRAS | VERIFIERAD]"
+
+# ── BEVISKEDJA FÖR LJUDBEVISNING ────────────────────────────────────────────
+evidence_chain:
+  steg_1: "Originalljud (primärkälla) – hash-verifierad"
+  steg_2: "Teknisk kvalitetskontroll (M1)"
+  steg_3: "Autenticitetsanalys (M2)"
+  steg_4: "Transkription (M4) – ordagrann"
+  steg_5: "Talaridentifiering (M3) – om relevant"
+  steg_6: "Diskrepansanalys (M5) – mot domstolens påstående"
+  steg_7: "Slutstatus per segment (A–I)"
+
+  kedjan_kan_inte_verifieras_om:
+    - "Originalljud saknas eller ej hash-verifierat"
+    - "Teknisk kvalitet otillräcklig (M1 = KAN EJ ANALYSERAS)"
+    - "Autenticitet ej verifierbar (M2 = KAN EJ VERIFIERAS)"
+
+# ── HEARING AUDIT – 6 STEG + 4 SPECIALKONTROLLER ───────────────────────────
+hearing_audit:
+  stage_1: "identifiera domens påstående [DOM-ID | SIDA]"
+  stage_2: "lokalisera motsvarande passage i ljudfilen [AUDIO-ID | TIDSKOD]"
+  stage_3: "transkribera endast hörbar text"
+  stage_4: "jämför domens formulering med originaluttalandet"
+  stage_5: "identifiera eventuella utelämnade eller tillagda uppgifter"
+  stage_6: "bedöm om en faktisk avvikelse kan verifieras"
+  special_controls:
+    negation_control: "Kontrollera om nekanden utelämnats"
+    qualification_control: "Kontrollera om reservationer utelämnats"
+    attribution_control: "Kontrollera att rätt talare tillskrivs rätt uppgift"
+    context_control: "Kontext lokaliserar men konstruerar aldrig ohörbart innehåll"
+
+# ── LAGER-MAPPNING ──────────────────────────────────────────────────────────
+layer_mapping:
+  L2b_audio_forensics: "M1 + M2 (teknisk + autenticitet)"
+  L3_ljudforensik: "M3 + M4 + M5 (talare + transkription + diskrepans)"
+  L0_källregistrering: "Hash-registrering vid ingestion"
+  FALLBACK_CITATION: "Nivå 4 för muntliga källor"
+
+# ── FILFORMAT SOM AKTIVERAR MODULEN ────────────────────────────────────────
+activating_formats:
+  - ".wav"
+  - ".mp3"
+  - ".m4a"
+  - ".flac"
+  - ".ogg"
+  - ".aac"
+  - ".mp4"  # video med ljud
+  - ".mov"
+  - "transkription"
+  - "förhandlingsljud"
+  - "AUDIO-ID"

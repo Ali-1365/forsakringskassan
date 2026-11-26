@@ -1,0 +1,41 @@
+# config/kodsystem_konkl_process.yaml
+meta:
+  domän: KONKURS_PROCESS
+  not: INDIKATIV_ENDAST — ingen materiell bedömning av missbruk.
+version: "1.0"
+koder:
+  - kod: "KONKL_3_9"
+    lagrum: "3 kap. 9 § KonkL"
+    beskrivning: "Processövertagande"
+    mönster: ["3 kap. 9", "processövertagande", "konkursförvaltaren övertar"]
+    negativa_filter: []
+    föreslaget_block: "PROCESS"
+    indikation: "INDIKATIV_ENDAST"
+  - kod: "KONKL_2_8"
+    lagrum: "2 kap. 8 § KonkL"
+    beskrivning: "Insolvenspresumtion"
+    mönster: ["2 kap. 8", "insolvenspresumtion", "obetald skuld"]
+    negativa_filter: []
+    föreslaget_block: "REKVISIT"
+    indikation: "INDIKATIV_ENDAST"
+  - kod: "KONKL_2_7"
+    lagrum: "2 kap. 7 § KonkL"
+    beskrivning: "Betalningsförmåga"
+    mönster: ["2 kap. 7", "återkommande betalningsförmåga"]
+    negativa_filter: []
+    föreslaget_block: "REKVISIT"
+    indikation: "INDIKATIV_ENDAST"
+  - kod: "KONKL_11_4"
+    lagrum: "11 kap. 4 § KonkL"
+    beskrivning: "Pro rata-utdelning"
+    mönster: ["11 kap. 4", "pro rata", "utdelning"]
+    negativa_filter: []
+    föreslaget_block: "EKONOMI"
+    indikation: "INDIKATIV_ENDAST"
+  - kod: "NJA_2016_1031"
+    lagrum: "NJA 2016 s. 1031"
+    beskrivning: "Konkursmissbruk — indikativ referens"
+    mönster: ["NJA 2016 s. 1031", "konkursmissbruk", "rättsmissbruk"]
+    negativa_filter: []
+    föreslaget_block: "PRAXIS"
+    indikation: "INDIKATIV_ENDAST"

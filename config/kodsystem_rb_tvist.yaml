@@ -1,0 +1,93 @@
+# config/kodsystem_rb_tvist.yaml
+# Kodtabell: RB tvistemål / hovrätt — konfigurerbar data, inte inbakad i FSM.
+# version: 1.0
+
+meta:
+  domän: RB_TVIST
+  instans: HOVRÄTT
+  version: "1.0"
+  källa: "Rättegångsbalken (1942:740)"
+  not: >
+    Träffar är sökhjälp. Ingen träff är bevisvärdering eller slutsats.
+    Varje träff kräver källkedja i AUDIT.
+
+koder:
+
+  - kod: "RB_42_2"
+    lagrum: "42 kap. 2 § RB"
+    beskrivning: "Stämningsansökan — formkrav"
+    mönster:
+      - "stämningsansökan"
+      - "ansökan om stämning"
+      - "yrkande om stämning"
+    negativa_filter:
+      - "avvisad stämning"
+      - "återkallad stämning"
+    föreslaget_block: "GRUNDER"
+    indikation: "FORMKRAV_KONTROLL"
+
+  - kod: "RB_42_7"
+    lagrum: "42 kap. 7 § RB"
+    beskrivning: "Föreläggande att komplettera stämningsansökan"
+    mönster:
+      - "komplettera stämningsansökan"
+      - "föreläggande att komplettera"
+      - "bristfällig ansökan"
+    negativa_filter: []
+    föreslaget_block: "OMSTÄNDIGHETER"
+    indikation: "KOMPLETTERINGSKRAV"
+
+  - kod: "RB_35_1"
+    lagrum: "35 kap. 1 § RB"
+    beskrivning: "Bevisbörda — part ska styrka sitt påstående"
+    mönster:
+      - "bevisbörda"
+      - "styrkt"
+      - "bevisad"
+      - "part har att visa"
+      - "åberopsbörda"
+    negativa_filter:
+      - "bevisbördan är uppfylld"
+      - "styrkt genom"
+    föreslaget_block: "RÄTTSLIG_BEDÖMNING"
+    indikation: "BEVISBÖRDA_KONTROLL"
+
+  - kod: "RB_36_1"
+    lagrum: "36 kap. 1 § RB"
+    beskrivning: "Vittnesförhör — vittnesplikt"
+    mönster:
+      - "vittnesförhör"
+      - "vittnesplikt"
+      - "höra vittnet"
+    negativa_filter:
+      - "vittnet är part"
+      - "vittnesattest"
+    föreslaget_block: "BEVISNING"
+    indikation: "VITTNESFÖRHÖR_KONTROLL"
+
+  - kod: "RB_50_1"
+    lagrum: "50 kap. 1 § RB"
+    beskrivning: "Överklagande till hovrätt — tvistemål"
+    mönster:
+      - "överklagar"
+      - "överklagande"
+      - "yrkar ändring"
+      - "hovrätten"
+    negativa_filter:
+      - "överklagandet avvisas"
+      - "förfaller"
+    föreslaget_block: "INLEDNING"
+    indikation: "ÖVERKLAGANDE_RB"
+
+  - kod: "RB_50_25"
+    lagrum: "50 kap. 25 § RB"
+    beskrivning: "Prövningstillstånd i hovrätt"
+    mönster:
+      - "prövningstillstånd"
+      - "meddelar prövningstillstånd"
+      - "prejudikatskäl"
+    negativa_filter:
+      - "PT ej beviljat"
+      - "vägrat prövningstillstånd"
+    föreslaget_block: "INLEDNING"
+    indikation: "PT_KONTROLL"

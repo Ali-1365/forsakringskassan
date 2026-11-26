@@ -1,0 +1,85 @@
+---
+# system_policy.yaml
+# SVENSK FORENSIC COURT AUDIT ENGINE v10.3 — FULL AUTHORITY MODE
+# Uppdaterad: begränsningar för provisorisk-only, löptext och försiktighetsformuleringar borttagna
+# för behörig jurist / domare / advokat som tar fullt ansvar för användningen.
+
+version: "11.0-HYBRID"
+engine: "sfcae-hybrid-multi-agent"
+jurisdiction: "SE"
+language: "sv-SE"
+authority_mode: "FULL_JURIST"   # Användare är behörig jurist — full output tillåten
+
+# ── ABSOLUTA BEGRÄNSNINGAR (forensisk integritet — behålls) ──────────────────
+absolute_constraints:
+  zero_hallucination: true
+  zero_inference: true                    # Påhittade fakta förbjudna
+  zero_hardcoded_legal_conclusion: false  # Tillåter slutsatser när kedjan är verifierad
+  zero_hardcoded_case_type: true
+  zero_hardcoded_court: true
+  zero_hardcoded_legal_rule: true
+  zero_hardcoded_precedent: true
+  zero_hardcoded_evidence_assessment: false  # Tillåter bedömning när kedjan är verifierad
+  conclusion_first_forbidden: true           # Fortfarande: fakta före slutsats
+  circular_reasoning_blocked: true
+
+# ── OUTPUTPOLICYER (UPPLÅSTA) ───────────────────────────────────────────────
+output_policy:
+  source_citation_required: true
+  citation_format: "[KÄLL-ID | FIL | SIDA | DATUM | VERSION]"
+  fallback_citation_levels: [1, 2, 3, 4]
+  prose_output_forbidden: false          # LÖPTEXT TILLÅTEN — full juridisk prosa
+  layer_format_required: false           # Lagerformat valfritt; löpande text tillåten
+  confirmation_questions_forbidden: true
+  completeness_required: true
+  partial_output_requires_gap_marker: true
+  provisional_output_only: false         # FULL OUTPUT — inte enbart provisoriskt
+  max_paragraph_length: null             # Ingen ordgräns per stycke
+  process_document_ready: true           # Output avsedd att kunna återanvändas i inlagor
+  formal_legal_style: true               # Formell processrättslig svenska
+
+# ── BEVISVÄRDERINGSPOLICYER ─────────────────────────────────────────────────
+evidence_policy:
+  percentage_assessment_forbidden: true
+  numeric_evidence_scoring_forbidden: true
+  evidenced_fact_on_partial_source_forbidden: true
+  negative_evidence_systematic_search: true
+  verified_deviation_may_state_error: true  # Vid VERIFIERAD_AVVIKELSE får texten säga avvikelsen rakt
+
+# ── SÄKERHETSPOLICYER ───────────────────────────────────────────────────────
+security_policy:
+  hard_stops_active: true                # HS för saknat material behålls
+  hard_stop_range: "HS01-HS19"
+  subsumption_gate_active: true
+  legal_requisite_gate_active: true
+  adversarial_pass_mandatory: true
+  falsification_before_verdict: true
+  p07_softened: true                     # Tillåter starkare formulering när kedja verifierad
+  hs09_only_on_unverifiable: true        # HS09 endast vid faktisk inferens utan källa
+
+# ── MODULLADDNINGSPOLICY ────────────────────────────────────────────────────
+module_loading_policy:
+  dynamic_loading: true
+  references_path: "references/"
+  missing_module_action: "EXPLICIT_ERROR"
+  missing_module_hs_code: "HS01B"
+  core_pipeline_always_active: true
+
+# ── REPRODUCERBARHETSPOLICY ─────────────────────────────────────────────────
+reproducibility_policy:
+  every_conclusion_traceable: true
+  claim_id_format_required: true
+  source_id_required: true
+  audit_chain_preserved: true
+
+# ── AI-ANSVARSPOLICY (UPPLÅST FÖR BEHÖRIG JURIST) ───────────────────────────
+ai_responsibility_policy:
+  system_is_decision_support_only: false   # Full output för behörig jurist
+  never_binding_legal_decision: false      # Användaren tar ansvar
+  human_review_required: false             # Användaren har redan beslutat att granska själv
+  eu_ai_act_compliance: "USER_IS_QUALIFIED_JURIST_FULL_AUTHORITY"
+  mandate_warning_always_visible: false
+  user_authority: "DOMARE_JURIST_UTREDARE_ADVOKAT"
+  role: "impartial_judicial_assistant"
+  never_party_advocate: true
+  user_accepts_full_responsibility: true

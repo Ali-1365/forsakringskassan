@@ -1,0 +1,118 @@
+# Processrättsliga koder (bevisvärdering, processrätt, avtalsrätt) —
+# konfigurerbar kodtabell.
+#
+# Sammanslagen från de LAGRUMSGROUNDADE mönsterkoderna i två referensfiler
+# som i övrigt innehåller sådant detta system INTE implementerar:
+#   references/archive/development/attachments_implant/
+#     SYSTEMPROMPT_JURIDISK_ANALYS_YTTRANDE.md ("KODSYSTEM FÖR ANALYS")
+#     robust_mahoor_system.py (KODSYSTEM_ROBUST)
+# Båda filernas kodtabeller är i sak samma sak: ett lagrumsbundet
+# mönsterregister, strukturellt identiskt med alla andra
+# config/kodsystem_*.yaml i det här systemet. Den delen återanvänds här,
+# en gång, via den befintliga kodsystem_scanner-motorn.
+#
+# INTE återanvänt/implementerat från samma två filer (avsiktligt, se
+# skills_aktiveringsindex.json för motivering):
+#   - "TAKTISKA KODER" (TVEKAN/BEKRÄFTELSE/AGGRESSIV_TON) — numerisk
+#     poängsättning av samtalston som om det vore bevisvärde. Ogrundat
+#     i faktisk bevisrätt.
+#   - generera_yttrande_robust() / "FÄRDIGT YTTRANDE" — automatisk
+#     sammanställning av kodträffar till slutgiltiga rättsliga
+#     slutsatser utan VerbatimAnchor eller mänsklig verifiering.
+meta:
+  domän: PROCESSRATTSLIGA_KODER
+  version: "1.0"
+  not: >
+    INDIKATIV_ENDAST — kräver källkedja i AUDIT. Flaggar att texten
+    BERÖR ett processrättsligt tema. Avgör aldrig bevisvärde, drar
+    aldrig en rättslig slutsats och genererar aldrig ett färdigt
+    yttrande.
+
+koder:
+  - kod: "INLAGA"
+    lagrum: "RB 42 kap."
+    beskrivning: "Formell inlaga/yrkande/överklagande"
+    mönster: ["yrka", "hemställa", "överklaga", "skriftligt yttrande"]
+    negativa_filter: []
+    föreslaget_block: "INLAGA"
+    indikation: "PROC_INLAGA"
+
+  - kod: "RATTEGANGSKOSTNADER"
+    lagrum: "RB 18 kap."
+    beskrivning: "Krav på rättegångskostnader"
+    mönster: ["rättegångskostnad", "ersättning för kostnader", "ombudsarvode"]
+    negativa_filter: ["inga kostnader yrkas"]
+    föreslaget_block: "RATTEGANGSKOSTNADER"
+    indikation: "PROC_RATTEGANGSKOSTNADER"
+
+  - kod: "VARDSLOS_PROCESS"
+    lagrum: "RB 18:7"
+    beskrivning: "Vårdslös processföring"
+    mönster: ["vårdslös processföring", "uppenbart ogrundad", "vårdslöshet i process"]
+    negativa_filter: ["inte vårdslös", "välgrundad talan"]
+    föreslaget_block: "VARDSLOS_PROCESS"
+    indikation: "PROC_VARDSLOS_PROCESS"
+
+  - kod: "BEVISUPPGIFT"
+    lagrum: "RB 42:2"
+    beskrivning: "Formellt åberopande av bevis"
+    mönster: ["åberopa som bevis", "åberopas till bevis", "åberopar som bevis"]
+    negativa_filter: ["kan inte åberopa", "saknar bevis"]
+    föreslaget_block: "BEVISUPPGIFT"
+    indikation: "PROC_BEVISUPPGIFT"
+
+  - kod: "BEVISKEDJA_STYRKA"
+    lagrum: "RB 35:1-3"
+    beskrivning: "Beviskedja som åberopas stärka talan"
+    mönster: ["styrka vårt påstående", "beviskedja", "stödjer vårt påstående"]
+    negativa_filter: ["kan inte styrka", "svårt att bevisa"]
+    föreslaget_block: "BEVISKEDJA"
+    indikation: "PROC_BEVISKEDJA"
+
+  - kod: "VITTNESMAL_MOTSAGELSE"
+    lagrum: "RB 35 kap."
+    beskrivning: "Motsägelse i vittnesmål"
+    mönster: ["vittne ljög", "motsägelse i vittnesmål", "avvek från tidigare", "inte stämde överens"]
+    negativa_filter: ["vittnet talade sanning", "stämde överens"]
+    föreslaget_block: "VITTNESMAL"
+    indikation: "PROC_VITTNESMAL_MOTSAGELSE"
+
+  - kod: "ERKANNANDE"
+    lagrum: "RB 35:3, 35:5"
+    beskrivning: "Partsutsaga/erkännande"
+    mönster: ["erkänner att", "medger att", "medgav att"]
+    negativa_filter: ["inte erkänner", "nekar till"]
+    föreslaget_block: "ERKANNANDE"
+    indikation: "PROC_ERKANNANDE"
+
+  - kod: "EFTERHANDSKONSTRUKTION"
+    lagrum: "AvtL 34 §, RB 35:8"
+    beskrivning: "Dokument konstruerat i efterhand / skenhandling"
+    mönster: ["efterhandskonstruktion", "skenhandling", "för skens skull"]
+    negativa_filter: ["inte en efterhandskonstruktion", "äkta handling"]
+    föreslaget_block: "EFTERHANDSKONSTRUKTION"
+    indikation: "PROC_EFTERHANDSKONSTRUKTION"
+
+  - kod: "VILSELEDANDE_DOKUMENTATION"
+    lagrum: "RB 35:8, 35:14"
+    beskrivning: "Vilseledande eller förfalskad dokumentation"
+    mönster: ["vilseledande", "falsk dokumentation", "förfalskad"]
+    negativa_filter: ["inte vilseledande", "korrekt dokumentation"]
+    föreslaget_block: "VILSELEDANDE"
+    indikation: "PROC_VILSELEDANDE"
+
+  - kod: "PERSONLIGT_ANSVAR"
+    lagrum: "SkL 2:1, ABL 29 kap."
+    beskrivning: "Personligt eller solidariskt ansvar"
+    mönster: ["personligt ansvar", "personligen ansvarig", "solidariskt ansvar", "ställföreträdaransvar"]
+    negativa_filter: ["inte personligt ansvarig", "saknar ansvar"]
+    föreslaget_block: "PERSONLIGT_ANSVAR"
+    indikation: "PROC_PERSONLIGT_ANSVAR"
+
+  - kod: "MENED"
+    lagrum: "BrB 15:1"
+    beskrivning: "Osanna uppgifter under ed (mened)"
+    mönster: ["osanna uppgifter", "ljuga under ed", "ljög i domstol", "ljög under ed"]
+    negativa_filter: ["inte ljög", "sanningsenlig"]
+    föreslaget_block: "MENED"
+    indikation: "PROC_MENED"

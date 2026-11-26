@@ -1,0 +1,140 @@
+---
+# evidence_standards.yaml
+# SVENSK FORENSIC COURT AUDIT ENGINE v10.3
+# Bevisstandarder, bevisbörda och bevisvärdering per måltyp
+
+version: "10.3"
+
+# ── GRUNDPRINCIPER ──────────────────────────────────────────────────────────
+core_principles:
+  free_evidence_assessment: "RB 35:1"
+  percentage_scoring_forbidden: true      # P10 FREE_EVIDENCE_RESPECT
+  numeric_scoring_forbidden: true
+  dynamic_burden_per_legal_fact: true     # L6 per-rättsfaktum-motor
+  hardcoded_burden_forbidden: true        # FIX-U
+
+# ── BEVISKRAV PER PROCESSFORM ───────────────────────────────────────────────
+evidence_standards:
+
+  brottmål_RB:
+    standard: "bortom rimligt tvivel"
+    källa: "RB 35:1 + HD-praxis"
+    in_dubio_pro_reo: true
+    notering: >
+      HD betonar att fri bevisprövning inte innebär godtycke.
+      Bevisbedömningen ska vara rationell, objektivt grundad och strukturerad.
+
+  tvistemål_dispositivt_RB:
+    standard: "styrkt / sannolikhetsövervikt"
+    källa: "RB 35:1 + HD-praxis"
+    undantag: [presumtionsregler, omvänd_bevisbörda, speciallag]
+    notering: >
+      Bevisbörda och beviskrav kan variera per rättsfaktum
+      även inom samma mål.
+
+  förvaltning_FPL:
+    standard: "varierar med sakens beskaffenhet"
+    källa: "HFD-praxis"
+    per_måltyp:
+      LVU: "styrkt (HFD 2015 ref. 42)"
+      skattetillägg: "klar och övertygande bevisning"
+      socialförsäkring: "varierar per förmån"
+      ekonomiskt_bistånd: "varierar (HFD 2024 ref. 62)"
+    officialprincip: "FPL 8 § – rätten utreder aktivt"
+
+  beslag_RB_27:
+    standard: "skäligen kan antas"
+    källa: "RB 27:1"
+
+  kommunal_laglighetsprövning:
+    standard: "laglighetsbrott styrkt"
+    källa: "KL 13 kap."
+
+# ── BEVISBÖRDA PER RÄTTSFAKTUM (SOCIALFÖRSÄKRING) ──────────────────────────
+burden_of_proof_social_insurance:
+
+  nedsatt_arbetsförmåga:
+    bevisbörda: "den enskilde (med stöd av myndighetens utredningsskyldighet)"
+    beviskrav: "sannolikt (HFD-praxis)"
+    källa: "27 kap. SFB + 110 kap. 13 § SFB"
+
+  återkrav:
+    bevisbörda: "myndigheten (betungande beslut)"
+    beviskrav: "styrkt"
+    källa: "108 kap. SFB + FL 23 §"
+
+  SGI_nollställning:
+    bevisbörda: "myndigheten (ska visa att skyddsperiod löpt ut)"
+    beviskrav: "styrkt"
+    källa: "SFB 26:17 §"
+
+# ── BEVISVÄRDERINGSFORMAT ───────────────────────────────────────────────────
+evidence_assessment_format:
+  # FIX-S: Obligatoriskt format per bevisfråga
+  DOMSTOLENS_BEVISPREMISS: "[exakt domtext med DOM-ID | SIDA]"
+  DOMSTOLENS_KÄLLA: "[vilken källa domstolen hänvisar till]"
+  PRIMÄRKÄLLA: "[KÄLL-ID | FIL | SIDA | DATUM | VERSION]"
+  KÄLLAN_VISAR: "[vad primärkällan faktiskt innehåller]"
+  MOTBEVISNING: "[motbevis som finns i materialet | KÄLL-ID]"
+  DOMSTOLENS_BEMÖTANDE: "[hur domstolen hanterat motbevisningen | DOM-ID | SIDA]"
+  VERIFIERAD_DISKREPANS: "JA / NEJ / KAN EJ AVGÖRAS"
+  RÄTTSLIG_BETYDELSE: "KAN INTE AVGÖRAS / KAN PRÖVAS / VERIFIERAD"
+
+# ── BEVISSTATUS PER RÄTTSFAKTUM ─────────────────────────────────────────────
+evidence_status_values:
+  VERIFIERAT: "Direkt styrkt av Tier 1-källa"
+  STYRKT: "Starkt styrkt av flera oberoende källor"
+  STARKT_INDICERAT: "Indirekt styrkt"
+  DELVIS_STYRKT: "Delvis täckt"
+  EJ_STYRKT: "Saknar källstöd"
+  MOTBEVISAT: "Motbevis starkare"
+  MOTSTRIDIGT: "Källorna pekar åt olika håll"
+  KAN_INTE_AVGÖRAS: "Otillräckligt underlag"
+
+# ── KONTROLLFRÅGOR (körs alltid vid bevisvärdering) ─────────────────────────
+evidence_control_questions:
+  - "VILKET BEVISTEMA?"
+  - "VILKET RÄTTSFAKTUM?"
+  - "VILKEN BEVISNING? [KÄLL-ID]"
+  - "VILKEN KÄLLA? [KÄLL-ID | SIDA]"
+  - "VILKEN BEVISNING TALAR FÖR?"
+  - "VILKEN BEVISNING TALAR EMOT?"
+  - "VAD HAR DOMSTOLEN FAKTISKT SAGT? [DOM-ID | SIDA]"
+  - "VAD HAR DOMSTOLEN INTE BEMÖTT?"
+  - "KAN RESONEMANGET FÖLJAS?"
+
+# ── CLAIM_ID FORMAT ─────────────────────────────────────────────────────────
+claim_id_format:
+  # FIX-B: Alla 7 fält obligatoriska
+  fields: [KÄLL-ID, FIL, SIDA, DATUM, VERSION, Påståendetyp, Tillgänglighet]
+  missing_field_marker: "SAKNAS"
+  evidenced_fact_on_partial_forbidden: true   # FIX-C
+  påståendetyper:
+    - CLAIM
+    - EVIDENCED_FACT
+    - COURT_FINDING
+    - CLAIM_SOURCE
+    - EVIDENCE_SOURCE
+    - COURT_DOCUMENT
+    - LEGAL_SOURCE
+  tillgänglighet_värden:
+    - VERIFIED
+    - PARTIALLY_AVAILABLE
+    - NOT_FOUND
+    - CONFIRMED_ABSENT
+    - BEVISUNDERLAG_EJ_TILLGÄNGLIGT
+
+# ── SLUTSTATUS A–I ──────────────────────────────────────────────────────────
+final_status:
+  A: "VERIFIERAT KORREKT – domstolens påstående stämmer med primärkällan"
+  B: "VERIFIERAD AVVIKELSE – konkret skillnad demonstreras mot primärkälla"
+  C: "VERIFIERAD PROCESSUELL AVVIKELSE – processuell regel ej följd"
+  D: "VERIFIERAD RÄTTSLIG AVVIKELSE – rättsregel felaktig eller felaktigt tillämpad"
+  E: "VERIFIERAD FAKTISK AVVIKELSE – faktapåstående avviker från primärkälla"
+  F: "VERIFIERAD BEVISMÄSSIG AVVIKELSE – bevisvärdering avviker från faktisk bevisning"
+  G: "POTENTIELLT RÄTTSLIGT RELEVANT – avvikelse identifierad, juridisk prövning krävs"
+  H: "KAN INTE AVGÖRAS – otillräckligt underlag"
+  I: "OTILLRÄCKLIGT UNDERLAG – materialet räcker inte för analys"
+  regel: >
+    Status I sätts ALDRIG enbart för att HS01 är aktiv.
+    Aktiva lager ska alltid köras och producera status G eller H.

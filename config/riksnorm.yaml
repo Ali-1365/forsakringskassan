@@ -1,0 +1,46 @@
+# Riksnorm för försörjningsstöd — konfigurationskälla för beräkningsmotorn
+# runtime/riksnorm_berakning.py.
+#
+# KÄLLA_SAKNAS: beloppen nedan är INTE ifyllda med verkliga, aktuella
+# belopp. Riksnormen fastställs årligen av regeringen (2 kap. 1 §
+# socialtjänstförordningen) och MÅSTE hämtas från en verifierbar,
+# aktuell källa (regeringens/Socialstyrelsens publicerade tabell för
+# det aktuella året) innan denna fil används för en verklig beräkning.
+# Motorn vägrar räkna (EJ_KÖRBAR) så länge belopp: null — den gissar
+# aldrig ett belopp.
+#
+# Fyll i belopp (kr/månad) per kategori nedan, samt källhänvisning, när
+# en verifierad aktuell tabell finns tillgänglig.
+
+meta:
+  giltighetsår: null  # t.ex. 2026 — sätts när tabellen fylls i
+  källhänvisning: null  # t.ex. "Regeringens riksnormstabell 2026, SFS-hänvisning"
+  senast_uppdaterad: null
+  not: >
+    INDIKATIV_ENDAST. Ett fel eller föråldrat belopp här ger ett felaktigt
+    biståndsbeslut. Juristen/handläggaren ansvarar för att verifiera
+    beloppen mot aktuell, officiell källa innan de används.
+
+# Personliga kostnader (schablon), kr/månad. Nycklar enligt Socialstyrelsens
+# indelning. null = ej ifyllt.
+personliga_kostnader:
+  ensamstående_vuxen: null
+  sammanboende_vuxen: null   # per person
+  barn_0_till_1_år: null
+  barn_1_till_2_år: null
+  barn_3_år: null
+  barn_4_till_6_år: null
+  barn_7_till_10_år: null
+  barn_11_till_14_år: null
+  barn_15_till_18_år: null
+  hemmavarande_18_till_20_år: null
+
+# Gemensamma hushållskostnader (schablon), kr/månad, beror på hushållsstorlek.
+gemensamma_kostnader_per_hushållsstorlek:
+  "1": null
+  "2": null
+  "3": null
+  "4": null
+  "5": null
+  "6": null
+  "7_eller_fler": null

@@ -1,0 +1,67 @@
+# Kodtabell: Konversationsanalys — taktiska mönster i taltranskriberingar
+# Konsumeras av runtime/konversation_scanner.py via config_loader('kodsystem_konversation').
+# version: 1.0
+# Träffar är indikativa sökhjälp — ingen bevisvärdering eller juridisk slutsats.
+
+meta:
+  domän: KONVERSATION
+  version: "1.0"
+  källa: "Rättegångsbalken 35 kap.; BrB 15 kap."
+  not: >
+    Varje träff är INDIKATIV_ENDAST. Kräver källkedja i AUDIT.
+    Ingen träff utgör bevisvärdering eller juridisk slutsats.
+
+koder:
+
+  - kod: "TVEKAN"
+    mönster:
+      - "eh"
+      - "hm"
+      - "jag vet inte"
+      - "kanske"
+      - "möjligen"
+      - "typ"
+      - "liksom"
+    validering:
+      - "jag"
+      - "vi"
+      - "man"
+      - "det"
+      - "den"
+    negativa_filter: []
+    beskrivning: "Uttryck för osäkerhet"
+    indikation: "TROVÄRDIGHET_SVAG"
+
+  - kod: "BEKRÄFTELSE"
+    mönster:
+      - "jag medger"
+      - "det stämmer"
+      - "absolut"
+      - "precis"
+      - "exakt"
+      - "håller med"
+    validering:
+      - "det"
+      - "jag"
+      - "vi"
+      - "påstående"
+    negativa_filter: []
+    beskrivning: "Positiv bekräftelse"
+    indikation: "ERKÄNNANDE_INDIKATION"
+
+  - kod: "AGGRESSIV_TON"
+    mönster:
+      - "du ljuger"
+      - "det är lögn"
+      - "hur vågar du"
+      - "fullständigt orimligt"
+    validering:
+      - "du"
+      - "motpart"
+      - "tvist"
+      - "konflikt"
+    negativa_filter:
+      - "inte ljuger"
+      - "talar sanning"
+    beskrivning: "Konfrontativ ton"
+    indikation: "TON_KONTROLL"

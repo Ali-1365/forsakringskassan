@@ -1,0 +1,76 @@
+# FMJAM-GOLD schema v1.0 — deterministisk spårbarhet
+# INGEN juridisk tolkning. Chain of Custody endast.
+version: "1.0-GOLD"
+status: "PRODUCTION_ADAPTER"
+meta:
+  zero_inference: true
+  provisional_output_only: true
+  fail_closed: true
+  not: >
+    ID-kedjor och hashar är spårbarhetsobjekt.
+    Systemet genererar aldrig domslut eller materiell bedömning.
+
+id_kedja:
+  - id: queryId
+    beskrivning: Initial frågeställning
+    hash_alg: SHA-256
+  - id: caseId
+    beskrivning: Ärendets behållare
+    hash_alg: SHA-256
+  - id: reasoningId
+    beskrivning: Motiveringsavtryck (struktur, ej slutsats)
+    hash_alg: SHA-256
+  - id: consolidationId
+    beskrivning: Sammanvägning lagrum/praxis-referenser
+    hash_alg: SHA-256
+  - id: riskId
+    beskrivning: Normkonflikt-/riskflagg (Grön/Gul/Röd indikativ)
+    hash_alg: SHA-256
+  - id: decisionId
+    beskrivning: Beslutsutkast-platshållare (PROVISORISK)
+    hash_alg: SHA-256
+  - id: journalEntryId
+    beskrivning: Journalnotering FL 27 §-spår (struktur)
+    hash_alg: SHA-256
+
+lager:
+  - nr: 1
+    namn: INHAMTNING
+    faser: "1-10"
+    funktion: Bevisatomer, denoising, källhash — ingen subsumtion
+  - nr: 2
+    namn: KONSOLIDERING
+    faser: "11"
+    funktion: Sammanvägning referenser, normkonflikt-flagg
+  - nr: 3
+    namn: PROPORTIONALITET_JUSTICE_GUARD
+    faser: "12-14"
+    funktion: 5-stegs proportionalitetschecklista (indikativ)
+  - nr: 4
+    namn: DIFF_JOURNAL
+    faser: "15-16"
+    funktion: Version/diff/journalstruktur mot FL 27 §
+
+justice_guard_steg:
+  - steg: "1"
+    fråga: lagstöd_indikativt
+  - steg: "2"
+    fråga: lämplighet_fråga
+  - steg: "3"
+    fråga: nödvändighet_fråga
+  - steg: "4"
+    fråga: proportionalitet_strikt_fråga
+  - steg: "5"
+    fråga: barnets_bästa_parameter_om_relevant
+
+risknivåer_indikativa:
+  - GRÖN
+  - GUL
+  - RÖD
+
+rättskälle_koppling_dynamisk:
+  källor:
+    - config/kodsystem_glob
+    - config/policy_monitor_live_snapshots.yaml
+    - runtime/kodsystem_scanner.py
+  not: Inga lagrum hårdkodas som tillämpliga utan aktmatchning

@@ -1,0 +1,169 @@
+meta:
+  domän: FPL_FORVALTNING
+  version: '1.0'
+  källa: FPL (1971:291), FL (2017:900), RF
+  not: Träffar indikativa. Ingen automatisk processutgång.
+koder:
+- kod: FPL-7
+  lagrum: FPL 7 §
+  beskrivning: Överklagande till förvaltningsrätt
+  mönster:
+  - överklagar till förvaltningsrätten
+  - förvaltningsrätten
+  - FPL 7
+  negativa_filter:
+  - överklagandet avvisas
+  föreslaget_block: OVERKLAGAN
+  indikation: FPL_OVERKLAGAN
+- kod: FPL-9
+  lagrum: FPL 9 §
+  beskrivning: Yttrande från myndighet
+  mönster:
+  - yttrande till förvaltningsrätten
+  - myndighetens yttrande
+  negativa_filter: []
+  föreslaget_block: YTRANDE
+  indikation: FPL_YTRANDE
+- kod: FPL-24
+  lagrum: FPL 24 §
+  beskrivning: Bevisning i förvaltningsmål
+  mönster:
+  - bevisning i målet
+  - åberopar till bevis
+  - FPL 24
+  negativa_filter: []
+  föreslaget_block: BEVISNING
+  indikation: FPL_BEVIS
+- kod: FL-23
+  lagrum: FL 23 §
+  beskrivning: Utredningsskyldighet
+  mönster:
+  - utredningsskyldighet
+  - FL 23
+  - otillräcklig utredning
+  negativa_filter: []
+  föreslaget_block: UTREDNING
+  indikation: FL23
+- kod: FL-32
+  lagrum: FL 32 §
+  beskrivning: Motiveringsskyldighet
+  mönster:
+  - motiveringsskyldighet
+  - FL 32
+  - saknar motivering
+  negativa_filter: []
+  föreslaget_block: MOTIVERING
+  indikation: FL32
+- kod: RF-1-9
+  lagrum: RF 1:9
+  beskrivning: Objektivitet och saklighet
+  mönster:
+  - objektivitet
+  - saklighet
+  - RF 1:9
+  negativa_filter: []
+  föreslaget_block: GRUNDLAG
+  indikation: RF19
+- kod: FL-5
+  lagrum: FL 5 §
+  beskrivning: Serviceskyldighet — myndighet ska ge vägledning
+  mönster:
+  - serviceskyldighet
+  - FL 5
+  - vägledning från myndigheten
+  negativa_filter: []
+  föreslaget_block: SERVICE
+  indikation: FL5_SERVICE
+- kod: FL-9
+  lagrum: FL 9 §
+  beskrivning: Utformning av beslut — skriftlighet
+  mönster:
+  - skriftligt beslut
+  - FL 9
+  - beslutets form
+  negativa_filter: []
+  föreslaget_block: BESLUTSFORM
+  indikation: FL9_FORM
+- kod: FL-12
+  lagrum: FL 12 §
+  beskrivning: Jäv — opartiskhet
+  mönster:
+  - jäv
+  - FL 12
+  - opartiskhet
+  - intressekonflikt
+  negativa_filter: []
+  föreslaget_block: JAV
+  indikation: FL12_JAV
+- kod: FL-17
+  lagrum: FL 17 §
+  beskrivning: Partsinsyn
+  mönster:
+  - partsinsyn
+  - FL 17
+  - rätt att ta del av
+  negativa_filter: []
+  föreslaget_block: PARTSINSYN
+  indikation: FL17_INSYN
+- kod: FL-25
+  lagrum: FL 25 §
+  beskrivning: Kommunikation innan beslut
+  mönster:
+  - kommunicering
+  - FL 25
+  - möjlighet att yttra sig
+  - inte kommunicerats
+  negativa_filter: []
+  föreslaget_block: KOMMUNIKATION
+  indikation: FL25_KOMM
+- kod: FL-28
+  lagrum: FL 28 §
+  beskrivning: Rättelse av beslut
+  mönster:
+  - rättelse av beslut
+  - FL 28
+  - uppenbar felaktighet
+  negativa_filter: []
+  föreslaget_block: RATTELSE
+  indikation: FL28_RATTELSE
+- kod: FPL-28
+  lagrum: FPL 28 §
+  beskrivning: Förvaltningsrättens prövningsram
+  mönster:
+  - prövningsramen
+  - FPL 28
+  - saken i målet
+  negativa_filter: []
+  föreslaget_block: PROVNINGSRAM
+  indikation: FPL28_RAM
+- kod: FPL-29
+  lagrum: FPL 29 §
+  beskrivning: Ändringsförbud / reformatio in pejus-gräns
+  mönster:
+  - reformatio in pejus
+  - FPL 29
+  - ändring till nackdel
+  negativa_filter: []
+  föreslaget_block: ANDRING
+  indikation: FPL29
+- kod: FPL-30
+  lagrum: FPL 30 §
+  beskrivning: Dom och beslut i förvaltningsprocess
+  mönster:
+  - förvaltningsrättens dom
+  - FPL 30
+  - meddelad dom
+  negativa_filter: []
+  föreslaget_block: DOM
+  indikation: FPL30_DOM
+- kod: FPL-44
+  lagrum: FPL 44 § / FL 44 §
+  beskrivning: Överklagandetid och formkrav
+  mönster:
+  - överklagandetiden
+  - FL 44
+  - FPL 44
+  - tre veckor
+  negativa_filter: []
+  föreslaget_block: FRIST
+  indikation: FPL44_FRIST

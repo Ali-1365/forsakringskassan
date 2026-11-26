@@ -1,0 +1,161 @@
+---
+# court_profiles.yaml
+# SVENSK FORENSIC COURT AUDIT ENGINE v10.3
+# Fullständiga processprofiler per domstolsslag
+
+version: "10.3"
+
+# ── FÖRVALTNINGSDOMSTOLAR ───────────────────────────────────────────────────
+administrative_courts:
+
+  förvaltningsrätten:
+    typ: ADMINISTRATIVE_COURT
+    instans: första_instans
+    processlag: "FPL (SFS 1971:291)"
+    officialprincip: "8 § FPL"
+    skälskrav: "30 § FPL"
+    beviskrav: "varierar med sakens beskaffenhet (HFD-praxis)"
+    prövningstyper: [överklagat_myndighetsbeslut, ansökan]
+    tvåpartsprocess: true
+    tvåpartsprocess_grund: "prop. 1995/96:22"
+    inhibition: "28 § FPL – sannolika skäl + skadans storlek"
+
+  kammarrätten:
+    typ: ADMINISTRATIVE_COURT
+    instans: andra_instans
+    processlag: "FPL"
+    prövningstillstånd: "34a § FPL"
+    prövningsram: "vad som överklagats + vad rätten ex officio prövar"
+    beviskrav: "varierar med sakens beskaffenhet"
+
+  HFD:
+    typ: ADMINISTRATIVE_COURT
+    instans: prejudikatinstans
+    processlag: "FPL"
+    prövningstillstånd: "36 § FPL"
+    funktion: prejudikatinstans
+    prejudikatvärde: "vägledande för alla förvaltningsdomstolar"
+
+# ── ALLMÄNNA DOMSTOLAR ──────────────────────────────────────────────────────
+general_courts:
+
+  tingsrätten:
+    typ: CIVIL_COURT
+    instans: första_instans
+    processlag: "RB (SFS 1942:740)"
+    måltyper: [brottmål, tvistemål, ärenden]
+    beviskrav_brottmål: "bortom rimligt tvivel"
+    beviskrav_tvistemål: "styrkt / sannolikhetsövervikt"
+    bevisprövning: "fri (RB 35:1)"
+    skälskrav: "RB 30:5"
+
+  hovrätten:
+    typ: CIVIL_COURT
+    instans: andra_instans
+    processlag: "RB"
+    prövningstillstånd: "49 kap. 12 § RB"
+    prövningsram: "vad som överklagats"
+    självständig_prövning: true
+    grund: "NJA 2022 s. 199"
+
+  HD:
+    typ: CIVIL_COURT
+    instans: prejudikatinstans
+    processlag: "RB"
+    prövningstillstånd: "54 kap. 10 § RB"
+    funktion: prejudikatinstans
+    prejudikatvärde: "vägledande för alla allmänna domstolar"
+
+# ── SPECIALDOMSTOLAR ────────────────────────────────────────────────────────
+special_courts:
+
+  migrationsdomstolen:
+    processlag: "FPL + UtlL (SFS 2005:716)"
+    prövningstillstånd_MÖD: "16 kap. 11 § UtlL"
+    beviskrav: "varierar"
+
+  mark_och_miljödomstolen:
+    processlag: "FPL + MB (SFS 1998:808)"
+
+  arbetsdomstolen:
+    processlag: "LRA (SFS 1974:371)"
+
+  hyresnämnden:
+    processlag: "HyresL (SFS 1970:994)"
+    referensfil: "references/tvistemaal-forensisk.md"
+
+# ── PROCESSPROFILER PER MÅLTYP ──────────────────────────────────────────────
+process_profiles:
+
+  SOCIALFÖRSÄKRING_SFB:
+    domstol: förvaltningsrätten
+    processlag: "FPL + SFB (SFS 2010:110)"
+    beviskrav: "varierar per förmån (HFD-praxis)"
+    officialprincip: "AKTIV (8 § FPL + 110 kap. 13 § SFB)"
+    utredningsskyldighet: "myndigheten (23 § FL + 110 kap. 13 § SFB)"
+    överklagandetid: "3 veckor från delgivning (113 kap. 10 § SFB)"
+    omprövning_tid: "2 månader (113 kap. 7 § SFB)"
+    referensfil: "references/socialforsakring-modul.md"
+
+  SOL_BISTÅND:
+    domstol: förvaltningsrätten
+    processlag: "FPL + SoL"
+    beviskrav: "varierar (HFD 2024 ref. 62)"
+    officialprincip: "AKTIV (8 § FPL)"
+    överklagbart: "JA (SoL 16 kap. 3 §)"
+    referensfil: "references/socialtjanst-kunskapsbas.md"
+
+  LVU_TVÅNGSVÅRD_BARN:
+    domstol: förvaltningsrätten
+    processlag: "FPL + LVU"
+    beviskrav: "styrkt (HFD 2015 ref. 42)"
+    barnets_bästa: "AVGÖRANDE (LVU 1 §)"
+    prövningstillstånd_KR: true
+    referensfil: "references/socialtjanst-kunskapsbas.md"
+
+  DISPOSITIVT_TVISTEMÅL_RB:
+    domstol: tingsrätten
+    processlag: "RB"
+    beviskrav: "styrkt / sannolikhetsövervikt (RB 35:1)"
+    dispositionsprincipen: "RB 17:3"
+    fri_bevisprövning: "RB 35:1"
+    referensfil: "references/tvistemaal-forensisk.md"
+
+  BROTTMÅL_RB:
+    domstol: tingsrätten
+    processlag: "RB + BrB"
+    beviskrav: "bortom rimligt tvivel"
+    in_dubio_pro_reo: true
+    lex_mitior: "BrB 5 §"
+    kritisk_tidsfrist_beslag: "RB 27:7"
+
+  PATIENTSKADA:
+    domstol: tingsrätten
+    processlag: "RB + Patientskadelagen (SFS 1996:799)"
+    beviskrav: "sannolikhetsövervikt (RB 35:1)"
+    referensfil: "references/patientskada-skadestand.md"
+
+# ── ÖVERKLAGANDETIDER ───────────────────────────────────────────────────────
+appeal_deadlines:
+  förvaltningsrätten_till_kammarrätten:
+    tid: "3 veckor från delgivning"
+    grund: "FPL"
+    notering: "Prövningstillstånd krävs i KR (34a § FPL)"
+  kammarrätten_till_HFD:
+    tid: "3 veckor från delgivning"
+    grund: "FPL"
+    notering: "Prövningstillstånd krävs i HFD (36 § FPL)"
+  tingsrätten_till_hovrätten:
+    tid: "3 veckor från delgivning"
+    grund: "RB 50:1"
+    notering: "Prövningstillstånd krävs i vissa mål (49 kap. 12 § RB)"
+  socialförsäkring_omprövning:
+    tid: "2 månader"
+    grund: "113 kap. 7 § SFB"
+  socialförsäkring_överklagande:
+    tid: "3 veckor från delgivning"
+    grund: "113 kap. 10 § SFB"
+  kammarrätten_socialförsäkring:
+    tid: "2 månader från delgivning"
+    grund: "FPL + SFB"
+    notering: "Prövningstillstånd krävs (34a § FPL)"

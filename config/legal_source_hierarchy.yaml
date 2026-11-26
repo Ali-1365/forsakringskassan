@@ -1,0 +1,194 @@
+---
+# legal_source_hierarchy.yaml
+# SVENSK FORENSIC COURT AUDIT ENGINE v10.3
+# Rättskällehierarki, SOURCE_TYPE, AUTHORITY_LEVEL och DEEP_SEARCH_PROTOKOLL
+
+version: "10.3"
+
+# ── GENERELL RÄTTSKÄLLEHIERARKI ─────────────────────────────────────────────
+general_hierarchy:
+  rang_1: "grundlag (RF, TF, YGL)"
+  rang_2: "EU-rätt och EKMR (när tillämplig)"
+  rang_3: "lag (SFS) – speciallag före allmän lag"
+  rang_4: "förordning"
+  rang_5: "bindande föreskrifter"
+  rang_6: "prejudikat HD/HFD – holding skiljs från obiter"
+  rang_7: "förarbeten (prop., SOU, Ds)"
+  rang_8: "övrig praxis (HovR, KR, MIG)"
+  rang_9: "doktrin"
+
+# ── SOURCE_TYPE KLASSIFICERING ──────────────────────────────────────────────
+source_types:
+  LAG: "Lag i SFS (riksdagsstiftad)"
+  FÖRORDNING: "Förordning i SFS (regeringsbeslutad)"
+  PREJUDIKAT: "HD/HFD-avgörande med prejudikatvärde"
+  FÖRARBETE: "Proposition, SOU, Ds, betänkande"
+  EU: "EU-förordning, EU-direktiv, CJEU-avgörande"
+  EKMR: "Europakonventionen + Europadomstolens avgöranden"
+  ÖVERRÄTT: "HovR/KR/MIG/MÖD – vägledande men ej prejudikat"
+  MYNDIGHET: "Myndighetsbeslut, allmänna råd, föreskrifter"
+  DOKTRIN: "Juridisk litteratur, kommentarer"
+  ÖVRIG: "Annat – klassificeras explicit"
+
+# ── AUTHORITY_LEVEL KLASSIFICERING ─────────────────────────────────────────
+authority_levels:
+  BINDANDE: "Lag, EU-förordning med direkt effekt, grundlag"
+  PREJUDIKATIV: "HD/HFD-avgörande – vägledande för alla underinstanser"
+  VÄGLEDANDE: "HovR/KR/MIG, Europadomstolen, EU-direktiv (implementerat)"
+  INFORMERANDE: "Doktrin, myndighetens allmänna råd, förarbeten"
+  EJ_RÄTTSKÄLLA: "Myndighetssida, juridisk artikel, Wikipedia, AI-genererat"
+
+absolute_rule: >
+  Om AUTHORITY_LEVEL = EJ_RÄTTSKÄLLA → källan blockeras från att bära rekvisit.
+  En myndighetssida, en juridisk artikel eller en AI-genererad text
+  får ALDRIG behandlas som om den vore lag eller prejudikat.
+
+# ── DEEP_SEARCH_PROTOKOLL – API-ENDPOINTS ──────────────────────────────────
+deep_search_protocol:
+
+  SEARCH_01:
+    syfte: "Exakt lagrum"
+    endpoint: "https://data.riksdagen.se/dokumentlista/"
+    parametrar: {doktyp: sfs, sok: "{sökord}", utformat: json}
+    verifierar: "Riksdagen.se / SFS-register"
+
+  SEARCH_02:
+    syfte: "Aktuell lydelse vid relevant datum + prejudikat"
+    endpoint: "https://rattspraxis.etjanst.domstol.se/api/v1/publiceringar"
+    parametrar: {fritext: "{sokterm}", antal: "{antal}", sida: 1}
+    format: "application/json"
+    licens: "CC0 1.0"
+    utgivare: "Sveriges Domstolar"
+    täckning: "1981-01-01 → pågående"
+    deprecated: "https://lagen.nu/sok"
+
+  SEARCH_03:
+    syfte: "Förarbeten"
+    endpoint: "https://data.riksdagen.se/dokumentlista/"
+    parametrar: {doktyp: prop, sok: "{sökord}", utformat: json}
+    verifierar: "Riksdagen.se / Regeringen.se"
+
+  SEARCH_04:
+    syfte: "Utskottsbetänkanden"
+    endpoint: "https://data.riksdagen.se/dokumentlista/"
+    parametrar: {doktyp: bet, sok: "{sökord}", utformat: json}
+
+  SEARCH_05:
+    syfte: "SOU / Ds"
+    endpoint: "https://data.riksdagen.se/dokumentlista/"
+    parametrar: {doktyp: "sou,ds", sok: "{sökord}", utformat: json}
+
+  SEARCH_06:
+    syfte: "EU-rätt / Förordningar"
+    endpoint: "https://publications.europa.eu/webapi/rdf/sparql"
+    parametrar: {query: "{sparql_fråga}", format: "application/sparql-results+json"}
+
+  SEARCH_07:
+    syfte: "Europadomstolen (EKMR)"
+    metod: "POST"  # GET ger 404 — HUDOC kräver POST med query-payload
+    endpoint: "https://hudoc.echr.coe.int/app/query/results"
+    parametrar: {query: "contents:{sökord}", length: "{antal}"}
+    täckning: "227 000+ domar, 1960–2026"
+    aktiveras: "Endast om EKMR-rättigheter aktualiseras"
+
+  SEARCH_08:
+    syfte: "JO/JK-beslut"
+    JO:
+      metod: "RSS-parsing"
+      endpoint: "https://www.jo.se/feed/latest-decisions"
+      bibliotek: "feedparser"
+    JK:
+      metod: "HTML-scraping"
+      endpoint: "https://jk.se/beslut-och-yttranden/"
+      bibliotek: "requests + beautifulsoup4"
+    fallback: "https://lagrummet.se"
+    deprecated: "https://lagen.nu/sok med query=JO {sokterm}"
+
+  SEARCH_09:
+    syfte: "Myndighetsföreskrifter (SOSFS, AFS, LIVSFS, BFS, FFS m.fl.)"
+    not: "Myndighetsföreskrifter publiceras inte i Riksdagens API. Använd respektive myndighets webbplats."
+    källor:
+      boverket: "https://www.boverket.se/sv/lag--ratt/"
+      lagrummet: "https://lagrummet.se"
+
+  SEARCH_10:
+    syfte: "Senare praxis / Doktrin"
+    primär:
+      endpoint: "https://api.crossref.org/works"
+      parametrar: {query: "{sokterm}", rows: "{antal}", select: "DOI,title,author,published"}
+      user_agent: "AGENT/VERSION (mailto:din@epost.se)"
+    sekundär:
+      endpoint: "https://www.diva-portal.org/smash/resultList.jsf"
+    deprecated: "https://www.diva-portal.org/smash/getSelectMatches"
+
+  SEARCH_11:
+    syfte: "Socialtjänstspecifika rättskällor"
+    söker_i:
+      - "Socialstyrelsens föreskrifter (SOSFS)"
+      - "IVO:s tillsynsbeslut och rapporter"
+      - "JO:s beslut om socialtjänst"
+      - "HFD-praxis om SoL/LVU/LVM/LSS"
+    aktiveras: "Automatiskt vid socialtjänst- och socialförsäkringsmåltyp"
+
+  sökordning: >
+    SEARCH_01 → SEARCH_02 → SEARCH_03 → SEARCH_04 → SEARCH_05 →
+    SEARCH_06 → SEARCH_07 → SEARCH_08 → SEARCH_09 → SEARCH_10
+
+# ── LEGAL_SOURCE_RECORD FORMAT ──────────────────────────────────────────────
+legal_source_record:
+  source_id: "[LS-XXXXXX]"
+  source_type: "[SOURCE_TYPE]"
+  authority_level: "[AUTHORITY_LEVEL]"
+  court: "[domstol]"
+  case_number: "[målnummer]"
+  reference: "[NJA XXXX s. X / HFD XXXX ref. X]"
+  date: "[ÅÅÅÅ-MM-DD]"
+  legal_issue: "[rättsfrågan prejudikatet besvarar]"
+  holding: "[prejudikatets faktiska avgörande – H1/H2/H3]"
+  cited_law: "[lagrum som tillämpades]"
+  official_source: "[VERIFIED / NOT_VERIFIED]"
+  current_status: "NOT AUTOMATICALLY ASSUMED"
+  later_case_check: "REQUIRED – se SEARCH_10"
+  applicability_to_current_case: "NOT YET ASSESSED"
+
+holding_chain:
+  H1: "Holding explicit i källmaterialet → VERIFIED"
+  H2: "Lagtexten stöder tolkningen → PARTIALLY_VERIFIED"
+  H3: "Alternativ rättskälla täcker rekvisitet → ALTERNATIVE_SOURCE"
+  ingen_H: "HOLDING_EJ_VERIFIERBAR → prejudikatet blockeras"
+
+# ── RÄTTSKÄLLEHIERARKIER PER MÅLTYP ────────────────────────────────────────
+domain_hierarchies:
+
+  socialförsäkring:
+    rang_1: "RF (grundlagsskydd)"
+    rang_2: "SFB (SFS 2010:110)"
+    rang_3: "FL (SFS 2017:900)"
+    rang_4: "FPL (SFS 1971:291)"
+    rang_5: "HFD-prejudikat"
+    rang_6: "Förarbeten"
+    rang_7: "Myndighetens vägledningar (VÄGLEDANDE)"
+    rang_8: "Myndighetens rättsliga ställningstaganden (VÄGLEDANDE)"
+    rang_9: "Myndighetens interna PM (EJ_RÄTTSKÄLLA om utan lagstöd)"
+
+  socialtjänst:
+    rang_1: "Barnkonventionen (lag 2018:1197) + RF"
+    rang_2: "SoL, LVU, LVM, LSS (speciallagar)"
+    rang_3: "FL (subsidiär)"
+    rang_4: "FPL (processordning)"
+    rang_5: "SOSFS (föreskrifter och allmänna råd)"
+    rang_6: "HFD-prejudikat om socialtjänst"
+    rang_7: "JO-beslut (vägledande)"
+    rang_8: "IVO-tillsynsbeslut (vägledande)"
+    rang_9: "Socialstyrelsens handböcker (INFORMERANDE)"
+
+  tvistemål:
+    rang_1: "RF"
+    rang_2: "EU-rätt (GDPR vid integritetsfrågor)"
+    rang_3: "JB (SFS 1970:994)"
+    rang_4: "RB (SFS 1942:740)"
+    rang_5: "SkL (SFS 1972:207)"
+    rang_6: "FHL (SFS 2018:558)"
+    rang_7: "HD-prejudikat"
+    rang_8: "Förarbeten"
+    rang_9: "HovR-praxis (vägledande)"

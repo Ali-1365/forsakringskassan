@@ -1,0 +1,104 @@
+# FK mönsterkatalog (SD-08 m.fl.) — konfigurerbar kodtabell
+# Komplement till config/kodsystem_fk_sfb.yaml. Mönster och lagrum
+# hämtade ordagrant ur
+# references/skills_registry/fk-monsterkatalog-crps-patientskada/SKILL.md
+# DEL A.
+meta:
+  domän: FK_MONSTERKATALOG
+  version: "1.0"
+  not: >
+    INDIKATIV_ENDAST. "Allvarlighet" i källan (KRITISK/HÖG) motsvarar
+    bristklassning-skillens KRITISK/ALLVARLIG och redovisas i
+    föreslaget_block. Scanner flaggar att mönstret nämns — avgör inte
+    att bristen faktiskt föreligger.
+
+koder:
+  - kod: "SD-08"
+    lagrum: "FL 23 §, SFB 110:13 §, SFB 39-44 kap."
+    beskrivning: "Bristfällig utredning av orsakssamband"
+    mönster: ["orsakssamband ej utredd", "samband arbete/skada saknas",
+               "arbetsskada ej dokumenterad", "kausalitet oklar"]
+    negativa_filter: []
+    föreslaget_block: "KRITISK"
+    indikation: "SD08_ORSAKSSAMBAND_EJ_UTREDD"
+
+  - kod: "MED-04"
+    lagrum: "FL 23 §, FPL 24 §"
+    beskrivning: "Medicinsk bevisning saknas eller är bristfällig"
+    mönster: ["läkarintyg saknas", "medicinsk utredning ofullständig",
+               "specialistutlåtande saknas", "journalhandlingar ej inhämtade"]
+    negativa_filter: []
+    föreslaget_block: "HÖG"
+    indikation: "MED04_MEDICINSK_BEVISNING_SAKNAS"
+
+  - kod: "MYND-01"
+    lagrum: "FL 25 §, FL 32 §, RF 1:9"
+    beskrivning: "Myndighetsmissbruk / felaktig handläggning"
+    mönster: ["handläggning felaktig", "kommunikation ej skett",
+               "motivering saknas", "objektivitetsbrister"]
+    negativa_filter: []
+    föreslaget_block: "KRITISK"
+    indikation: "MYND01_FELAKTIG_HANDLAGGNING"
+
+  - kod: "PROC-02"
+    lagrum: "FL 9 §, FL 17 §, FPL"
+    beskrivning: "Processuella fel i handläggning"
+    mönster: ["tidsfrister ej iakttagna", "kommunikation utebliven",
+               "part ej fått yttra sig", "kontradiktoriskt förfarande saknas"]
+    negativa_filter: []
+    föreslaget_block: "HÖG"
+    indikation: "PROC02_PROCESSUELLT_FEL"
+
+  - kod: "SGI-06"
+    lagrum: "SFB 25 kap., SFB 27:46 §"
+    beskrivning: "Felaktig SGI-beräkning"
+    mönster: ["SGI felaktig", "sjukpenninggrundande inkomst fel",
+               "inkomst nedsatt utan grund", "återställande av SGI nekat"]
+    negativa_filter: []
+    föreslaget_block: "KRITISK"
+    indikation: "SGI06_FELAKTIG_BERAKNING"
+
+  - kod: "CRPS-01"
+    lagrum: "Patientskadelagen 6 § 1 p, Budapestkriterierna (IASP), HFD 2018 ref. 3"
+    beskrivning: "Bristfällig CRPS-diagnos"
+    mönster: ["CRPS ej diagnostiserad", "Budapestkriterierna ej tillämpade",
+               "komplex regional smärta förbisedd", "reflexdystrofi ej bekräftad"]
+    negativa_filter: []
+    föreslaget_block: "KRITISK"
+    indikation: "CRPS01_BRISTFALLIG_DIAGNOS"
+
+  - kod: "CRPS-02"
+    lagrum: "Patientskadelagen 6 § 1 p, HFD 2018 ref. 3"
+    beskrivning: "Fördröjd CRPS-diagnos"
+    mönster: ["CRPS-diagnos fördröjd", "sent upptäckt CRPS",
+               "symtom ignorerade", "tidig behandling utebliven"]
+    negativa_filter: []
+    föreslaget_block: "HÖG"
+    indikation: "CRPS02_FORDROJD_DIAGNOS"
+
+  - kod: "CRPS-03"
+    lagrum: "Patientskadelagen (1996:799), HFD 2015 ref. 55"
+    beskrivning: "Bristande orsakssamband CRPS"
+    mönster: ["orsakssamband CRPS ej styrkt", "samband vård/CRPS saknas",
+               "kausalitet CRPS oklar"]
+    negativa_filter: []
+    föreslaget_block: "HÖG"
+    indikation: "CRPS03_ORSAKSSAMBAND"
+
+  - kod: "CRPS-04"
+    lagrum: "Trafikskadenämndens tabeller, HFD 2015 ref. 55"
+    beskrivning: "Felaktig invaliditetsgradsbedömning"
+    mönster: ["invaliditetsgrad för låg", "funktionsnedsättning underskattas",
+               "CRPS-påverkan ej beaktad", "arbetsförmåga felbedömd"]
+    negativa_filter: []
+    föreslaget_block: "HÖG"
+    indikation: "CRPS04_INVALIDITETSGRAD"
+
+  - kod: "SKADE-01"
+    lagrum: "SkL 3:2, RF 1:9"
+    beskrivning: "Grund för skadeståndsanspråk mot staten"
+    mönster: ["skadestånd JK", "Justitiekanslern", "myndighetsmissbruk",
+               "SkL 3:2", "ersättning myndighetens fel"]
+    negativa_filter: []
+    föreslaget_block: "KRITISK"
+    indikation: "SKADE01_STATLIGT_SKADESTAND"

@@ -1,0 +1,532 @@
+---
+openapi: 3.0.3
+info:
+  title: PUH API
+  description: Information om publiceringar
+  contact:
+    name: Domstolsverket
+    url: https://www.domstol.se
+    email: info@domstol.se
+  version: v1
+servers:
+- url: https://rattspraxis.etjanst.domstol.se
+  description: Produktion (PUH)
+- url: /
+  description: localhost
+tags:
+- name: Bilagor
+  description: Visar bilagor
+- name: Domstolar
+  description: Hanterar information om publicerande domstolar
+- name: Publiceringar
+  description: Hanterar information om publiceringar
+- name: Sök
+  description: Sök information om publiceringar
+- name: Sökförfiningar
+  description: Hämta förfiningar utifrån sökning
+paths:
+  /api/v1/bilagor/{lagringId}:
+    get:
+      tags:
+      - Bilagor
+      description: Strömmar ner en bilaga
+      operationId: visaBilaga
+      parameters:
+      - name: lagringId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: En bilaga
+          content:
+            application/pdf: {}
+        "404":
+          description: En bilaga hittades inte för givet id
+        "500":
+          description: Internt fel
+  /api/v1/domstolar:
+    get:
+      tags:
+      - Domstolar
+      description: Hämtar domstolar
+      operationId: hamtaDomstolar
+      responses:
+        "200":
+          description: En lista av domstolar
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DomstolDTO'
+        "500":
+          description: Internt fel
+  /api/v1/publiceringar:
+    get:
+      tags:
+      - Publiceringar
+      description: Hämtar publiceringar
+      operationId: hamtaPubliceringar
+      parameters:
+      - name: domstolkod
+        in: query
+        description: "Intern domstolskod, i stora eller små bokstäver."
+        schema:
+          type: string
+      - name: publiceringstyper
+        in: query
+        description: "Typer av publiceringar, en kommaseparerad lista. Möjliga val,\
+          \ i stora eller små bokstäver: 'provningstillstand', 'forhandsavgorande',\
+          \ 'dom_eller_beslut', 'referat', 'notis'."
+        schema:
+          type: string
+      - name: malnummer
+        in: query
+        description: En kommaseparerad lista
+        schema:
+          type: string
+      - name: publicerad_fran_och_med
+        in: query
+        description: "Datum i ISO-format, yyyy-MM-dd."
+        schema:
+          format: date
+          type: string
+      - name: sortorder
+        in: query
+        description: "Sorteringsordning för publiceringar. Default är avgörandedatum,\
+          \ möjliga andra val i stora eller små bokstäver: 'domstol', 'avgorandetyp',\
+          \ 'publiceringstid'."
+        schema:
+          type: string
+      - name: asc
+        in: query
+        description: "Sorteringsriktning, default är descending. Ange 'true' för ascending."
+        schema:
+          type: boolean
+      - name: page
+        in: query
+        schema:
+          format: int32
+          type: integer
+      - name: pagesize
+        in: query
+        schema:
+          format: int32
+          type: integer
+      - name: publiceringsformer
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: En lista av publiceringar
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PubliceringDTO'
+        "500":
+          description: Internt fel
+  /api/v1/publiceringar/grupp/{id}:
+    get:
+      tags:
+      - Publiceringar
+      description: Hämtar publicering via id
+      operationId: hamtaPubliceringsGruppViaId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: alla publiceringar för en viss grupp
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PubliceringDTO'
+        "500":
+          description: Internt fel
+  /api/v1/publiceringar/{id}:
+    get:
+      tags:
+      - Publiceringar
+      description: Hämtar publicering via id
+      operationId: hamtaPubliceringViaId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: en publicering
+          content:
+            application/json:
+              schema:
+                required:
+                - id
+                - gruppKorrelationsnummer
+                - domstol
+                - typ
+                - avgorandedatum
+                - referatNummerLista
+                - lagrumLista
+                - litteraturLista
+                - forarbeteLista
+                - nyckelordLista
+                - hanvisadePubliceringarLista
+                - rattsomradeLista
+                - europarattsligaAvgorandenLista
+                - bilagaLista
+                - publiceringstid
+                type: object
+                properties:
+                  id:
+                    type: string
+                  gruppKorrelationsnummer:
+                    type: string
+                  domstol:
+                    $ref: '#/components/schemas/DomstolDTO'
+                  ecliNummer:
+                    type: string
+                  typ:
+                    type: string
+                  malNummerLista:
+                    type: array
+                    items:
+                      type: string
+                  avgorandedatum:
+                    type: string
+                  sammanfattning:
+                    type: string
+                  innehall:
+                    type: string
+                  benamning:
+                    type: string
+                  publiceringsform:
+                    type: string
+                  referatNummerLista:
+                    type: array
+                    items:
+                      type: string
+                  arbetsdomstolenDomsnummer:
+                    type: string
+                  lagrumLista:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LagrumDTO'
+                  litteraturLista:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LitteraturDTO'
+                  forarbeteLista:
+                    type: array
+                    items:
+                      type: string
+                  nyckelordLista:
+                    type: array
+                    items:
+                      type: string
+                  hanvisadePubliceringarLista:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PubliceringsgruppHanvisningDTO'
+                  rattsomradeLista:
+                    type: array
+                    items:
+                      type: string
+                  europarattsligaAvgorandenLista:
+                    type: array
+                    items:
+                      type: string
+                  bilagaLista:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PubliceringBilagaDTO'
+                  publiceringstid:
+                    type: string
+        "500":
+          description: Internt fel
+  /api/v1/sok:
+    post:
+      tags:
+      - Sök
+      description: Sökning
+      operationId: sokning
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SokRequestDTO'
+      responses:
+        "200":
+          description: En lista av publiceringar
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    format: int32
+                    type: integer
+                  publiceringLista:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PubliceringDTO'
+        "500":
+          description: Internt fel
+  /api/v1/sokforfiningar:
+    post:
+      tags:
+      - Sökförfiningar
+      description: Hämta förfiningar
+      operationId: hamtaForfiningar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SokRequestDTO'
+      responses:
+        "200":
+          description: En lista av grupperade förfiningar
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sokordMap:
+                    type: object
+                    additionalProperties:
+                      format: int64
+                      type: integer
+                  rattsomradeMap:
+                    type: object
+                    additionalProperties:
+                      format: int64
+                      type: integer
+                  sfsnummerMap:
+                    type: object
+                    additionalProperties:
+                      format: int64
+                      type: integer
+                  avgorandetypMap:
+                    type: object
+                    additionalProperties:
+                      format: int64
+                      type: integer
+                  publiceringsformMap:
+                    type: object
+                    additionalProperties:
+                      format: int64
+                      type: integer
+                  domstolsidMap:
+                    type: object
+                    additionalProperties:
+                      format: int64
+                      type: integer
+        "500":
+          description: Internt fel
+components:
+  schemas:
+    DomstolDTO:
+      type: object
+      properties:
+        domstolKod:
+          type: string
+        domstolNamn:
+          type: string
+    LagrumDTO:
+      type: object
+      properties:
+        sfsNummer:
+          type: string
+        referens:
+          type: string
+    LitteraturDTO:
+      type: object
+      properties:
+        titel:
+          type: string
+        forfattare:
+          type: string
+    PubliceringBilagaDTO:
+      type: object
+      properties:
+        fillagringId:
+          type: string
+        filnamn:
+          type: string
+    PubliceringDTO:
+      required:
+      - id
+      - gruppKorrelationsnummer
+      - domstol
+      - typ
+      - avgorandedatum
+      - referatNummerLista
+      - lagrumLista
+      - litteraturLista
+      - forarbeteLista
+      - nyckelordLista
+      - hanvisadePubliceringarLista
+      - rattsomradeLista
+      - europarattsligaAvgorandenLista
+      - bilagaLista
+      - publiceringstid
+      type: object
+      properties:
+        id:
+          type: string
+        gruppKorrelationsnummer:
+          type: string
+        domstol:
+          $ref: '#/components/schemas/DomstolDTO'
+        ecliNummer:
+          type: string
+        typ:
+          type: string
+        malNummerLista:
+          type: array
+          items:
+            type: string
+        avgorandedatum:
+          type: string
+        sammanfattning:
+          type: string
+        innehall:
+          type: string
+        benamning:
+          type: string
+        publiceringsform:
+          type: string
+        referatNummerLista:
+          type: array
+          items:
+            type: string
+        arbetsdomstolenDomsnummer:
+          type: string
+        lagrumLista:
+          type: array
+          items:
+            $ref: '#/components/schemas/LagrumDTO'
+        litteraturLista:
+          type: array
+          items:
+            $ref: '#/components/schemas/LitteraturDTO'
+        forarbeteLista:
+          type: array
+          items:
+            type: string
+        nyckelordLista:
+          type: array
+          items:
+            type: string
+        hanvisadePubliceringarLista:
+          type: array
+          items:
+            $ref: '#/components/schemas/PubliceringsgruppHanvisningDTO'
+        rattsomradeLista:
+          type: array
+          items:
+            type: string
+        europarattsligaAvgorandenLista:
+          type: array
+          items:
+            type: string
+        bilagaLista:
+          type: array
+          items:
+            $ref: '#/components/schemas/PubliceringBilagaDTO'
+        publiceringstid:
+          type: string
+    PubliceringsgruppHanvisningDTO:
+      type: object
+      properties:
+        gruppKorrelationsnummer:
+          type: string
+        fritext:
+          type: string
+    SokRequestDTO:
+      type: object
+      properties:
+        sokfras:
+          $ref: '#/components/schemas/SokfrasDTO'
+        sidIndex:
+          format: int32
+          type: integer
+        antalPerSida:
+          format: int32
+          type: integer
+        sortorder:
+          type: string
+        asc:
+          type: boolean
+        domstolsfilterDolt:
+          type: boolean
+        filter:
+          $ref: '#/components/schemas/SokRequestFilterDTO'
+    SokRequestFilterDTO:
+      type: object
+      properties:
+        intervall:
+          $ref: '#/components/schemas/SokRequestFilterIntervallDTO'
+        rattsomradeLista:
+          type: array
+          items:
+            type: string
+        sfsNummerLista:
+          type: array
+          items:
+            type: string
+        sokordLista:
+          type: array
+          items:
+            type: string
+        domstolKodLista:
+          type: array
+          items:
+            type: string
+        malnummerLista:
+          type: array
+          items:
+            type: string
+        avgorandeTypLista:
+          type: array
+          items:
+            type: string
+        publiceringsformLista:
+          type: array
+          items:
+            type: string
+    SokRequestFilterIntervallDTO:
+      type: object
+      properties:
+        fromDatum:
+          type: string
+        toDatum:
+          type: string
+    SokfrasDTO:
+      type: object
+      properties:
+        orLista:
+          type: array
+          items:
+            type: string
+        notLista:
+          type: array
+          items:
+            type: string
+        andLista:
+          type: array
+          items:
+            type: string
+        exaktFras:
+          type: string

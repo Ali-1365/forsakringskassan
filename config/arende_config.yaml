@@ -1,0 +1,133 @@
+meta:
+  not: 'Denna fil innehåller INGA personuppgifter. Klientdata anges alltid som parametrar
+    vid anrop — aldrig i config. Systemet är ärendeagnostiskt.
+
+    '
+processordningar:
+- kod: FPL
+  beskrivning: Förvaltningsprocess
+  materiella_lagar:
+  - SoL
+  - SFB
+  - LVU
+  - LSS
+  - FL
+  instansordning:
+  - förvaltningsrätt
+  - kammarrätt
+  - HFD
+- kod: RB
+  beskrivning: Civilprocess
+  materiella_lagar:
+  - RB
+  - AvtL
+  - SkL
+  - KöpL
+  instansordning:
+  - tingsrätt
+  - hovrätt
+  - HD
+- kod: KL
+  beskrivning: Konkursprocess
+  materiella_lagar:
+  - KL
+  - ABL
+  - RB
+  instansordning:
+  - tingsrätt
+  - hovrätt
+  - HD
+domäner:
+- kod: FK_SFB
+  beskrivning: Försäkringskassan / socialförsäkring
+  processordning: FPL
+  kodsystem: config/kodsystem_fk_sfb.yaml
+- kod: SOL_LVU
+  beskrivning: Socialtjänst / ekonomiskt bistånd / LVU
+  processordning: FPL
+  kodsystem: config/kodsystem_sol_socialtjanst.yaml
+- kod: RB_TVIST
+  beskrivning: Tvistemål
+  processordning: RB
+  kodsystem: config/kodsystem_rb_tvist.yaml
+- kod: KL_KONKURS
+  beskrivning: Konkurs / återvinning
+  processordning: KL
+  kodsystem: config/kodsystem_kl_konkurs.yaml
+- kod: PATIENTSKADA
+  beskrivning: Patientskada / LÖF
+  processordning: RB
+  kodsystem: config/kodsystem_patientskada.yaml
+- kod: FK_ARBETSSKADA
+  beskrivning: Arbetsskada SFB 39-44
+  processordning: FPL
+  kodsystem: config/kodsystem_fk_sfb.yaml
+- kod: FK_LIVRANTA
+  beskrivning: Livränta SFB 26:17 / 113:8
+  processordning: FPL
+  kodsystem: config/kodsystem_fk_sfb.yaml
+- kod: FK_SJUKPENNING_SGI
+  beskrivning: Sjukpenning/SGI
+  processordning: FPL
+  kodsystem: config/kodsystem_fk_sfb.yaml
+- kod: PATIENTSKADA_CRPS
+  beskrivning: CRPS patientskada
+  processordning: RB
+  kodsystem: config/kodsystem_patientskada.yaml
+- kod: SKADESTAND_JK
+  beskrivning: Skadestånd mot staten
+  processordning: RB
+- kod: JB_HYRA
+  beskrivning: Lokalhyra / JB 12 kap. (RB)
+  processordning: RB
+  kodsystem: config/kodsystem_jb_hyresratt.yaml
+standardrekvisit:
+  FK_SFB:
+  - Arbetsförmåga styrkt
+  - SGI korrekt beräknad
+  - Utredningsskyldighet uppfylld (FL 23 §)
+  - Kommunikation genomförd (FL 25 §)
+  SOL_LVU:
+  - Behovsbedömning genomförd
+  - Biståndsskäl föreligger (SoL 4 kap. 1 §)
+  - Proportionalitet bedömd
+  - Utredningsskyldighet uppfylld
+  RB_TVIST:
+  - Talerätt föreligger
+  - Bevisbörda uppfylld
+  - Forumrätt korrekt
+  KL_KONKURS:
+  - Insolvens styrkt
+  - Återvinningsgrund föreligger
+  FK_ARBETSSKADA:
+  - Orsakssamband arbete–skada (SFB 39 kap.)
+  - Medicinskt underlag för skada
+  - Utredningsskyldighet FL 23 § / SFB 110:13 §
+  FK_LIVRANTA:
+  - Inkomstförlust minst 1/15 (SFB 26:17 §)
+  - Varaktighet mer än 1 år
+  - Nackdelsförbud SFB 113:8 §
+  PATIENTSKADA_CRPS:
+  - CRPS enligt Budapestkriterierna
+  - Orsakssamband vård–skada (Patientskadelagen)
+  - Eventuell fördröjd diagnos (HFD 2018 ref. 3)
+lagskiften:
+- lag: SoL
+  gammal: 2001:453
+  ny: 2025:400
+  ikraftträdande: '2025-07-01'
+- lag: FPL
+  gammal: 1971:291
+  ny: 2023:560
+  ikraftträdande: '2024-01-01'
+bevisstyrka:
+- nivå: A_STARK
+  beskrivning: Direkt bevisning med full källkedja
+- nivå: B_STÖD
+  beskrivning: Stödbevisning med partiell källkedja
+- nivå: C_BAKGRUND
+  beskrivning: Bakgrundsinformation utan direkt bevisvärde
+- nivå: D_DUBBLETT
+  beskrivning: Identisk fil — rensningskandidat
+- nivå: E_IRRELEVANT
+  beskrivning: Utan rättslig relevans för målet

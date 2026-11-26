@@ -1,0 +1,59 @@
+# Policy / lagändringsbevakning — INDIKATIV
+# Live SFS-hämtning kräver extern källa; denna modul jämför kända lagskiften
+# mot YAML-triggers och flaggar utdateringsrisk.
+version: "1.0"
+meta:
+  provisional_output_only: true
+  zero_inference: true
+  not: >
+    Producerar aldrig ny rättsregel. Endast varning när lokal config
+    kan vara ur fas med dokumenterade lagskiften.
+
+# Dokumenterade lagskiften som systemet känner till (utökas via YAML)
+kända_lagskiften:
+  - id: SOL_2025_400
+    lag: "SoL"
+    gammal: "2001:453"
+    ny: "2025:400"
+    ikraftträdande: "2025-07-01"
+    yaml_berörda:
+      - config/kodsystem_sol_socialtjanst.yaml
+      - config/arende_config.yaml
+      - config/rattstid_config.yaml
+    rekvisit_risk: "Beslut före/efter 2025-07-01 kräver olika lagversion"
+
+  - id: LSB_2024_79
+    lag: "LSB"
+    ny: "2024:79"
+    ikraftträdande: "2024"
+    yaml_berörda:
+      - config/kodsystem_lsb_skyddat_boende.yaml
+    rekvisit_risk: "Skyddat boende — LSB-triggers måste matcha gällande lydelse"
+
+  - id: FL_GENERIC
+    lag: "FL"
+    yaml_berörda:
+      - config/kodsystem_fpl_forvaltning.yaml
+      - config/capability_map.yaml
+      - config/pretrial_objectives.yaml
+    rekvisit_risk: "FL 23/25/32 triggers i processrätt/kodsystem"
+
+  - id: RB_GENERIC
+    lag: "RB"
+    yaml_berörda:
+      - config/kodsystem_rb_tvist.yaml
+    rekvisit_risk: "RB-kapitel i tvistemålskodtabell"
+
+# Filtrerade mål-YAML för impact-scan
+scan_targets:
+  - config/capability_map.yaml
+  - config/pretrial_objectives.yaml
+  - config/kodsystem_fk_sfb.yaml
+  - config/kodsystem_rb_tvist.yaml
+  - config/kodsystem_sol_socialtjanst.yaml
+  - config/kodsystem_fpl_forvaltning.yaml
+  - config/kodsystem_kl_konkurs.yaml
+  - config/kodsystem_patientskada.yaml
+  - config/kodsystem_lsb_skyddat_boende.yaml
+  - config/rattstid_config.yaml
+  - config/arende_config.yaml

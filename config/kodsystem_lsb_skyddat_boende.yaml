@@ -1,0 +1,169 @@
+version: '1.0'
+meta:
+  domän: LSB_SKYDDAT_BOENDE
+  lag: Lag (2024:79) om placering av barn i skyddat boende
+  not: 'Träffar är sökhjälp för handläggnings- och rekvisitkontroll. Beslutsdatum
+    styr tillämplig lag. Ingen juridisk giltighetsbedömning.
+
+    '
+  provisional_output_only: true
+  zero_inference: true
+rättslig_referensram: &id001
+- kod: LSB_3_1
+  lagrum: 3 kap. 1 § LSB (2024:79)
+  beskrivning: Förutsättningar för placering i skyddat boende
+  mönster:
+  - skyddat boende
+  - placering i skyddat
+  - 3 kap. 1
+  negativa_filter: []
+  föreslaget_block: REKVISIT
+  indikation: INDIKATIV_ENDAST
+- kod: LSB_4_1
+  lagrum: 4 kap. 1 § LSB (2024:79)
+  beskrivning: Omedelbar insats
+  mönster:
+  - omedelbar insats
+  - omedelbart beslut
+  - 4 kap. 1
+  negativa_filter: []
+  föreslaget_block: PROCESS
+  indikation: INDIKATIV_ENDAST
+- kod: FL_23
+  lagrum: 23 § FL
+  beskrivning: Utredningsskyldighet
+  mönster:
+  - utredningsskyldighet
+  - bristfällig utredning
+  - inte utrett
+  - 23 §
+  negativa_filter: []
+  föreslaget_block: HANDLÄGGNING
+  indikation: INDIKATIV_ENDAST
+- kod: FL_25
+  lagrum: 25 § FL
+  beskrivning: Kommunikation
+  mönster:
+  - kommunikationsskyldighet
+  - inte fått yttra sig
+  - ej kommunicerat
+  - 25 §
+  negativa_filter: []
+  föreslaget_block: HANDLÄGGNING
+  indikation: INDIKATIV_ENDAST
+- kod: FL_32
+  lagrum: 32 § FL
+  beskrivning: Motivering av beslut
+  mönster:
+  - motivering
+  - saknar skäl
+  - omotiverat
+  - 32 §
+  negativa_filter: []
+  föreslaget_block: HANDLÄGGNING
+  indikation: INDIKATIV_ENDAST
+- kod: FL_5
+  lagrum: 5 § FL
+  beskrivning: Proportionalitet
+  mönster:
+  - proportionalitet
+  - mindre ingripande
+  - oproportionerlig
+  - 5 § förvaltningslagen
+  negativa_filter: []
+  föreslaget_block: PROPORTIONALITET
+  indikation: INDIKATIV_ENDAST
+- kod: FB_6_2A
+  lagrum: 6 kap. 2 a § FB
+  beskrivning: Barnets bästa
+  mönster:
+  - barnets bästa
+  - 6 kap. 2 a
+  - barnets intresse
+  negativa_filter: []
+  föreslaget_block: BARN
+  indikation: INDIKATIV_ENDAST
+- kod: FB_6_13
+  lagrum: 6 kap. 13 § FB
+  beskrivning: Gemensam vårdnad
+  mönster:
+  - gemensam vårdnad
+  - vårdnadshavare
+  - 6 kap. 13
+  negativa_filter: []
+  föreslaget_block: VÅRDNAD
+  indikation: INDIKATIV_ENDAST
+- kod: EKMR_8
+  lagrum: EKMR artikel 8
+  beskrivning: Rätt till familjeliv
+  mönster:
+  - artikel 8
+  - art. 8
+  - familjeliv
+  - privatliv
+  negativa_filter: []
+  föreslaget_block: PROPORTIONALITET
+  indikation: INDIKATIV_ENDAST
+- kod: BK_3
+  lagrum: Barnkonventionen artikel 3
+  beskrivning: Barnets bästa
+  mönster:
+  - barnkonventionen
+  - artikel 3
+  - art. 3
+  negativa_filter: []
+  föreslaget_block: BARN
+  indikation: INDIKATIV_ENDAST
+- kod: BK_12
+  lagrum: Barnkonventionen artikel 12
+  beskrivning: Barnets rätt att höras
+  mönster:
+  - artikel 12
+  - art. 12
+  - barnet hörts
+  - barnsamtal
+  - barnets vilja
+  negativa_filter: []
+  föreslaget_block: BARN
+  indikation: INDIKATIV_ENDAST
+angreppspunkter:
+  A_beslutsunderlag:
+    frågor:
+    - Vilka konkreta omständigheter åberopades?
+    - Vilka uppgifter kommer från vem?
+    - Finns verifiering?
+    - Har motstående uppgifter behandlats?
+    lagrum:
+    - 23 § FL
+    - 4 kap. 1 § LSB
+  B_barnets_uppgifter:
+    frågor:
+    - Har barnet fått komma till tals?
+    - Hur har barnets vilja dokumenterats?
+    - Har barnets perspektiv redovisats?
+    lagrum:
+    - Barnkonventionen art. 12
+    - 2 kap. LSB
+  C_andra_vardnadshavaren:
+    frågor:
+    - Har socialnämnden försökt klarlägga inställningen?
+    - Har invändningar dokumenterats?
+    - Har alternativa förklaringar prövats?
+    lagrum:
+    - 23 § FL
+    - 25 § FL
+    - 32 § FL
+  D_proportionalitet:
+    frågor:
+    - Var mindre ingripande åtgärder möjliga?
+    - Var beslutet individuellt motiverat?
+    - Var risken konkretiserad?
+    lagrum:
+    - 5 § FL
+    - EKMR art. 8
+handlingstyper:
+- OVERKLAGANDE_FR
+- YTTRANDE
+- JO_JK
+- OVRIGT
+koder: *id001

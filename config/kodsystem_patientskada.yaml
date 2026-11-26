@@ -1,0 +1,38 @@
+meta:
+  domän: PATIENTSKADA_LOF
+  version: "1.0"
+  källa: "Patientskadelagen (1996:799), HSL"
+  not: Forum LÖF/patientskada. Separat från FK-audit utan explicit scope.
+
+koder:
+  - kod: "PATSKL-6"
+    lagrum: "Patientskadelagen 6 §"
+    beskrivning: "Undvikbar skada"
+    mönster: ["undvikbar skada", "patientskada", "Patientskadelagen 6"]
+    negativa_filter: []
+    föreslaget_block: "PATIENTSKADA"
+    indikation: "UNDVIKBAR"
+
+  - kod: "PATSKL-7"
+    lagrum: "Patientskadelagen 7 §"
+    beskrivning: "Orsakssamband"
+    mönster: ["orsakssamband", "medicinskt samband", "Patientskadelagen 7"]
+    negativa_filter: []
+    föreslaget_block: "PATIENTSKADA"
+    indikation: "KAUSALITET"
+
+  - kod: "CRPS-BUDAPEST"
+    lagrum: "jfr HFD 2018 ref. 3; Budapestkriterierna"
+    beskrivning: "CRPS / Budapest"
+    mönster: ["CRPS", "Budapestkriterierna", "komplex regional"]
+    negativa_filter: []
+    föreslaget_block: "MEDICIN"
+    indikation: "CRPS"
+
+  - kod: "LOF-ANMALAN"
+    lagrum: "Patientskadelagen"
+    beskrivning: "Anmälan till LÖF"
+    mönster: ["LÖF", "patientförsäkringen", "anmälan om patientskada"]
+    negativa_filter: []
+    föreslaget_block: "ANMALAN"
+    indikation: "LOF"

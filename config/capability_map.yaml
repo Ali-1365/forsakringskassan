@@ -1,0 +1,14 @@
+# Dynamic capability map — aktiveras endast vid relevant material
+version: "1.0"
+moduler:
+  DOCUMENT_FORENSICS: {triggers: [pdf, docx, skannad, bilaga], sfcae: [aktgranskning, ocr_fallback]}
+  AUDIO_FORENSICS: {triggers: [ljud, audio, wav, mp3, transkription], sfcae: [metadata_forensics]}
+  VIDEO_FORENSICS: {triggers: [video, mp4, film], sfcae: []}
+  METADATA_FORENSICS: {triggers: [metadata, hash, exif], sfcae: [metadata_forensics_agent]}
+  TECHNICAL_ANALYSIS: {triggers: [hash, filformat], sfcae: [source_hygiene]}
+  MEDICAL_FACT_ANALYSIS: {triggers: [läkarintyg, journal, diagnos, CRPS], sfcae: [pattern_scanner]}
+  FINANCIAL_ANALYSIS: {triggers: [faktura, inkasso, skuld, kontoutdrag], sfcae: [skuldkedja, economy]}
+  ADMINISTRATIVE_ANALYSIS: {triggers: [myndighet, beslut, FL], sfcae: [processratt, fl_process]}
+  LEGAL_SOURCE_ANALYSIS: {triggers: [lagrum, praxis, SFS], sfcae: [deep_search, lagskifte]}
+  PROCEDURAL_ANALYSIS: {triggers: [överklagande, stämning, FPL, RB], sfcae: [processratt, kodsystem]}
+  JUDGMENT_AUDIT: {triggers: [dom, domskäl, avgörande], sfcae: [canonical JUDGMENT_AUDIT]}

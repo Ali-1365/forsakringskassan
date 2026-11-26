@@ -1,0 +1,110 @@
+# SoL paragrafmappning 2001:453 → 2025:400
+# Källa: references/skills_registry/juridisk-processmotor-UNIFIED/
+#        references/sol-paragrafmappning.md — transkriberad till
+#        strukturerad data, inget tillagt.
+meta:
+  källa: "sol-paragrafmappning.md (extern referenspack)"
+  not: >
+    INDIKATIV_ENDAST. Paragrafmappningen är transkriberad ur
+    referensmaterialet, inte oberoende verifierad mot SFS/riksdagen.se.
+    Verifiera mot gällande författningssamling innan användning i en
+    verklig handling — samma försiktighet som lagskifte_validator.py:s
+    versionsdatum redan kräver.
+
+mappningar:
+  - ämne: "Rätt till bistånd (samlad)"
+    kategori: "ekonomiskt_bistand"
+    gammal_paragraf: "4 kap. 1 §"
+    ny_paragraf: "Delad — se nedan"
+    kommentar: "Delad i personliga + ekonomiska behov"
+
+  - ämne: "Insatser personliga behov"
+    kategori: "ekonomiskt_bistand"
+    gammal_paragraf: "4 kap. 1 § (livsföring)"
+    ny_paragraf: "11 kap. 1 §"
+    kommentar: "'Skäliga levnadsförhållanden'"
+
+  - ämne: "Ekonomiskt bistånd"
+    kategori: "ekonomiskt_bistand"
+    gammal_paragraf: "4 kap. 1 § (ekonomi)"
+    ny_paragraf: "12 kap. 1 §"
+    kommentar: "'Försörjningsstöd' och 'levnadskostnader'"
+
+  - ämne: "Bistånd i andra fall"
+    kategori: "ekonomiskt_bistand"
+    gammal_paragraf: "4 kap. 2 §"
+    ny_paragraf: "11 kap. 4 § + 12 kap. 2 §"
+    kommentar: "Delad"
+
+  - ämne: "Försörjningsstödets beräkning"
+    kategori: "ekonomiskt_bistand"
+    gammal_paragraf: "4 kap. 3 §"
+    ny_paragraf: "12 kap. 7 §"
+    kommentar: "Riksnorm"
+
+  - ämne: "Kompetenshöjande verksamhet"
+    kategori: "ekonomiskt_bistand"
+    gammal_paragraf: "4 kap. 4 §"
+    ny_paragraf: "12 kap. 4 §"
+    kommentar: ""
+
+  - ämne: "Särskild beräkningsregel"
+    kategori: "ekonomiskt_bistand"
+    gammal_paragraf: "4 kap. 1 b §"
+    ny_paragraf: "12 kap. 8 §"
+    kommentar: "25% undantag"
+
+  - ämne: "Barnets bästa"
+    kategori: "barnratt"
+    gammal_paragraf: "1 kap. 2 §"
+    ny_paragraf: "3 kap. 1 §"
+    kommentar: "Förstärkt: 'i första hand'"
+
+  - ämne: "Barns rätt att höras"
+    kategori: "barnratt"
+    gammal_paragraf: "1 kap. 2 § 2 st"
+    ny_paragraf: "3 kap. 2 §"
+    kommentar: "Egen paragraf"
+
+  - ämne: "Barns rätt till information"
+    kategori: "barnratt"
+    gammal_paragraf: null
+    ny_paragraf: "3 kap. 3 §"
+    kommentar: "Ny bestämmelse"
+
+  - ämne: "Utredningsskyldighet"
+    kategori: "utredning"
+    gammal_paragraf: "11 kap. 1 §"
+    ny_paragraf: "20 kap. 2 §"
+    kommentar: ""
+
+  - ämne: "Dokumentation"
+    kategori: "utredning"
+    gammal_paragraf: "11 kap. 5 §"
+    ny_paragraf: "14 kap. 1 §"
+    kommentar: ""
+
+  - ämne: "Kommunens ansvar"
+    kategori: "utredning"
+    gammal_paragraf: "2 kap. 1 §"
+    ny_paragraf: "4 kap. 1 §"
+    kommentar: ""
+
+  - ämne: "Överklagande bistånd"
+    kategori: "overklagande"
+    gammal_paragraf: "16 kap. 3 §"
+    ny_paragraf: "30 kap. 3 §"
+    kommentar: ""
+
+  - ämne: "Laglighetsprövning"
+    kategori: "overklagande"
+    gammal_paragraf: "16 kap. 6 §"
+    ny_paragraf: "30 kap. 6 §"
+    kommentar: ""
+
+övergångsbestämmelse:
+  ikraftträdande: "2025-07-01"
+  regel: >
+    Före 2025-07-01: SoL 2001:453. Från 2025-07-01: SoL 2025:400.
+    Övergångsbestämmelse punkt 6: gamla lagen gäller vid prövning av
+    överklagande av beslut meddelade före ikraftträdandet.

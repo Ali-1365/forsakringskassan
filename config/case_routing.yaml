@@ -1,0 +1,76 @@
+# Domänrouting — nyckelord → domän/modul
+# INDIKATIV_ENDAST. Ändrar aldrig ProcessMode automatiskt.
+version: "1.0"
+priority_order:
+  - SKADESTAND_JK
+  - FK_ARBETSSKADA
+  - FK_LIVRANTA
+  - PATIENTSKADA_CRPS
+  - PATIENTSKADA_ALLMAN
+  - FK_SJUKPENNING_SGI
+  - SOL_LVU
+  - MIGRATION
+  - CSN
+  - ALLMAN_FORVALTNING
+
+domains:
+  FK_SJUKPENNING_SGI:
+    keywords: ["sjukpenning", "SGI", "arbetsoförmåga", "läkarintyg", "nedsättning av arbetsförmåga"]
+    authority: "Försäkringskassan"
+    forum: "FPL"
+    laws: ["SFB 25-27 kap.", "FL", "FPL"]
+    module: "FK_SJUKPENNING_SGI"
+  FK_ARBETSSKADA:
+    keywords: ["arbetsskada", "arbetsolycka", "yrkessjukdom", "SFB 39", "SFB 40", "SFB 41", "SFB 42", "SFB 43", "SFB 44"]
+    authority: "Försäkringskassan"
+    forum: "FPL"
+    laws: ["SFB 39-44 kap.", "FL", "FPL"]
+    module: "FK_ARBETSSKADA_PHAL"
+  FK_LIVRANTA:
+    keywords: ["livränta", "inkomstförlust", "1/15", "SFB 26:17", "SFB 113:8", "varaktig nedsättning"]
+    authority: "Försäkringskassan"
+    forum: "FPL"
+    laws: ["SFB 26:17 §", "SFB 113:8 §"]
+    module: "FK_LIVRANTA_PHAL"
+  SKADESTAND_JK:
+    keywords: ["skadestånd", "Justitiekanslern", "JK", "myndighetsmissbruk", "SkL 3:2", "fel i myndighetsutövning"]
+    authority: "Justitiekanslern"
+    forum: "ALLMÄN_DOMSTOL"
+    laws: ["SkL 3:2", "RF 1:9", "FL"]
+    module: "SKADESTAND_JK_STATEN"
+  PATIENTSKADA_CRPS:
+    keywords: ["CRPS", "komplex regional smärta", "Budapest", "RSD", "Löf", "patientskada"]
+    authority: "Löf"
+    forum: "PATIENTSKADA"
+    laws: ["Patientskadelagen", "HFD 2018 ref. 3"]
+    module: "PATIENTSKADA_CRPS_LOF"
+  PATIENTSKADA_ALLMAN:
+    keywords: ["patientskada", "vårdskada", "felbehandling", "Patientskadelagen"]
+    authority: "Löf"
+    forum: "PATIENTSKADA"
+    laws: ["Patientskadelagen", "SkL"]
+    module: "PATIENTSKADA_ALLMAN"
+  SOL_LVU:
+    keywords: ["socialnämnd", "bistånd", "LVU", "LSS", "SoL", "omhändertagande"]
+    authority: "Kommun/socialnämnd"
+    forum: "FPL"
+    laws: ["SoL", "LVU", "LSS", "FL", "FPL"]
+    module: "SOL_SOCIAL"
+  MIGRATION:
+    keywords: ["uppehållstillstånd", "asyl", "utvisning", "Migrationsverket", "utlänningslagen"]
+    authority: "Migrationsverket"
+    forum: "MIGRATION"
+    laws: ["Utlänningslagen", "EKMR"]
+    module: "MIGRATION"
+  CSN:
+    keywords: ["studiemedel", "CSN", "studiestöd", "återbetalning"]
+    authority: "CSN"
+    forum: "FPL"
+    laws: ["Studiestödslagen"]
+    module: "CSN_STUDIEMEDEL"
+  ALLMAN_FORVALTNING:
+    keywords: ["överklagande", "förvaltningsrätt", "myndighetsbeslut"]
+    authority: "Okänd"
+    forum: "FPL"
+    laws: ["FL", "FPL"]
+    module: "ALLMAN_FORVALTNING"

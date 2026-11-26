@@ -1,0 +1,40 @@
+# zero_inference: true | provisional_output_only: true
+# Inte automatiskt domslut. Parter/belopp är aktreferenser, inte facit.
+
+# ==============================================================================
+# KÄLLSEPARERINGSMANIFEST
+# ==============================================================================
+# Syfte: Förhindra korskontaminering mellan två skilda ämnesområden som kan
+#        förekomma i samma källmaterial.
+#
+# Princip:  Fallrelevanta data ligger under references/ och får läsas.
+#           Fristående forskningstema ligger under external/ och får INTE läsas
+#           av konfigurationslastaren (config_loader) eller av
+#           cross-case-scannen (cross_case_scan).
+#
+# Regel:    EXCLUDED_ROOTS nedan är bindande för lastaren. Denna fil binder
+#           medvetet inget enskilt ärende — case_scope/reference_roots ska
+#           aldrig peka på en specifik ärendekatalog (t.ex. references/tNNNN_NN).
+# ==============================================================================
+
+schema_version: '1.0'
+
+reference_roots:
+  - sokvag: 'references'
+    doman: 'processuell_juridik'
+    lastbar_for_loader: true
+    cross_case_scan: true
+
+excluded_roots:
+  - sokvag: 'external'
+    doman: 'fristaende_forskning'
+    lastbar_for_loader: false
+    cross_case_scan: false
+    orsak: 'Saknar processuell koppling till huvudärendet och får inte blandas in i granskningen.'
+
+external_domains:
+  - sokvag: 'external/biological_research'
+    amne: 'Neurofysiologi (Runner''s High)'
+    lastbar_for_loader: false
+    cross_case_scan: false
+    placeringsregel: 'Utanför references/ för att rekursiv scanning av references/ aldrig kan nå domänen.'

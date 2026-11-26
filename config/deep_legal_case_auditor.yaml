@@ -1,0 +1,76 @@
+# deep_legal_case_auditor.yaml — speckontrakt (inte FSM-ersättare)
+version: "1.0.0"
+module_id: deep_legal_case_auditor
+status: production_candidate
+language: sv-SE
+
+primary_rule: separate_claim_from_evidence
+
+states:
+  - INITIALIZED
+  - SCOPING
+  - INVENTORYING
+  - EXTRACTING
+  - ANALYZING
+  - CROSS_REFERENCING
+  - VERIFYING
+  - QUALITY_CONTROL
+  - COMPLETED
+  - INCOMPLETE_REQUIRES_VERIFICATION
+  - BLOCKED
+
+pipeline_steps:
+  - inventory
+  - extraction
+  - timeline
+  - claims
+  - evidence
+  - new_material
+  - conflicts
+  - missing
+  - legal_issues
+  - legal_sources
+  - burden
+  - counterarguments
+  - tactics
+  - qa
+  - audit
+  - report
+
+completeness_levels:
+  - complete
+  - substantially_complete
+  - incomplete
+  - blocked
+
+labels:
+  - VERIFIERAT
+  - PARTSUPPGIFT
+  - EJ_VERIFIERAT
+  - MOTSAGT
+  - ANALYS_INFERENS
+  - SAKNAS
+  - BLOCKERAT
+  - TEKNISKT_FEL
+
+quality_gate_required:
+  - case_identity_verified_or_flagged
+  - document_inventory_completed
+  - claims_separated_from_evidence
+  - conflicts_checked
+  - missing_material_checked
+  - processing_errors_visible
+
+never:
+  - invent_content
+  - mark_complete_if_critical_unread
+  - claim_equals_fact
+  - silent_skip
+  - numeric_score_as_judgment
+
+scoring_note: >
+  Eventuell 0–5-skala är kvalitetsindikator endast, aldrig domslut.
+
+activation:
+  command: /deep-case-audit
+  requires_explicit_requested: true

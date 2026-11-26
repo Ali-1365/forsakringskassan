@@ -1,0 +1,84 @@
+# Offensiv-agent — formella brister och källkritik — konfigurerbar kodtabell
+# Mönster ur references/skills_registry/offensiv-agent/SKILL.md,
+# ATTACKVEKTOR 1 (formella brister) och 3A/3B (källkritik). ATTACKVEKTOR 2
+# (materiella brister: utredningsskyldighet/objektivitet/proportionalitet)
+# täcks redan av kodsystem_bbic.yaml, kodsystem_journal_granskning.yaml
+# och kodsystem_art8.yaml — läggs inte till igen här (ingen dubblett).
+meta:
+  domän: OFFENSIV_AGENT_FORMELLA_BRISTER
+  version: "1.0"
+  not: >
+    INDIKATIV_ENDAST. Detta identifierar VAR i materialet en potentiell
+    formell brist eller en käll-svaghet omnämns eller kan undersökas —
+    det avgör inte att bristen faktiskt föreligger. "Offensiv" i källan
+    betyder systematisk, lagbunden granskning av motpartens ACTUAL
+    handläggning, inte konstruktion av grundlösa påståenden.
+
+koder:
+  - kod: "OA-DELEGATION"
+    lagrum: "Kommunallagen 6:37-38"
+    beskrivning: "Behörighet/delegation för beslutsfattaren ifrågasatt"
+    mönster: ["delegationsordning", "behörig beslutsfattare", "överskridit befogenhet"]
+    negativa_filter: []
+    föreslaget_block: "FORMELL_DELEGATION"
+    indikation: "OA_DELEGATIONSBRIST"
+
+  - kod: "OA-HANDLAGGNINGSTID"
+    lagrum: "SoL 14:1, FL 9 §"
+    beskrivning: "Handläggningstid ifrågasatt (4-månadersfrist/skyndsamhet)"
+    mönster: ["4-månadersfristen", "handläggningstid", "dröjsmål", "skyndsamhetskrav"]
+    negativa_filter: []
+    föreslaget_block: "FORMELL_TID"
+    indikation: "OA_HANDLAGGNINGSTID"
+
+  - kod: "OA-KOMMUNIKATION"
+    lagrum: "FL 25 §, FL 10 §"
+    beskrivning: "Kommunikation/partsinsyn ifrågasatt"
+    mönster: ["underrättats om", "partsinsyn", "ta del av allt underlag",
+               "fått yttra sig över"]
+    negativa_filter: []
+    föreslaget_block: "FORMELL_KOMMUNIKATION"
+    indikation: "OA_KOMMUNIKATIONSBRIST"
+
+  - kod: "OA-MOTIVERING"
+    lagrum: "FL 32 §"
+    beskrivning: "Motiveringsbrist"
+    mönster: ["skälen för beslutet", "generisk motivering", "fel lagrum",
+               "upphävd bestämmelse"]
+    negativa_filter: []
+    föreslaget_block: "FORMELL_MOTIVERING"
+    indikation: "OA_MOTIVERINGSBRIST"
+
+  - kod: "OA-OVERKLAGANDEHANVISNING"
+    lagrum: "FL 33 §"
+    beskrivning: "Överklagandehänvisning saknas eller är felaktig"
+    mönster: ["överklagandehänvisning saknas", "fel domstol angiven",
+               "felaktig överklagandefrist"]
+    negativa_filter: []
+    föreslaget_block: "FORMELL_OVERKLAGANDEHANVISNING"
+    indikation: "OA_OVERKLAGANDEHANVISNING_BRIST"
+
+  - kod: "OA-JAV"
+    lagrum: "FL 16-18 §§"
+    beskrivning: "Jäv ifrågasatt"
+    mönster: ["sakjäv", "intressejäv", "ställföreträdarjäv",
+               "utrett och beslutat av samma person", "utrett och beslutat"]
+    negativa_filter: []
+    föreslaget_block: "FORMELL_JAV"
+    indikation: "OA_JAVSMISSTANKE"
+
+  - kod: "OA-ANDRAHANDSUPPGIFT"
+    lagrum: "RB 35 kap. (bevisvärdering, analogt)"
+    beskrivning: "Andrahandsuppgift utan angiven källa"
+    mönster: ["uppger att", "det har framkommit", "enligt uppgift"]
+    negativa_filter: []
+    föreslaget_block: "BEVIS_ANDRAHANDSUPPGIFT"
+    indikation: "OA_ANDRAHANDSUPPGIFT"
+
+  - kod: "OA-ANONYM_KALLA"
+    lagrum: "RB 35 kap. (bevisvärdering, analogt)"
+    beskrivning: "Anonym eller ospecificerad anmälan som grund"
+    mönster: ["anonym anmälan", "anonym orosanmälan", "okänd anmälare"]
+    negativa_filter: []
+    föreslaget_block: "BEVIS_ANONYM_KALLA"
+    indikation: "OA_ANONYM_KALLA"

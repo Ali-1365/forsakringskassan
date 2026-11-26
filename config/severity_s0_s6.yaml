@@ -1,0 +1,29 @@
+# Severity S0–S6 — ingen högre nivå utan verifierad grund
+version: "1.0"
+meta:
+  provisional_output_only: true
+  zero_inference: true
+nivåer:
+  S0: {namn: INGEN_KONSEKVENS, beskrivning: "Ingen konstaterad påverkan"}
+  S1: {namn: INFORMATIV_AVVIKELSE, beskrivning: "Informativ avvikelse"}
+  S2: {namn: BEVISMÄSSIG_BETYDELSE, beskrivning: "Bevismässig betydelse"}
+  S3: {namn: PROCESSUELL_BETYDELSE, beskrivning: "Processuell betydelse"}
+  S4: {namn: RÄTTSLIG_BETYDELSE, beskrivning: "Rättslig betydelse"}
+  S5: {namn: MÖJLIG_UTGÅNGSPÅVERKAN, beskrivning: "Möjlig utgångspåverkan — ej avgörande utan mer underlag"}
+  S6: {namn: KONSTATERAD_AVGÖRANDE_RELEVANS, beskrivning: "Endast vid verifierad grund — ej auto"}
+mappning_bugg_default:
+  B01: S3
+  B02: S4
+  B03: S4
+  B04: S3
+  B05: S2
+  B06: S2
+  B07: S3
+  B08: S3
+  B09: S4
+  B10: S4
+  B11: S4
+  B12: S4
+  B13: S4
+  B14: S5
+  B15: S1

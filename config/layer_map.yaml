@@ -1,0 +1,60 @@
+# Architecture_SKILL ↔ SFCAE canonical / dynamic mapping
+# Dokumentations- och metadata-källa — ingen separat FSM.
+version: "1.0"
+not: >
+  Architecture-lager är konceptuella. Exekvering styrs av dynamic_pipeline
+  PIPELINE_CHAIN och canonical PipelineState. Denna fil är endast mappning.
+
+architecture_to_sfcae:
+  L00_INTEGRITET:
+    dynamic_steps: [L0_INGEST, L0_CATEGORIZE]
+    canonical_states: [INIT, INGESTING]
+    beskrivning: Aktintegritet, inventering, luckor
+  L01_PRIMARKALLOR:
+    dynamic_steps: [L0_SOURCE_HYGIENE, L2_CLAIMS]
+    canonical_states: [CLASSIFYING]
+    beskrivning: Primärkällor, källhygien
+  L02_AUDIO_VIDEO:
+    dynamic_steps: []
+    canonical_states: [CAPABILITY_MAPPING]
+    optional_modules: [audio_forensics]
+    beskrivning: Ljud/video — endast om material finns
+  L03_PARTSPOSITIONER:
+    dynamic_steps: [L3_POSITIONS]
+    canonical_states: [RELATION_BUILDING]
+    beskrivning: Yrkanden, grunder, invändningar
+  L04_PROCESSRAM:
+    dynamic_steps: [MODE, FORUM, JURISDICTION]
+    canonical_states: [CLASSIFYING, GATING]
+    beskrivning: Processordning RB/FPL/KL, forum
+  L05_BEVISBORDA:
+    dynamic_steps: [L4_REQUISITES]
+    canonical_states: [GATING, SUBSUMPTION]
+    beskrivning: Bevistema, bevisbörda, beviskrav
+  L06_RATTSKALLOR:
+    dynamic_steps: [L7_LEGAL]
+    canonical_states: [SUBSUMPTION]
+    beskrivning: SEARCH_01–10, SOURCE_TYPE, AUTHORITY_LEVEL
+  L07_SUBSUMTION:
+    dynamic_steps: [L4_REQUISITES]
+    canonical_states: [SUBSUMPTION]
+    beskrivning: Rättsfakta → rekvisit → rättsföljd (spårbar)
+  L08_DOMSKAL:
+    dynamic_steps: [L12_AUDIT_A]
+    canonical_states: [AUDIT_A, AUDIT_B, AUDIT_C]
+    beskrivning: Domskälsaudit
+  L09_KONSEKVENS:
+    dynamic_steps: [L13_AUDIT_B, L14_AUDIT_C]
+    canonical_states: [COUNTER_AUDIT, FALSIFICATION]
+    beskrivning: Avvikelser, konsekvens, falsifiering
+  L10_SLUTRAPPORT:
+    dynamic_steps: [L16_FINALIZE]
+    canonical_states: [JUDGMENT_DRAFT, SELF_HEALING, COMPLETE]
+    beskrivning: Export, zero_fel, underlag_saknas
+
+bidirectional_audit:
+  rule: CONTROL_ONLY
+  never_dataflow: true
+  modules: [AUDIT_A, AUDIT_B, AUDIT_C, COUNTER_AUDIT]
+
+search_protocol_ref: config/legal_source_hierarchy.yaml

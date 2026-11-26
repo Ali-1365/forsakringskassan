@@ -1,0 +1,248 @@
+# DOKUMENTTYPER I AKTMATERIAL
+# SVENSK FORENSIC COURT AUDIT ENGINE v10.3
+#
+# SYFTE
+# -----
+# Diskrepansanalysen jämför uppgifter från olika källor. För att kunna göra det
+# måste handlingarna först kunna kännas igen för vad de är.
+#
+# Dokumenttyperna låg tidigare som tre hårdkodade nyckelordslistor i
+# runtime/fup_analysis_agent.py: "förhör/transkription/samtal",
+# "epost/mail/brev/beslut/yttrande" och "reskontra/faktura/kontoutdrag/
+# bankskärm". Mätt på tre verkliga akter hamnade 205 av 867, 51 av 68 och
+# 4616 av 5550 påståenden utanför samtliga tre listor — vanliga svenska
+# handlingstyper som anmälan, underrättelse, journal, utredning, intyg och
+# aktivitetsrapport saknades helt.
+#
+# KATEGORIER
+# ----------
+#   UTSAGA    — någon berättar något (förhör, samtal, vittnesuppgift)
+#   MYNDIGHET — en myndighet beslutar, meddelar eller dokumenterar
+#   TEKNISK   — verifierbara sakuppgifter (ekonomi, teknik, mätdata)
+#   ÖVRIGT    — känd handlingstyp utan av ovanstående roller
+#
+# Kategorin styr vilka jämförelser som är meningsfulla, men jämförelse sker
+# ALLTID mellan olika källdokument — även inom samma kategori. Två vittnesförhör
+# som säger emot varandra är den mest centrala forensiska iakttagelsen i ett
+# utsagemål, och den jämförelsen utfördes tidigare aldrig.
+
+version: 1
+
+dokumenttyper:
+
+  forhor:
+    kategori: UTSAGA
+    beskrivning: "Förhör, transkription, inspelat samtal"
+    filnamn_nyckelord: ["förhör", "forhor", "transkription", "transkribering",
+                        "samtal", "intervju", "utsaga"]
+
+  anmalan:
+    kategori: MYNDIGHET
+    beskrivning: "Anmälan som inleder ett ärende"
+    filnamn_nyckelord: ["anmälan", "anmalan", "huvudanmälan", "huvudanmalan",
+                        "polisanmälan", "orosanmälan"]
+
+  underrattelse:
+    kategori: MYNDIGHET
+    beskrivning: "Underrättelse, delgivning, kallelse"
+    filnamn_nyckelord: ["underrättelse", "underrattelse", "delgivning",
+                        "kallelse", "misstanke"]
+
+  beslut:
+    kategori: MYNDIGHET
+    beskrivning: "Beslut, avslag, bifall"
+    filnamn_nyckelord: ["beslut", "avslag", "bifall", "beslutsunderlag"]
+
+  yttrande:
+    kategori: MYNDIGHET
+    beskrivning: "Yttrande, svarsskrivelse, remissvar"
+    filnamn_nyckelord: ["yttrande", "svarsskrivelse", "remissvar", "synpunkter"]
+
+  journal:
+    kategori: MYNDIGHET
+    beskrivning: "Journal och löpande daganteckningar"
+    filnamn_nyckelord: ["journal", "jurnal", "daganteckning", "anteckning",
+                        "logg"]
+
+  utredning:
+    kategori: MYNDIGHET
+    beskrivning: "Utredning, kartläggning, bedömning"
+    filnamn_nyckelord: ["utredning", "bbic", "kartläggning", "bedömning",
+                        "bedomning", "stödbehov"]
+
+  intyg:
+    kategori: MYNDIGHET
+    beskrivning: "Intyg och certifikat"
+    filnamn_nyckelord: ["intyg", "läkarintyg", "lakarintyg", "inskrivningsintyg",
+                        "certifikat"]
+
+  dom:
+    kategori: MYNDIGHET
+    beskrivning: "Dom, domslut, rättens protokoll"
+    filnamn_nyckelord: ["dom", "domslut", "domskäl", "protokoll", "aktbilaga"]
+
+  begaran:
+    kategori: MYNDIGHET
+    beskrivning: "Begäran, ansökan, överklagande"
+    filnamn_nyckelord: ["begäran", "begaran", "ansökan", "ansokan",
+                        "överklagande", "överklagan", "omprövning", "omprovning"]
+
+  rapport:
+    kategori: MYNDIGHET
+    beskrivning: "Rapport, PM, aktivitetsredovisning"
+    filnamn_nyckelord: ["rapport", "aktivitetsrapport", "promemoria", "pm_",
+                        "metadatarapport"]
+
+  korrespondens:
+    kategori: ÖVRIGT
+    beskrivning: "Brev, e-post, meddelanden mellan parter"
+    filnamn_nyckelord: ["epost", "e-post", "mail", "brev", "skrivelse",
+                        "meddelande", "chatt", "sms"]
+
+  ekonomi:
+    kategori: TEKNISK
+    beskrivning: "Ekonomiska underlag"
+    filnamn_nyckelord: ["reskontra", "faktura", "kontoutdrag", "bankskärm",
+                        "kvitto", "betalning", "transaktion", "budget"]
+
+  teknisk_analys:
+    kategori: TEKNISK
+    beskrivning: "Teknisk eller forensisk mätdata"
+    filnamn_nyckelord: ["metadata", "analys", "teknisk", "mätning", "logfil"]
+
+# Jämförelsepolicy för diskrepansanalysen.
+diskrepansanalys:
+  # Jämförelse sker endast mellan olika KÄLLDOKUMENT. Två påståenden ur samma
+  # handling är inte motstridiga källor utan samma källa.
+  kräv_olika_källdokument: true
+
+  # Ett ord måste vara någorlunda särskiljande för att peka ut ett gemensamt
+  # ämne. Ord som förekommer i fler än denna andel av påståendena är
+  # blankettord (sidhuvuden, myndighetsnamn) och används inte som kandidatnyckel.
+  max_dokumentfrekvens: 0.10
+
+  # Minsta antal gemensamma särskiljande ord för att två påståenden alls ska
+  # anses handla om samma sak. Samma tröskel som den ursprungliga logiken.
+  min_gemensamma_ord: 3
+
+  # Övre gräns för antal kandidatpar som prövas, så att stora akter inte ger
+  # kvadratisk exekveringstid. Antalet faktiskt prövade par redovisas i
+  # resultatet så att en utebliven jämförelse aldrig blir osynlig.
+  max_kandidatpar: 200000
+
+  # Högsta antal redovisade diskrepanser.
+  max_diskrepanser: 50
+
+  # Svenska funktionsord som aldrig utpekar ett gemensamt ÄMNE. Utan denna
+  # lista matchade påståenden på ord som "eller", "alltså" och "ingenting" och
+  # redovisades som att källorna talade om samma sak.
+  stoppord:
+    - alltså
+    - andra
+    - annan
+    - annat
+    - bara
+    - blev
+    - blir
+    - borde
+    - denna
+    - denne
+    - deras
+    - dessa
+    - detta
+    - eller
+    - eftersom
+    - eftersom
+    - eftersom
+    - fanns
+    - finns
+    - först
+    - genom
+    - gjorde
+    - hade
+    - hennes
+    - honom
+    - ingen
+    - ingenting
+    - inget
+    - kanske
+    - kommer
+    - kunde
+    - likaså
+    - mellan
+    - mycket
+    - något
+    - någon
+    - några
+    - något
+    - samma
+    - sedan
+    - skulle
+    - själv
+    - sådan
+    - också
+    - därefter
+    - därför
+    - vilket
+    - vilken
+    - vilka
+    - även
+    - övrigt
+    - absolut
+    - berättade
+    - berättat
+    - blivit
+    - borta
+    - cirka
+    - efter
+    - egentligen
+    - eftersom
+    - ensam
+    - faktiskt
+    - flera
+    - framför
+    - första
+    - förstår
+    - gånger
+    - gärna
+    - hemma
+    - henne
+    - hennes
+    - hände
+    - händelse
+    - igen
+    - ibland
+    - innan
+    - inne
+    - kring
+    - känner
+    - lite
+    - länge
+    - minns
+    - nämligen
+    - precis
+    - prata
+    - pratade
+    - riktigt
+    - samtidigt
+    - senare
+    - sitter
+    - sitta
+    - ställe
+    - säger
+    - sade
+    - tidigare
+    - tillbaka
+    - tillsammans
+    - troligen
+    - under
+    - ungefär
+    - uppger
+    - utanför
+    - vanligt
+    - varit
+    - verkligen
+    - vidare
+    - visste
+    - väldigt
+    - ännu

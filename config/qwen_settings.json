@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "serena": {
+      "command": ".\\AppData\\Local\\uv\\cache\\archive-v0\\2pRIhafKP60s6KBU\\Scripts\\serena.exe",
+      "args": [
+        "start-mcp-server",
+        "--context",
+        "ide-assistant",
+        "--project",
+        "."
+      ]
+    }
+  },
+  "permissions": {
+    "allow": [
+      "Bash(cd *)",
+      "Bash(python *)",
+      "Bash(tail *)",
+      "Bash(powershell *)",
+      "Bash(c:\\ai_projects\\monster_ai_clean\\venv_stable\\scripts\\python.exe *)",
+      "Bash(git diff *)",
+      "Bash(git *)",
+      "Bash(\"c:\\users\\min\\appdata\\local\\uv\\cache\\archive-v0\\2prihafkp60s6kbu\\scripts\\serena.exe\" *)"
+    ]
+  },
+  "$version": 4
+}

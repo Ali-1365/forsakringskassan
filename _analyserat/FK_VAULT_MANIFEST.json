@@ -1,0 +1,500 @@
+{
+  "skapad": "2026-11-20T17:51:33.238768",
+  "syfte": "Isolerad arbetsmiljö för Försäkringskassan (endast användargodkända tester)",
+  "original_status": "ORÖRD (Immutable Vault)",
+  "antal_kopierade_filer": 83,
+  "filer": [
+    {
+      "filnamn": "sfcae_cli.py",
+      "original_sokvag": "sfcae_cli.py",
+      "ny_sokvag": "forsakringskassan\\runtime\\sfcae_cli.py",
+      "sha256": "4597951a2b5be0764005d40fe1fd2a8b45b72271c3159f9661e805424a029ee9"
+    },
+    {
+      "filnamn": "advocacy_config.yaml",
+      "original_sokvag": "config\\advocacy_config.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\advocacy_config.yaml",
+      "sha256": "fc4a6d21cb33cf30e87f7a143b09b762745927a4a2eea64163996e16806c44cd"
+    },
+    {
+      "filnamn": "ai_risk_config.yaml",
+      "original_sokvag": "config\\ai_risk_config.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\ai_risk_config.yaml",
+      "sha256": "7ddf46935347fc105d4274890909d200417c14a95e0467924c67d3fe7c3a425a"
+    },
+    {
+      "filnamn": "ai_vortex_risk_framework.json",
+      "original_sokvag": "config\\ai_vortex_risk_framework.json",
+      "ny_sokvag": "forsakringskassan\\config\\ai_vortex_risk_framework.json",
+      "sha256": "53733d39117175d58083eea3c1635b9688a3033d34ffc74fbd81787d993b17c4"
+    },
+    {
+      "filnamn": "arende_config.yaml",
+      "original_sokvag": "config\\arende_config.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\arende_config.yaml",
+      "sha256": "78e952edee75c4d05e1d861423cc9a092c0a7962cbd4504140154043f77443c6"
+    },
+    {
+      "filnamn": "audio_forensics.yaml",
+      "original_sokvag": "config\\audio_forensics.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\audio_forensics.yaml",
+      "sha256": "5610040e3f2deb575af26100aaa615bc920e44390d2a783a3b0355a1b0405d8e"
+    },
+    {
+      "filnamn": "audit_controller.yaml",
+      "original_sokvag": "config\\audit_controller.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\audit_controller.yaml",
+      "sha256": "2267f70502aa11e224e10d809d63315f5327a04bbf650b65bbe54ba03186ab5c"
+    },
+    {
+      "filnamn": "blueprint_p00_material.yaml",
+      "original_sokvag": "config\\blueprint_p00_material.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\blueprint_p00_material.yaml",
+      "sha256": "551c5314d5ce45b4d7a55e034412bca1875d7853904982ed9af9940a4ecf89cd"
+    },
+    {
+      "filnamn": "bug_classification.yaml",
+      "original_sokvag": "config\\bug_classification.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\bug_classification.yaml",
+      "sha256": "bd5e70cb7d63801cbfa110d1aa2b3ef2a235af2669952e1886666eea22749843"
+    },
+    {
+      "filnamn": "capability_map.yaml",
+      "original_sokvag": "config\\capability_map.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\capability_map.yaml",
+      "sha256": "2078074fdd605de35b7e4a8ccce7446651b3046cd9e381bbfc83cc453e98f01e"
+    },
+    {
+      "filnamn": "case_routing.yaml",
+      "original_sokvag": "config\\case_routing.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\case_routing.yaml",
+      "sha256": "906ee947c701bcf3f4184d9161c7078b2fd4ac5e82920e87255db2d7fe55ab89"
+    },
+    {
+      "filnamn": "court_profiles.yaml",
+      "original_sokvag": "config\\court_profiles.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\court_profiles.yaml",
+      "sha256": "d738ac784e283a2108341cf061b2b5688388de4123ed09de18c8ba8fc4a0adbf"
+    },
+    {
+      "filnamn": "deep_legal_case_auditor.yaml",
+      "original_sokvag": "config\\deep_legal_case_auditor.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\deep_legal_case_auditor.yaml",
+      "sha256": "e4404afc23f0776c680539c95df3618d4d9fa0e6cf9baade224ed2eed3e4f8b7"
+    },
+    {
+      "filnamn": "dokumenttyper.yaml",
+      "original_sokvag": "config\\dokumenttyper.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\dokumenttyper.yaml",
+      "sha256": "a4204b8c9b20bc3fe9983fdda1e7947af0678d7dfb0390dd7a72a639f9eff258"
+    },
+    {
+      "filnamn": "domain_activation_map.yaml",
+      "original_sokvag": "config\\domain_activation_map.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\domain_activation_map.yaml",
+      "sha256": "da49cf8f17a262f8a447f5572f16b977c5a00a7a546134cc8c18162049ea78c1"
+    },
+    {
+      "filnamn": "ersattning_config.yaml",
+      "original_sokvag": "config\\ersattning_config.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\ersattning_config.yaml",
+      "sha256": "401ee01e155bb15a5d98f224ff15028eae8558500960c5299383ca70a99e6d9d"
+    },
+    {
+      "filnamn": "evidence_standards.yaml",
+      "original_sokvag": "config\\evidence_standards.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\evidence_standards.yaml",
+      "sha256": "ff8b753a11b73c442c23a8e77be496d61b5f34397d38b8eb86f5ee992c16027e"
+    },
+    {
+      "filnamn": "final_audit_state.yaml",
+      "original_sokvag": "config\\final_audit_state.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\final_audit_state.yaml",
+      "sha256": "3e9bea85e87155911467399203d2a812013dee48aced2036c56005416ac4fe28"
+    },
+    {
+      "filnamn": "fk_beviskrav.yaml",
+      "original_sokvag": "config\\fk_beviskrav.yaml",
+      "ny_sokvag": "forsakringskassan\\moduler_och_regler\\fk_beviskrav.yaml",
+      "sha256": "e986c8a0de989a730855abd03be120b85b362b0b7c3f31fa0ed7bcc14a7ee989"
+    },
+    {
+      "filnamn": "fmjam_gold_schema.yaml",
+      "original_sokvag": "config\\fmjam_gold_schema.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\fmjam_gold_schema.yaml",
+      "sha256": "2131acbaefa549b852bf8bf9f873a39b3cc67d9036280ea5a20856a829af815a"
+    },
+    {
+      "filnamn": "hyresratt_gap_templates.yaml",
+      "original_sokvag": "config\\hyresratt_gap_templates.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\hyresratt_gap_templates.yaml",
+      "sha256": "b85e6de4bcc0103b231ef317316631fb73e93fdc0461708e2f1962b5402ec73e"
+    },
+    {
+      "filnamn": "judgment_audit.yaml",
+      "original_sokvag": "config\\judgment_audit.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\judgment_audit.yaml",
+      "sha256": "2db5d8c684024ef0e55feb740d66dc7d404156899fd8729e0f05ca9f98cd6def"
+    },
+    {
+      "filnamn": "judgment_construction.yaml",
+      "original_sokvag": "config\\judgment_construction.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\judgment_construction.yaml",
+      "sha256": "6eebcbc55fec241925942ca49780cc59a075dad56c0522fc7d40f6855b27cab7"
+    },
+    {
+      "filnamn": "kodsystem_art8.yaml",
+      "original_sokvag": "config\\kodsystem_art8.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_art8.yaml",
+      "sha256": "bda9bf5327cf2a1609458b124a85f7fbd211c8a86f5b12a089a0b5670ec0fb9f"
+    },
+    {
+      "filnamn": "kodsystem_barnsamtal.yaml",
+      "original_sokvag": "config\\kodsystem_barnsamtal.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_barnsamtal.yaml",
+      "sha256": "9c054312c6ac230aadc042c2592dc3aa08dec550a8a3c77a163596f068ff9580"
+    },
+    {
+      "filnamn": "kodsystem_bbic.yaml",
+      "original_sokvag": "config\\kodsystem_bbic.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_bbic.yaml",
+      "sha256": "0a592b8c0521f85359f056b99b0ffd7d5eee0daa69f9e8f3d761f921caed6495"
+    },
+    {
+      "filnamn": "kodsystem_ekonomi_forensik.yaml",
+      "original_sokvag": "config\\kodsystem_ekonomi_forensik.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_ekonomi_forensik.yaml",
+      "sha256": "4451c8aa2e34d2755cba2fb441caa8934fd2915618a37b35d12b2e3733806fe6"
+    },
+    {
+      "filnamn": "kodsystem_fk_antitemplate.yaml",
+      "original_sokvag": "config\\kodsystem_fk_antitemplate.yaml",
+      "ny_sokvag": "forsakringskassan\\moduler_och_regler\\kodsystem_fk_antitemplate.yaml",
+      "sha256": "d0b8c3c1e256cd3b0aa94fdf18057a0686edef68db640ce3589767d9713d1cd4"
+    },
+    {
+      "filnamn": "kodsystem_fk_monsterkatalog.yaml",
+      "original_sokvag": "config\\kodsystem_fk_monsterkatalog.yaml",
+      "ny_sokvag": "forsakringskassan\\moduler_och_regler\\kodsystem_fk_monsterkatalog.yaml",
+      "sha256": "73871aebf2c245e2e1ccd84de4ae254b1ec5c2fa78edc8eb573d6fb10a2acc3a"
+    },
+    {
+      "filnamn": "kodsystem_fk_sfb.yaml",
+      "original_sokvag": "config\\kodsystem_fk_sfb.yaml",
+      "ny_sokvag": "forsakringskassan\\moduler_och_regler\\kodsystem_fk_sfb.yaml",
+      "sha256": "723e8575db2b94917f50bc0775ceb2d04c95a2bc8e8ec7d8694b85dba86b7bc5"
+    },
+    {
+      "filnamn": "kodsystem_fpl_forvaltning.yaml",
+      "original_sokvag": "config\\kodsystem_fpl_forvaltning.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_fpl_forvaltning.yaml",
+      "sha256": "1ec58f9f2cf1f28cf6ef2fa0765d87e028f9f1ae96f4c772a4bb0ce6bd5d900d"
+    },
+    {
+      "filnamn": "kodsystem_jb_hyresratt.yaml",
+      "original_sokvag": "config\\kodsystem_jb_hyresratt.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_jb_hyresratt.yaml",
+      "sha256": "51b5606132094966f6781b138dfee98db7eafc31d88a8ad2ebc25fa8368b8058"
+    },
+    {
+      "filnamn": "kodsystem_journal_granskning.yaml",
+      "original_sokvag": "config\\kodsystem_journal_granskning.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_journal_granskning.yaml",
+      "sha256": "794b3d073ce645ab43c71b6dde0352368c1e4c7b745ab70552c05ea07c7fcdad"
+    },
+    {
+      "filnamn": "kodsystem_kl_konkurs.yaml",
+      "original_sokvag": "config\\kodsystem_kl_konkurs.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_kl_konkurs.yaml",
+      "sha256": "8bcc3e0d0f616768d4fdc5afc4849412e81b0624d1c2d6fe61b790314d9d9de2"
+    },
+    {
+      "filnamn": "kodsystem_konkl_process.yaml",
+      "original_sokvag": "config\\kodsystem_konkl_process.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_konkl_process.yaml",
+      "sha256": "48f5beb991618cb1bded88cdeae25ea1a07a08af852df8740c8085ca7151feda"
+    },
+    {
+      "filnamn": "kodsystem_konversation.yaml",
+      "original_sokvag": "config\\kodsystem_konversation.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_konversation.yaml",
+      "sha256": "3e42edf7796df30d0bb0e161eb15c3765076020cea159b20fc78c078024a33f7"
+    },
+    {
+      "filnamn": "kodsystem_kreditupplysning.yaml",
+      "original_sokvag": "config\\kodsystem_kreditupplysning.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_kreditupplysning.yaml",
+      "sha256": "5dc298d983335adac1637516ea6bb815faa938c463989f2c5f1bfc7afe3a2517"
+    },
+    {
+      "filnamn": "kodsystem_lsb_skyddat.yaml",
+      "original_sokvag": "config\\kodsystem_lsb_skyddat.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_lsb_skyddat.yaml",
+      "sha256": "0ccae51886d2ca5845e0cb01ca2a7e40e39c6bbb30160c33405a6df73a0d884a"
+    },
+    {
+      "filnamn": "kodsystem_lsb_skyddat_boende.yaml",
+      "original_sokvag": "config\\kodsystem_lsb_skyddat_boende.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_lsb_skyddat_boende.yaml",
+      "sha256": "9093eb201e4989f993ee060a1f5810e02f4e7c58ee5dd2785e3bae8232dde013"
+    },
+    {
+      "filnamn": "kodsystem_offensiv_agent.yaml",
+      "original_sokvag": "config\\kodsystem_offensiv_agent.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_offensiv_agent.yaml",
+      "sha256": "123d2a618763e6f2d66231abd76ed22709cd135472f22c0b72d6006c48a13dc0"
+    },
+    {
+      "filnamn": "kodsystem_patientskada.yaml",
+      "original_sokvag": "config\\kodsystem_patientskada.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_patientskada.yaml",
+      "sha256": "648ecf44829a4c846360517f141e6eaa12bd34d14b70e85b53d5e6a258d38ee3"
+    },
+    {
+      "filnamn": "kodsystem_processrattsliga_koder.yaml",
+      "original_sokvag": "config\\kodsystem_processrattsliga_koder.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_processrattsliga_koder.yaml",
+      "sha256": "61a16b3ed22621d4e861ec4e8911d8959cfb5622bafa672ac3192c4afe4f3f5b"
+    },
+    {
+      "filnamn": "kodsystem_processuell_press.yaml",
+      "original_sokvag": "config\\kodsystem_processuell_press.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_processuell_press.yaml",
+      "sha256": "cb75a21a445755abd0ef6268ad443c91e3549486b3e14711106fb191198c9dee"
+    },
+    {
+      "filnamn": "kodsystem_rb_hovratt.yaml",
+      "original_sokvag": "config\\kodsystem_rb_hovratt.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_rb_hovratt.yaml",
+      "sha256": "11649e8109b4dcc425a4e8336b62c0575a8e5185b799e6073b03674c13f8e78a"
+    },
+    {
+      "filnamn": "kodsystem_rb_tvist.yaml",
+      "original_sokvag": "config\\kodsystem_rb_tvist.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_rb_tvist.yaml",
+      "sha256": "0dad653ded8794e6a32b991ab7303aa9d47058d1b06cb479182b35f40a59618f"
+    },
+    {
+      "filnamn": "kodsystem_sol_socialtjanst.yaml",
+      "original_sokvag": "config\\kodsystem_sol_socialtjanst.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\kodsystem_sol_socialtjanst.yaml",
+      "sha256": "818e9263a0ec758137890bdf78191e155e540a92e43766d1137415dc4ecaa761"
+    },
+    {
+      "filnamn": "lagforkortningar_sfs.yaml",
+      "original_sokvag": "config\\lagforkortningar_sfs.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\lagforkortningar_sfs.yaml",
+      "sha256": "3ca1b4a167f844adec32f23ec0a88a31c06d4e471a5cc0c6b129de62e92e9fec"
+    },
+    {
+      "filnamn": "layer_map.yaml",
+      "original_sokvag": "config\\layer_map.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\layer_map.yaml",
+      "sha256": "4722adb07ac2e79f137e3dc2156335037fa67d3dbe0e76739067b6fe92b53525"
+    },
+    {
+      "filnamn": "legal_data_hunter_se_config.json",
+      "original_sokvag": "config\\legal_data_hunter_se_config.json",
+      "ny_sokvag": "forsakringskassan\\config\\legal_data_hunter_se_config.json",
+      "sha256": "00811e2eecba4c2bf69230a4b9b50d6d089ad6cafeff3360bd796fa0bac9574a"
+    },
+    {
+      "filnamn": "legal_source_hierarchy.yaml",
+      "original_sokvag": "config\\legal_source_hierarchy.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\legal_source_hierarchy.yaml",
+      "sha256": "b5907d39c3731ba52d1bf4276c634a4dfe86369309e46cf1cf3ad3f241dce3ee"
+    },
+    {
+      "filnamn": "motstrategi_templates.yaml",
+      "original_sokvag": "config\\motstrategi_templates.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\motstrategi_templates.yaml",
+      "sha256": "899ce0f4039d59e41083b0facc8af67540006b43a58ec3662a6dee0ac19289b1"
+    },
+    {
+      "filnamn": "pattern_rules_v2.yaml",
+      "original_sokvag": "config\\pattern_rules_v2.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\pattern_rules_v2.yaml",
+      "sha256": "5d2435d53876dea2255aca7958753db4b18a6bdeb0a0567fbae6039d3022d636"
+    },
+    {
+      "filnamn": "policy_monitor_config.yaml",
+      "original_sokvag": "config\\policy_monitor_config.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\policy_monitor_config.yaml",
+      "sha256": "063766db8225c48df2ffc70de815c470de0c6e29b62f3b2fb0d97809c7dbac64"
+    },
+    {
+      "filnamn": "policy_monitor_live_snapshots.yaml",
+      "original_sokvag": "config\\policy_monitor_live_snapshots.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\policy_monitor_live_snapshots.yaml",
+      "sha256": "585b214e0660a9fab2d787bd468775720048453eb7f2caba2305d0b462af21ad"
+    },
+    {
+      "filnamn": "pretrial_objectives.yaml",
+      "original_sokvag": "config\\pretrial_objectives.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\pretrial_objectives.yaml",
+      "sha256": "dc2e6a3d027eca5d603cc048959b2f7f1583803159faa72bbea24d81a54abf91"
+    },
+    {
+      "filnamn": "process_classifier.yaml",
+      "original_sokvag": "config\\process_classifier.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\process_classifier.yaml",
+      "sha256": "7b1b8a40b49ae31ec46121d3995d8e165e9a1b07753a14677a38551071f12df2"
+    },
+    {
+      "filnamn": "puh-openapi.yaml",
+      "original_sokvag": "config\\puh-openapi.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\puh-openapi.yaml",
+      "sha256": "577d4e957567cf309f2b0a5593a9f4265a075b8d81a8924b3f263cc0bb74c07d"
+    },
+    {
+      "filnamn": "rattstid_config.yaml",
+      "original_sokvag": "config\\rattstid_config.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\rattstid_config.yaml",
+      "sha256": "e76356eceb12efe4baf5197bdd569734e09c60eb7aa380da24134268bedb2b2e"
+    },
+    {
+      "filnamn": "rekvisit_definitioner.yaml",
+      "original_sokvag": "config\\rekvisit_definitioner.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\rekvisit_definitioner.yaml",
+      "sha256": "c05bbcf90caea73d8b1ee7a49fde9226d009f41ce78e16ce657c4ee0438daa1d"
+    },
+    {
+      "filnamn": "riksnorm.yaml",
+      "original_sokvag": "config\\riksnorm.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\riksnorm.yaml",
+      "sha256": "793dc95431d4f8a54532c36aba10e3d8c68109df4b7118ee70f7477e0adce2b6"
+    },
+    {
+      "filnamn": "settings.json",
+      "original_sokvag": "config\\settings.json",
+      "ny_sokvag": "forsakringskassan\\config\\settings.json",
+      "sha256": "5be57f49f9d69e8332745d903026de76f6b909d1a7e3297975f738355ea9da4f"
+    },
+    {
+      "filnamn": "severity_s0_s6.yaml",
+      "original_sokvag": "config\\severity_s0_s6.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\severity_s0_s6.yaml",
+      "sha256": "9fc2c508cd81b2654fa71466c608fd36494d47fab50d2cfd830f3ebb5826551e"
+    },
+    {
+      "filnamn": "skuldkedja_config.yaml",
+      "original_sokvag": "config\\skuldkedja_config.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\skuldkedja_config.yaml",
+      "sha256": "1cb798b40a271a2aa646d33612e9ee4655a3ceac5aa28fab2e976ca50d4ce393"
+    },
+    {
+      "filnamn": "sol_paragrafmappning.yaml",
+      "original_sokvag": "config\\sol_paragrafmappning.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\sol_paragrafmappning.yaml",
+      "sha256": "9e09fd328855052a496a102f20924b1a96aea6415e975544ada50b822077361e"
+    },
+    {
+      "filnamn": "source_separation.yaml",
+      "original_sokvag": "config\\source_separation.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\source_separation.yaml",
+      "sha256": "bba32d9c6aaa3247bda0fd0e163e65211780bc7cf2b964bf36eecfb984015631"
+    },
+    {
+      "filnamn": "system_policy.yaml",
+      "original_sokvag": "config\\system_policy.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\system_policy.yaml",
+      "sha256": "f90d9ad64b5709ceb45457d740fc672a0721f6ded27161599e8fcf65c5fd0171"
+    },
+    {
+      "filnamn": "trafikskadenamnden_grundbelopp.yaml",
+      "original_sokvag": "config\\trafikskadenamnden_grundbelopp.yaml",
+      "ny_sokvag": "forsakringskassan\\config\\trafikskadenamnden_grundbelopp.yaml",
+      "sha256": "d0f8d2dce50df4494a7e1c22d122353f4861a502a11f8dc487d0a75d205b2970"
+    },
+    {
+      "filnamn": "fk_pattern_runner.py",
+      "original_sokvag": "integrations\\fk_pattern_runner.py",
+      "ny_sokvag": "forsakringskassan\\moduler_och_regler\\fk_pattern_runner.py",
+      "sha256": "c715231a1d161ff5cbf63016c5284667bbd46b68cae36bf82c32997f7b269042"
+    },
+    {
+      "filnamn": "fk_rapport_runner.py",
+      "original_sokvag": "integrations\\fk_rapport_runner.py",
+      "ny_sokvag": "forsakringskassan\\moduler_och_regler\\fk_rapport_runner.py",
+      "sha256": "8f2d47818e8a0d735498bc58f8b23cbab963f7af121164db458b10386747c98b"
+    },
+    {
+      "filnamn": "forum_detector.py",
+      "original_sokvag": "integrations\\forum_detector.py",
+      "ny_sokvag": "forsakringskassan\\runtime\\forum_detector.py",
+      "sha256": "0a5adf4a65be070d588377f959307d78c7b9697c80d8161415651576ec352859"
+    },
+    {
+      "filnamn": "source_hygiene.py",
+      "original_sokvag": "integrations\\source_hygiene.py",
+      "ny_sokvag": "forsakringskassan\\runtime\\source_hygiene.py",
+      "sha256": "fb47601bb47c3de4fa552efec458596031cf681980dac92ec68c915136f188c6"
+    },
+    {
+      "filnamn": "dynamic_pipeline.py",
+      "original_sokvag": "runtime\\dynamic_pipeline.py",
+      "ny_sokvag": "forsakringskassan\\runtime\\dynamic_pipeline.py",
+      "sha256": "09577db339ce3bcc45baf409cb47eb5bee87b97877ded1af79f2519c3bf4735c"
+    },
+    {
+      "filnamn": "fk_entity_extract.py",
+      "original_sokvag": "runtime\\fk_entity_extract.py",
+      "ny_sokvag": "forsakringskassan\\moduler_och_regler\\fk_entity_extract.py",
+      "sha256": "827d149e94a11471616a0c2944bd7ec5cf5a15f1ed4d55566d09b932d642afe5"
+    },
+    {
+      "filnamn": "forensic_engine_v10_3_canonical.py",
+      "original_sokvag": "runtime\\forensic_engine_v10_3_canonical.py",
+      "ny_sokvag": "forsakringskassan\\runtime\\forensic_engine_v10_3_canonical.py",
+      "sha256": "841470f9bc14587d8797d4fc955cbdc11f1fd42d29db1d9d3964f8672e134ad7"
+    },
+    {
+      "filnamn": "motor_c_v10_v3.py",
+      "original_sokvag": "runtime\\motor_c_v10_v3.py",
+      "ny_sokvag": "forsakringskassan\\runtime\\motor_c_v10_v3.py",
+      "sha256": "9489ec5e73f9c06510660b22ed9e586c023ba15abc0e8fcbf53d2d6813fb46f5"
+    },
+    {
+      "filnamn": "requisite_claim_mapper.py",
+      "original_sokvag": "runtime\\requisite_claim_mapper.py",
+      "ny_sokvag": "forsakringskassan\\runtime\\requisite_claim_mapper.py",
+      "sha256": "ec7892053cb4ce012e55c607a4c53697e7be4dabadde633cf0a5933f94a8a3fc"
+    },
+    {
+      "filnamn": "socialforsakring_lager.py",
+      "original_sokvag": "runtime\\socialforsakring_lager.py",
+      "ny_sokvag": "forsakringskassan\\moduler_och_regler\\socialforsakring_lager.py",
+      "sha256": "97dd2b6106b926bba0eb4bc096fbdcd98bc75535580377e915208c09d78d850c"
+    },
+    {
+      "filnamn": "settings.local.json",
+      "original_sokvag": "config\\agent_tools\\claude\\settings.local.json",
+      "ny_sokvag": "forsakringskassan\\config\\settings.local.json",
+      "sha256": "a2c96fca9916e827c50386569ffbb8656ea7c7968cd24c1df344e0131e2ec381"
+    },
+    {
+      "filnamn": "agent-manager.json",
+      "original_sokvag": "config\\agent_tools\\kilo\\agent-manager.json",
+      "ny_sokvag": "forsakringskassan\\config\\agent-manager.json",
+      "sha256": "b157b34ba6b3edbda06cd54a1b673f1988ee1ebf47a1bc1b2c8e95e137e5c8e7"
+    },
+    {
+      "filnamn": "qwen_settings.json",
+      "original_sokvag": "config\\agent_tools\\qwen\\settings.json",
+      "ny_sokvag": "forsakringskassan\\config\\qwen_settings.json",
+      "sha256": "f082c52d5ef3f2dd7a3eb087e74f4ee4d321655da3e4df8f5ddd27f636e69201"
+    },
+    {
+      "filnamn": "project.local.yml",
+      "original_sokvag": "config\\agent_tools\\serena\\project.local.yml",
+      "ny_sokvag": "forsakringskassan\\config\\project.local.yml",
+      "sha256": "ef276846aadfe759d8c0bad4df62e49d0b4e5bd8a18a08238510ad7d3ba30416"
+    },
+    {
+      "filnamn": "project.yml",
+      "original_sokvag": "config\\agent_tools\\serena\\project.yml",
+      "ny_sokvag": "forsakringskassan\\config\\project.yml",
+      "sha256": "9217e8385364d4c451b3ed21e7f9e4d9ea47cc621e8f17e6c4c0d71ab80c0a1a"
+    }
+  ]
+}
